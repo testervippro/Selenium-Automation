@@ -5,14 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.eliasnogueira</groupId>
-    <artifactId>selenium-java-lean-test-architecture</artifactId>
+    <artifactId>selenium-java-automation</artifactId>
     <version>3.4.9</version>
-
-    <scm>
-        <connection>scm:git@github.com:eliasnogueira/selenium-java-lean-test-architecture.git</connection>
-        <developerConnection>scm:git@github.com:eliasnogueira/selenium-java-lean-test-architecture.git
-        </developerConnection>
-    </scm>
 
     <properties>
         <java-compiler.version>17</java-compiler.version>
