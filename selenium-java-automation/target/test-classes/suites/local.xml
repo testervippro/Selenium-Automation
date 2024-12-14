@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Local one browser Edge",parallel="tests">
+
+    <test name="Edge Tests">
+        <parameter name="browser" value="edge"/>
+        <classes>
+            <class name="com.thoaikx.test.Test01"/>
+        </classes>
+    </test>
+
+</suite>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2024-12-14T23:58:42 ICT" name="Surefire suite" finished-at="2024-12-14T23:58:48 ICT" duration-ms="5954">
+    <groups>
+    </groups>
+    <test started-at="2024-12-14T23:58:42 ICT" name="Surefire test" finished-at="2024-12-14T23:58:48 ICT" duration-ms="5954">
+      <class name="com.thoaikx.Test01">
+        <test-method is-config="true" signature="beforeSuite()[pri:0, instance:com.thoaikx.Test01@22c53d82]" started-at="2024-12-14T23:58:42 ICT" name="beforeSuite" finished-at="2024-12-14T23:58:42 ICT" duration-ms="207" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeSuite -->
+        <test-method is-config="true" signature="preCondition(java.lang.String)[pri:0, instance:com.thoaikx.Test01@22c53d82]" started-at="2024-12-14T23:58:42 ICT" name="preCondition" finished-at="2024-12-14T23:58:48 ICT" duration-ms="5649" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[chrome]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- preCondition -->
+        <test-method signature="lambdaStepTest()[pri:0, instance:com.thoaikx.Test01@22c53d82]" started-at="2024-12-14T23:58:48 ICT" name="lambdaStepTest" finished-at="2024-12-14T23:58:48 ICT" duration-ms="85" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- lambdaStepTest -->
+        <test-method is-config="true" signature="postCondition()[pri:0, instance:com.thoaikx.Test01@22c53d82]" started-at="2024-12-14T23:58:48 ICT" name="postCondition" finished-at="2024-12-14T23:58:49 ICT" duration-ms="336" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- postCondition -->
+      </class> <!-- com.thoaikx.Test01 -->
+    </test> <!-- Surefire test -->
+  </suite> <!-- Surefire suite -->
+</testng-results>
