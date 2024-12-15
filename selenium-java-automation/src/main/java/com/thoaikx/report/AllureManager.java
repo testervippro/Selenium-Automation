@@ -4,10 +4,14 @@ package com.thoaikx.report;
 import com.thoaikx.enums.Target;
 import com.github.automatedowl.tools.AllureEnvironmentWriter;
 import com.google.common.collect.ImmutableMap;
+import java.io.File;
 import java.lang.ProcessBuilder;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import static com.thoaikx.config.ConfigurationManager.configuration;
 
@@ -30,13 +34,20 @@ public class AllureManager {
     }
 
     public static void generateReport() throws IOException, InterruptedException {
-        String targetDirectory = System.getProperty("user.dir") + "\\target"; // Using user.dir for flexibility
+        String targetDirectory = System.getProperty("user.dir") + "\\target";
+        String currentFolder = System.getProperty("user.dir"); // Using user.dir for flexibility
 
-        ProcessBuilder builder = new ProcessBuilder("cmd.exe", "/c",
-                "cd " + targetDirectory + " &&  allure serve && exit");
-        Process process = builder.start();
+
+
+        ProcessBuilder mvnClean = new ProcessBuilder("cmd.exe", "/c",
+            "cd " + currentFolder + " && mvn clean");
+
+        ProcessBuilder generateReport = new ProcessBuilder("cmd.exe", "/c",
+            "cd " + targetDirectory + " && allure serve && exit");
+        Process process = generateReport.start();
 
         process.waitFor();
+
     }
 
 }

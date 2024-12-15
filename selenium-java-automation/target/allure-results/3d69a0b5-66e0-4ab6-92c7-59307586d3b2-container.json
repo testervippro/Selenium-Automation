@@ -1,0 +1,1 @@
+{"uuid":"3d69a0b5-66e0-4ab6-92c7-59307586d3b2","name":"chrome brower Tests","children":["2cabb34b-bece-4a56-bbb8-d3c5ca9da92b"],"befores":[],"afters":[{"name":"postCondition","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1734241234754,"stop":1734241234979}],"start":1734241226282,"stop":1734241234980}

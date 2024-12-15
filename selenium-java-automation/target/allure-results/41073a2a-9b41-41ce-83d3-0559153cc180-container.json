@@ -1,0 +1,1 @@
+{"uuid":"41073a2a-9b41-41ce-83d3-0559153cc180","name":"Edge brower Tests","children":["6077e1cd-aaef-4aea-b228-cd2fb458b7c1"],"befores":[],"afters":[{"name":"postCondition","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1734241237024,"stop":1734241238305}],"start":1734241226282,"stop":1734241238305}

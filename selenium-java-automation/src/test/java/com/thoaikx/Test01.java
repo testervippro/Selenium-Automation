@@ -8,14 +8,6 @@ import com.thoaikx.driver.DriverManager;
 import com.thoaikx.driver.TargetFactory;
 import com.thoaikx.report.AllureManager;
 
-import io.qameta.allure.Allure;
-
-
-
-import static com.github.automatedowl.tools.AllureEnvironmentWriter.allureEnvironmentWriter;
-
-import org.testng.asserts.Assertion;
-
 
 @Log4j2
 public class Test01 extends BaseWeb {

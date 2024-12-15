@@ -18,12 +18,13 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
 import static com.thoaikx.config.ConfigurationManager.configuration;
+import static com.thoaikx.driver.DriverManager.getInfo;
 
 import java.io.IOException;
 @Log4j2
 public abstract class BaseWeb {
 
-    @BeforeTest
+    @BeforeSuite
     public void beforeSuite() {
         AllureManager.setAllureEnvironmentInformation();
 
@@ -34,13 +35,26 @@ public abstract class BaseWeb {
     public void preCondition(@Optional("chrome") String browser) {
         WebDriver driver = new TargetFactory().createInstance(browser);
         DriverManager.setDriver(driver);
+        log.info("Infor brower " +getInfo());
         DriverManager.getDriver().get(configuration().url());
     }
 
     @AfterTest()
-    public void postCondition(){
+    public void postCondition() {
         DriverManager.quit();
 
+    }
+    // Integration of shutdown hook  to generate report
+    static {
+        Thread printingHook = new Thread(() -> {
+            try {
+                AllureManager.generateReport();
+            } catch (IOException | InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        Runtime.getRuntime().addShutdownHook(printingHook);
     }
 
 }

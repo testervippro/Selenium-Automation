@@ -17,6 +17,7 @@ import static com.thoaikx.driver.BrowserFactory.EDGE;
 import static com.thoaikx.driver.BrowserFactory.FIREFOX;
 import static com.thoaikx.driver.BrowserFactory.SAFARI;
 import static com.thoaikx.driver.BrowserFactory.valueOf;
+import static com.thoaikx.driver.DriverManager.getInfo;
 import static com.thoaikx.enums.Target.LOCAL_SUITE;
 import static java.lang.String.format;
 import static java.util.Arrays.sort;
@@ -30,7 +31,6 @@ public class TargetFactory {
 
         Target target = Target.get(configuration().target().toUpperCase());
         log.info("Target is " + target);
-
         // return base on target in properties file
         return switch (target) {
             case LOCAL -> valueOf(configuration().browser().toUpperCase()).createLocalDriver();

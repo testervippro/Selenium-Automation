@@ -1,1 +1,0 @@
-{"uuid":"116b2b03-9208-46ac-bb0a-d5c8eca02f44","name":"com.thoaikx.Test01","children":["2e6a8d60-e93e-470a-8275-d3988435f69a"],"befores":[{"name":"beforeSuite","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1734238227825,"stop":1734238228070}],"afters":[],"start":1734238227756,"stop":1734238231552}

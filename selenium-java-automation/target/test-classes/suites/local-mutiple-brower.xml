@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Mutiplle one browser " parallel="tests">
+<suite name="Mutiplle  browser " parallel="tests">
 
     <test name="Edge brower Tests">
         <parameter name="browser" value="edge"/>

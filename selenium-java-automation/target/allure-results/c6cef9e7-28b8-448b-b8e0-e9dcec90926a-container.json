@@ -1,1 +1,0 @@
-{"uuid":"c6cef9e7-28b8-448b-b8e0-e9dcec90926a","name":"Local one browser Edge","children":["ee2d9f09-78dd-4728-a7a4-32a97c5fd228"],"befores":[],"afters":[{"name":"postCondition","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1734236949030,"stop":1734236950325}],"start":1734236939686,"stop":1734236950325}
