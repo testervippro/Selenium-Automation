@@ -1,13 +1,13 @@
 
 package com.thoaikx.enums;
 
-import java.util.Collections;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
+
+import java.util.stream.Stream;
 
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toMap;
+
 
 public enum Target {
 
@@ -19,20 +19,20 @@ public enum Target {
     Target(String value) {
         this.value = value;
     }
-
-    String value() {
-        return this.value;
+     String getValue ( ){
+        return  this.value.toLowerCase();
+     }
+    Target valueOf(){
+        return  this;
     }
+
 
     static {
-        Map<String, Target> map = stream(Target.values())
-                .collect(Collectors.toMap(Target::value, target -> target));
-
-        ENUM_MAP = Collections.unmodifiableMap(map);
-
+        ENUM_MAP = Stream.of(Target.values())
+                .collect(toMap(Target::getValue, Target::valueOf));
     }
 
-    public static Target get(String value) {
+    public static Target get(String value)  {
         if (!ENUM_MAP.containsKey(value.toLowerCase()))
             throw new IllegalArgumentException(
                     String.format("Value %s not valid. Use one of the TARGET enum values", value));

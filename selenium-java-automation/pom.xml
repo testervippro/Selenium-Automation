@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.eliasnogueira</groupId>
+    <groupId>com.thoaikx</groupId>
     <artifactId>selenium-java-automation</artifactId>
-    <version>3.4.9</version>
+    <version>1.0.0</version>
 
     <properties>
         <java-compiler.version>17</java-compiler.version>
@@ -32,17 +32,21 @@
 
         <!-- Vulnerability temp libs-->
         <commons-compress.version>1.27.1</commons-compress.version>
+        <lombok.version>1.18.36</lombok.version>
 
         <suite>local</suite>
     </properties>
 
     <dependencies>
 
-    <dependency>
-        <groupId>com.github.automatedowl</groupId>
-        <artifactId>allure-environment-writer</artifactId>
-        <version>1.0.0</version>
-    </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+
+            <scope>provided</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
@@ -121,17 +125,6 @@
             </exclusions>
         </dependency>
 
-        <dependency>
-            <groupId>org.testcontainers</groupId>
-            <artifactId>selenium</artifactId>
-            <version>${testcontainers.selenium.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.commons</groupId>
-                    <artifactId>commons-compress</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
 
         <!-- Vulnerability temp libs-->
         <dependency>
