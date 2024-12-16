@@ -191,16 +191,32 @@
                         </dependency>
                     </dependencies>
                 </plugin>
+<!--                <plugin>-->
+<!--                    <groupId>io.qameta.allure</groupId>-->
+<!--                    <artifactId>allure-maven</artifactId>-->
+<!--                    <version>${allure-maven.version}</version>-->
+<!--                    <configuration>-->
+<!--                        <reportVersion>${allure.version}</reportVersion>-->
+<!--                        <allureDownloadUrl>-->
+<!--                            ${allure.cmd.download.url}/${allure.version}/allure-commandline-${allure.version}.zip-->
+<!--                        </allureDownloadUrl>-->
+<!--                    </configuration>-->
+<!--                    -->
+<!--                </plugin>-->
+
+                <!-- Allure Maven Plugin -->
                 <plugin>
                     <groupId>io.qameta.allure</groupId>
                     <artifactId>allure-maven</artifactId>
-                    <version>${allure-maven.version}</version>
-                    <configuration>
-                        <reportVersion>${allure.version}</reportVersion>
-                        <allureDownloadUrl>
-                            ${allure.cmd.download.url}/${allure.version}/allure-commandline-${allure.version}.zip
-                        </allureDownloadUrl>
-                    </configuration>
+                    <version>2.17.3</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <!-- Goal to generate Allure report -->
+                                <goal>serve</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -209,6 +225,29 @@
                     <configuration>
                         <release>${java-compiler.version}</release>
                     </configuration>
+                </plugin>
+
+
+                <!-- Exec Maven Plugin to execute commands automatically -->
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>3.1.0</version>
+                    <executions>
+                        <execution>
+                            <id>generate-allure-report</id>
+                            <phase>post-integration-test</phase>
+                            <goals>
+                                <goal>exec</goal>
+                            </goals>
+                            <configuration>
+                                <executable>mvn</executable>
+                                <arguments>
+                                    <argument>allure:serve</argument>
+                                </arguments>
+                            </configuration>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>
