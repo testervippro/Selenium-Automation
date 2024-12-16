@@ -2,6 +2,7 @@
 package com.thoaikx.driver;
 
 import com.thoaikx.exceptions.HeadlessNotSupportedException;
+import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -29,6 +30,7 @@ public enum BrowserFactory {
         @Override
         public ChromeOptions getOptions() {
             var chromeOptions = new ChromeOptions();
+            chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
             chromeOptions.addArguments(START_MAXIMIZED);
             chromeOptions.addArguments(DISABLE_INFOBARS);
             chromeOptions.addArguments(DISABLE_NOTIFICATIONS);

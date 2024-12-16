@@ -5,7 +5,12 @@ import com.thoaikx.driver.DriverManager;
 import com.thoaikx.driver.TargetFactory;
 import com.thoaikx.report.AllureManager;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Comparator;
+import java.util.stream.Stream;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
@@ -23,17 +28,19 @@ import static com.thoaikx.driver.DriverManager.getInfo;
 import java.io.IOException;
 @Log4j2
 public abstract class BaseWeb {
-
+   public WebDriver driver;
     @BeforeSuite
-    public void beforeSuite() {
+    public void beforeSuite() throws IOException {
+        AllureManager.deleteOldReport();
         AllureManager.setAllureEnvironmentInformation();
+
 
     }
 
-    @BeforeMethod
+    @BeforeTest
     @Parameters("browser")
     public void preCondition(@Optional("chrome") String browser) {
-        WebDriver driver = new TargetFactory().createInstance(browser);
+        driver = new TargetFactory().createInstance(browser);
         DriverManager.setDriver(driver);
         log.info("Infor brower " +getInfo());
         DriverManager.getDriver().get(configuration().url());
@@ -42,19 +49,13 @@ public abstract class BaseWeb {
     @AfterTest()
     public void postCondition() {
         DriverManager.quit();
+      //new Commands()
 
     }
-    // Integration of shutdown hook  to generate report
-    static {
-        Thread printingHook = new Thread(() -> {
-            try {
-                AllureManager.generateReport();
-            } catch (IOException | InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        });
-
-        Runtime.getRuntime().addShutdownHook(printingHook);
+    @AfterSuite ()
+    public void genReport() throws IOException, InterruptedException {
+      if(Boolean.valueOf(configuration().autoReport()))
+      AllureManager.generateReport();
     }
 
 }

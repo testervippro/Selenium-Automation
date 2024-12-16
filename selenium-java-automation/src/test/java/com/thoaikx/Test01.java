@@ -1,23 +1,24 @@
 package com.thoaikx;
 
-import lombok.extern.log4j.Log4j2;
-import org.testng.annotations.Test;
+import static com.thoaikx.ultis.SeleniumUtils.explicitWaitElement;
 
-import com.google.common.collect.ImmutableMap;
-import com.thoaikx.driver.DriverManager;
-import com.thoaikx.driver.TargetFactory;
 import com.thoaikx.report.AllureManager;
+import java.io.IOException;
+import lombok.extern.log4j.Log4j2;
+import org.openqa.selenium.By;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 
 @Log4j2
 public class Test01 extends BaseWeb {
-    private static final String GLOBAL_PARAMETER = "global value";
 
+//mvn clean install; mvn allure:serve
     @Test
-    public void test01() {
-
+    public void test02() {
+//       var element = driver.findElement(By.xpath("/html/body/div/header/div/div[2]/nav/div/ul/li[5]/a"));;
+//        explicitWaitElement(element);
+//        element.click();
+//        log.info(element.getText());
     }
-
-
-
 }
