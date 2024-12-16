@@ -12,7 +12,6 @@ import org.testng.annotations.Test;
 
 
 @Log4j2
-@Listeners(io.qameta.allure.testng.AllureTestNg.class)
 public class Test01 extends BaseWeb {
 
 

@@ -40,7 +40,7 @@ public class AllureManager {
         String targetDirectory = System.getProperty("user.dir") + "\\target";
 
         ProcessBuilder builder = new ProcessBuilder("cmd.exe", "/c",
-            "cd " + targetDirectory + "&&allure serve");
+            "cd " + targetDirectory + "&&allure generate");
 
         Process process = builder.start();
         process.waitFor();
@@ -51,7 +51,7 @@ public class AllureManager {
         String targetDirectory = System.getProperty("user.dir") + "\\target";
         // Using user.dir for flexibility;
 
-        Path directory = Path.of(targetDirectory +"\\allure-results");
+        Path directory = Path.of(targetDirectory +"\\allure-report");
         FileUtils.deleteDirectory(directory.toFile());
     }
 

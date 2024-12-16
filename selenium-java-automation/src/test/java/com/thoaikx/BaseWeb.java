@@ -5,6 +5,10 @@ import com.thoaikx.driver.DriverManager;
 import com.thoaikx.driver.TargetFactory;
 import com.thoaikx.report.AllureManager;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Comparator;
@@ -26,6 +30,9 @@ import static com.thoaikx.config.ConfigurationManager.configuration;
 import static com.thoaikx.driver.DriverManager.getInfo;
 
 import java.io.IOException;
+import ru.yandex.qatools.allure.report.AllureReportBuilder;
+import ru.yandex.qatools.allure.report.AllureReportBuilderException;
+
 @Log4j2
 public abstract class BaseWeb {
    public WebDriver driver;
@@ -51,9 +58,16 @@ public abstract class BaseWeb {
     }
     @AfterSuite ()
     public void genReport() throws IOException, InterruptedException {
-     // Thread.sleep(5000);
+
       if(Boolean.valueOf(configuration().autoReport()));
-     // AllureManager.generateReport();
+      AllureManager.generateReport();
+
+      try {
+        String allureReportUrl = "http://192.168.137.1:60107/index.html";
+        Desktop.getDesktop().browse(new URI(allureReportUrl));
+      } catch (IOException | URISyntaxException e) {
+        e.printStackTrace();
+      }
 
     }
 

@@ -43,6 +43,12 @@
             <artifactId>commons-io</artifactId>
             <version>2.15.1</version>
         </dependency>
+        <!-- Allure Report Builder -->
+        <dependency>
+            <groupId>ru.yandex.qatools.allure</groupId>
+            <artifactId>allure-report-builder</artifactId>
+            <version>2.1</version>
+        </dependency>
 
         <!-- https://mvnrepository.com/artifact/ru.yandex.qatools.allure/allure-report-builder -->
         <dependency>
@@ -191,6 +197,20 @@
                         </dependency>
                     </dependencies>
                 </plugin>
+<!--                <plugin>-->
+<!--                    <groupId>io.qameta.allure</groupId>-->
+<!--                    <artifactId>allure-maven</artifactId>-->
+<!--                    <version>${allure-maven.version}</version>-->
+<!--                    <configuration>-->
+<!--                        <reportVersion>${allure.version}</reportVersion>-->
+<!--                        <allureDownloadUrl>-->
+<!--                            ${allure.cmd.download.url}/${allure.version}/allure-commandline-${allure.version}.zip-->
+<!--                        </allureDownloadUrl>-->
+<!--                    </configuration>-->
+<!--                    -->
+<!--                </plugin>-->
+
+                <!-- Allure Maven Plugin -->
                 <plugin>
                     <groupId>io.qameta.allure</groupId>
                     <artifactId>allure-maven</artifactId>
@@ -200,15 +220,11 @@
                         <allureDownloadUrl>
                             ${allure.cmd.download.url}/${allure.version}/allure-commandline-${allure.version}.zip
                         </allureDownloadUrl>
+
                     </configuration>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>serve</goal>
-                            </goals>
-                        </execution>
-                    </executions>
                 </plugin>
+
+                <!-- Maven Compiler Plugin -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
@@ -217,6 +233,7 @@
                         <release>${java-compiler.version}</release>
                     </configuration>
                 </plugin>
+
             </plugins>
         </pluginManagement>
     </build>
