@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 @Log4j2
 public class Test01 extends BaseWeb {
 
-//mvn clean install; mvn allure:serve
+
     @Test
     public void test02() {
 //       var element = driver.findElement(By.xpath("/html/body/div/header/div/div[2]/nav/div/ul/li[5]/a"));;

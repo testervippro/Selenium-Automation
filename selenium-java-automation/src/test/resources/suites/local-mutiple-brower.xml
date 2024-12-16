@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Mutiplle  browser " parallel="tests">
+<suite name="Mutiplle  browser " parallel="methods" thread-count="99">
 
     <test name="Edge brower Tests">
         <parameter name="browser" value="edge"/>
@@ -9,7 +9,7 @@
     </test>
 
 
-    <test name="chrome brower Tests">
+    <test name="Chrome brower Tests">
         <parameter name="browser" value="chrome"/>
         <classes>
             <class name="com.thoaikx.Test01"/>

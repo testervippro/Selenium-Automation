@@ -33,13 +33,11 @@ public abstract class BaseWeb {
     public void beforeSuite() throws IOException {
         AllureManager.deleteOldReport();
         AllureManager.setAllureEnvironmentInformation();
-
-
     }
 
     @BeforeTest
     @Parameters("browser")
-    public void preCondition(@Optional("chrome") String browser) {
+    public void preCondition(String browser) {
         driver = new TargetFactory().createInstance(browser);
         DriverManager.setDriver(driver);
         log.info("Infor brower " +getInfo());
@@ -49,13 +47,14 @@ public abstract class BaseWeb {
     @AfterTest()
     public void postCondition() {
         DriverManager.quit();
-      //new Commands()
 
     }
     @AfterSuite ()
     public void genReport() throws IOException, InterruptedException {
-      if(Boolean.valueOf(configuration().autoReport()))
+      Thread.sleep(5000);
+      if(Boolean.valueOf(configuration().autoReport()));
       AllureManager.generateReport();
+
     }
 
 }
