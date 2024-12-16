@@ -51,9 +51,9 @@ public abstract class BaseWeb {
     }
     @AfterSuite ()
     public void genReport() throws IOException, InterruptedException {
-      Thread.sleep(5000);
+     // Thread.sleep(5000);
       if(Boolean.valueOf(configuration().autoReport()));
-      AllureManager.generateReport();
+     // AllureManager.generateReport();
 
     }
 
