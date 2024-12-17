@@ -68,10 +68,6 @@ public class AllureManager {
         }
     }
 
-
-
-
-
     public static void deleteOldReport() throws IOException {
         Path targetPath = Path.of(System.getProperty("user.dir"), "target");
         String targetDirectory = targetPath.toString();
