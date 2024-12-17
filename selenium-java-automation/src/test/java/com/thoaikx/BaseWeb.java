@@ -30,8 +30,6 @@ import static com.thoaikx.config.ConfigurationManager.configuration;
 import static com.thoaikx.driver.DriverManager.getInfo;
 
 import java.io.IOException;
-import ru.yandex.qatools.allure.report.AllureReportBuilder;
-import ru.yandex.qatools.allure.report.AllureReportBuilderException;
 
 @Log4j2
 public abstract class BaseWeb {
@@ -57,7 +55,7 @@ public abstract class BaseWeb {
 
     }
     @AfterSuite ()
-    public void genReport() throws IOException, InterruptedException {
+    public void genReport() throws IOException {
       AllureManager.allureOpen();
     }
 
