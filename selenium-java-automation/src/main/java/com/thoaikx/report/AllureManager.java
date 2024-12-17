@@ -40,13 +40,36 @@ public class AllureManager {
         //current directory
         Path targetDirectory = Path.of(System.getProperty("user.dir") + "\\target");
 
-        ProcessBuilder builder = new ProcessBuilder("cmd.exe", "/c",
-            "cd " + targetDirectory + "&&allure serve");
+        // Detect the OS
+        String os = System.getProperty("os.name").toLowerCase();
+
+        // Build the Process based on OS
+        ProcessBuilder builder = switch (getOS(os)) {
+            case "windows" -> new ProcessBuilder("cmd.exe", "/c", "cd " + targetDirectory + " && allure serve");
+            case "mac", "linux" -> new ProcessBuilder("/bin/bash", "-c", "cd " + targetDirectory + " && allure serve");
+            default -> throw new IllegalStateException("Unsupported operating system: " + os);
+        };
 
         Process process = builder.start();
         process.waitFor();
 
     }
+    private static String getOS(String os) {
+        os = os.toLowerCase(); // Normalize to lowercase for consistent checks
+
+        if (os.contains("win")) {
+            return "windows";
+        } else if (os.contains("mac")) {
+            return "mac";
+        } else if (os.contains("nix") || os.contains("nux") || os.contains("aix")) {
+            return "linux";
+        } else {
+            throw new IllegalStateException("Unsupported operating system: " + os);
+        }
+    }
+
+
+
 
 
     public static void deleteOldReport() throws IOException {
