@@ -58,17 +58,8 @@ public abstract class BaseWeb {
     }
     @AfterSuite ()
     public void genReport() throws IOException, InterruptedException {
-
-      if(Boolean.valueOf(configuration().autoReport()));
-      AllureManager.generateReport();
-
-      try {
-        String allureReportUrl = "http://192.168.137.1:60107/index.html";
-        Desktop.getDesktop().browse(new URI(allureReportUrl));
-      } catch (IOException | URISyntaxException e) {
-        e.printStackTrace();
-      }
-
+      AllureManager.allureOpen();
     }
+
 
 }

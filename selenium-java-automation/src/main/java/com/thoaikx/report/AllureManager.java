@@ -9,6 +9,7 @@ import java.lang.ProcessBuilder;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,23 +37,37 @@ public class AllureManager {
     }
 
     public static void generateReport() throws IOException, InterruptedException {
-
-        String targetDirectory = System.getProperty("user.dir") + "\\target";
+        //current directory
+        Path targetDirectory = Path.of(System.getProperty("user.dir") + "\\target");
 
         ProcessBuilder builder = new ProcessBuilder("cmd.exe", "/c",
-            "cd " + targetDirectory + "&&allure generate");
+            "cd " + targetDirectory + "&&allure serve");
 
         Process process = builder.start();
         process.waitFor();
 
     }
 
-    public static void deleteOldReport() throws IOException {
-        String targetDirectory = System.getProperty("user.dir") + "\\target";
-        // Using user.dir for flexibility;
 
-        Path directory = Path.of(targetDirectory +"\\allure-report");
+    public static void deleteOldReport() throws IOException {
+        Path targetPath = Path.of(System.getProperty("user.dir"), "target");
+        String targetDirectory = targetPath.toString();
+
+        Path directory = Path.of(targetDirectory +"\\allure-results");
         FileUtils.deleteDirectory(directory.toFile());
+    }
+
+    public static void allureOpen() {
+        Thread dt = new Thread( () -> {
+            if(Boolean.valueOf(configuration().autoReport()));
+            try {
+                AllureManager.generateReport();
+            } catch (IOException | InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        dt.setDaemon(true);
+        dt.start();
     }
 
 }

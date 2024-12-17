@@ -27,14 +27,13 @@ import static java.util.Arrays.sort;
 public class TargetFactory {
 
     public WebDriver createInstance(String browser) {
-        // read targer in properties file
 
         Target target = Target.get(configuration().target().toUpperCase());
         log.info("Target is " + target);
         // return base on target in properties file
         return switch (target) {
             case LOCAL -> valueOf(configuration().browser().toUpperCase()).createLocalDriver();
-            case LOCAL_SUITE -> _valueOf(browser.toUpperCase()).createLocalDriver();
+            case LOCAL_SUITE -> valueOf(browser.toUpperCase()).createLocalDriver();
             case SELENIUM_GRID -> createRemoteInstance(valueOf(browser.toUpperCase()).getOptions());
         };
 

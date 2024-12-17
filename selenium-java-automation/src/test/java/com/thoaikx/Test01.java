@@ -17,9 +17,6 @@ public class Test01 extends BaseWeb {
 
     @Test
     public void test02() {
-//       var element = driver.findElement(By.xpath("/html/body/div/header/div/div[2]/nav/div/ul/li[5]/a"));;
-//        explicitWaitElement(element);
-//        element.click();
-//        log.info(element.getText());
+
     }
 }

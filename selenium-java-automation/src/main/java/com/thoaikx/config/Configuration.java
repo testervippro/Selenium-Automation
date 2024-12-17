@@ -35,6 +35,6 @@ public interface Configuration  extends Config{
     String gridPort();
 
     @Key("auto.report")
-    String autoReport();
+    boolean autoReport();
     
 } 
