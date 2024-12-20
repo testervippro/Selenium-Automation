@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('hello') {
       steps {
-        sh 'echo "Hello World"'
+        sh 'mvn test -Pweb-execution -Dsuite=local -Dtarget=local'
       }
     }
   }
