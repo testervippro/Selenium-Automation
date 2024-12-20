@@ -2,8 +2,7 @@ node {
     def mvnHome
 
     stage('Preparation') {
-        git 'git clone https://github.com/testervippro/Selenium-Automation.git'
-'
+        git 'https://github.com/testervippro/Selenium-Automation.git'
         mvnHome = tool 'M3'
     }
 
@@ -13,7 +12,7 @@ node {
 
     stage('Test Execution') {
         try {
-            sh "'${mvnHome}/bin/mvn' test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=true -Dbrowser=chrome "
+            sh "'${mvnHome}/bin/mvn' test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=true -Dbrowser=chrome
         } catch (Exception e) {
             currentBuild.result = 'FAILURE'
         } finally {
