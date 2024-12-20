@@ -2,7 +2,7 @@ node {
     def mvnHome
 
     stage('Preparation') {
-        git 'git clone https://github.com/testervippro/Selenium-Automation.git
+        git 'git clone https://github.com/testervippro/Selenium-Automation.git'
 '
         mvnHome = tool 'M3'
     }
