@@ -16,7 +16,8 @@ public class Test01 extends BaseWeb {
 
 
     @Test
-    public void test02() {
+    public void test02() throws InterruptedException {
+        Thread.sleep(3000);
 
     }
 }

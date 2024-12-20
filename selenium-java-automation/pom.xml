@@ -45,7 +45,6 @@
         </dependency>
 
 
-
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -185,18 +184,7 @@
                         </dependency>
                     </dependencies>
                 </plugin>
-<!--                <plugin>-->
-<!--                    <groupId>io.qameta.allure</groupId>-->
-<!--                    <artifactId>allure-maven</artifactId>-->
-<!--                    <version>${allure-maven.version}</version>-->
-<!--                    <configuration>-->
-<!--                        <reportVersion>${allure.version}</reportVersion>-->
-<!--                        <allureDownloadUrl>-->
-<!--                            ${allure.cmd.download.url}/${allure.version}/allure-commandline-${allure.version}.zip-->
-<!--                        </allureDownloadUrl>-->
-<!--                    </configuration>-->
-<!--                    -->
-<!--                </plugin>-->
+
 
                 <!-- Allure Maven Plugin -->
                 <plugin>

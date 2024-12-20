@@ -42,7 +42,7 @@ public abstract class BaseWeb {
 
     @BeforeTest
     @Parameters("browser")
-    public void preCondition(String browser) {
+    public void preCondition(@Optional("chrome") String browser) {
         driver = new TargetFactory().createInstance(browser);
         DriverManager.setDriver(driver);
         log.info("Infor brower " +getInfo());

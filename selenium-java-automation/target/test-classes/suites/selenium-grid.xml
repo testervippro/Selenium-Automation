@@ -15,4 +15,18 @@
         </classes>
     </test>
 
+    <test name="FireFox Execution">
+        <parameter name="browser" value="firefox"/>
+        <classes>
+            <class name="com.thoaikx.Test01"/>
+        </classes>
+    </test>
+
+    <test name="Safari Execution">
+        <parameter name="browser" value="safari"/>
+        <classes>
+            <class name="com.thoaikx.Test01"/>
+        </classes>
+    </test>
+
 </suite>
