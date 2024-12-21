@@ -1,14 +1,42 @@
 pipeline {
     agent any
 
+    environment {
+        CI = true // Set environment variable CI to true
+    }
+
     stages {
+        stage('Check CI Environment') {
+            steps {
+                script {
+                    if (env.CI) {
+                        echo 'This is a CI environment (Jenkins).'
+                    } else {
+                        echo 'This is not a CI environment.'
+                    }
+                }
+            }
+        }
+
         stage('Test Execution') {
             steps {
                 dir('selenium-java-automation') {
                     bat 'mvn test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=false -Dbrowser=chrome'
-                    /*
-                    bat 'mvn test -Pweb-execution -Dsuite=local-suite -Dtarget=local-suite -Dheadless=false -Dbrowser=chrome'
-                    */
+                }
+            }
+        }
+
+        stage('Generate Allure Report') {
+            steps {
+                script {
+                    if (env.CI) {
+                        try {
+                            AllureManager.generateReport()
+                        } catch (Exception e) {
+                            echo "Error generating Allure report: ${e.message}"
+                            currentBuild.result = 'FAILURE'
+                        }
+                    }
                 }
             }
         }
@@ -16,18 +44,21 @@ pipeline {
 
     post {
         always {
-            dir('selenium-java-automation') {
-                junit '**/target/surefire-reports/TEST-*.xml'
-                publishHTML (target: [
-        
-                    allowMissing: false,
-                    alwaysLinkToLastBuild: true,
-                    keepAll: true,
-                    reportDir: 'target/surefire-reports',
-                    reportFiles: 'index.html',
-                    reportName: "TestNG Report"
-                ])
-              
+            junit '**/target/surefire-reports/TEST-*.xml'
+            publishHTML (target: [
+                allowMissing: false,
+                alwaysLinkToLastBuild: true,
+                keepAll: true,
+                reportDir: 'target/surefire-reports',
+                reportFiles: 'index.html',
+                reportName: "TestNG Report"
+            ])
+
+            // Call allureOpen() method to generate and open Allure report
+            script {
+                if (env.CI) {
+                    AllureManager.allureOpen()
+                }
             }
         }
     }
