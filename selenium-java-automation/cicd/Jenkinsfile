@@ -5,8 +5,7 @@ pipeline {
         stage('Clean') {
             steps {
                 dir('selenium-java-automation') {
-                    // Uncomment the line below to clean the Maven project
-                    // bat 'mvn clean'
+                    bat 'mvn clean'
                 }
             }
         }
@@ -22,20 +21,24 @@ pipeline {
         stage('Test Execution') {
             steps {
                 try {
-                    bat 'mvn test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=true -Dbrowser=chrome'
+                    dir('selenium-java-automation') {
+                        bat 'mvn test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=false -Dbrowser=chrome'
+                    }
                 } catch (Exception e) {
                     currentBuild.result = 'FAILURE'
                 } finally {
-                    junit '**/target/surefire-reports/TEST-*.xml'
+                    dir('selenium-java-automation') {
+                        junit '**/target/surefire-reports/TEST-*.xml'
 
-                    publishHTML (target: [
-                        allowMissing: false,
-                        alwaysLinkToLastBuild: true,
-                        keepAll: true,
-                        reportDir: 'target/surefire-reports',
-                        reportFiles: 'index.html',
-                        reportName: "TestNG Report"
-                    ])
+                        publishHTML (target: [
+                            allowMissing: false,
+                            alwaysLinkToLastBuild: true,
+                            keepAll: true,
+                            reportDir: 'target/surefire-reports',
+                            reportFiles: 'index.html',
+                            reportName: "TestNG Report"
+                        ])
+                    }
                 }
             }
         }
