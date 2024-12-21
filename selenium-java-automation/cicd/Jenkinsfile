@@ -4,14 +4,10 @@ pipeline {
     stages {
 
         stage('Test Execution') {
-            steps {
-                try {
+            steps {    
                     dir('selenium-java-automation') {
                         bat 'mvn test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=false -Dbrowser=chrome'
                     }
-                } catch (Exception e) {
-                    currentBuild.result = 'FAILURE'
-                }
             }
         }
 
