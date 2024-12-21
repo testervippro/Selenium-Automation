@@ -6,6 +6,7 @@ pipeline {
             steps {
                 dir('selenium-java-automation') {
                     bat 'mvn test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=false -Dbrowser=chrome'
+                     #bat 'mvn test -Pweb-execution -Dsuite=local-suite -Dtarget=local-suite -Dheadless=false -Dbrowser=chrome'
                 }
             }
         }
