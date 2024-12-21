@@ -1,22 +1,10 @@
 pipeline {
     agent any
 
-    environment {
-        CI = true // Set environment variable CI to true
-    }
+  
 
     stages {
-        stage('Check CI Environment') {
-            steps {
-                script {
-                    if (env.CI) {
-                        echo 'This is a CI environment (Jenkins).'
-                    } else {
-                        echo 'This is not a CI environment.'
-                    }
-                }
-            }
-        }
+    
 
         stage('Test Execution') {
             steps {
@@ -26,20 +14,7 @@ pipeline {
             }
         }
 
-        stage('Generate Allure Report') {
-            steps {
-                script {
-                    if (env.CI) {
-                        try {
-                            AllureManager.generateReport()
-                        } catch (Exception e) {
-                            echo "Error generating Allure report: ${e.message}"
-                            currentBuild.result = 'FAILURE'
-                        }
-                    }
-                }
-            }
-        }
+      
     }
 
     post {
@@ -54,12 +29,7 @@ pipeline {
                 reportName: "TestNG Report"
             ])
 
-            // Call allureOpen() method to generate and open Allure report
-            script {
-                if (env.CI) {
-                    AllureManager.allureOpen()
-                }
-            }
+          
         }
     }
 }
