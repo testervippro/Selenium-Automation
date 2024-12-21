@@ -27,7 +27,10 @@ pipeline {
                     reportFiles: 'index.html',
                     reportName: "TestNG Report"
                 ])
-             
+                 script {
+                // Change directory to target and execute allure serve
+                bat 'cd target && allure serve'
+            }
             }
         }
     }
