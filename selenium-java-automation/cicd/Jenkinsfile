@@ -3,31 +3,31 @@ pipeline {
 
     stages {
 
-        stage('Run Tests') {
+        stage('Test Execution') {
             steps {
-                dir('selenium-java-automation') {
-                    bat 'mvn test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=false -Dbrowser=chrome'
-                }
-            }
-        }
+                try {
+                    dir('selenium-java-automation') {
+                        bat 'mvn test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=false -Dbrowser=chrome'
+                    }
+                } catch (Exception e) {
+                    currentBuild.result = 'FAILURE'
+                } finally {
+                    dir('selenium-java-automation/target') {
+                        junit '**/surefire-reports/TEST-*.xml'
 
-        stage('Generate Report') {
-            steps {
-                dir('selenium-java-automation/target') {
-                    junit '**/surefire-reports/TEST-*.xml'
-
-                    /*
-                     * Please read https://wiki.jenkins.io/display/JENKINS/Configuring+Content+Security+Policy
-                     * to allow Jenkins to load static files
-                     */
-                    publishHTML (target: [
-                        allowMissing: false,
-                        alwaysLinkToLastBuild: true,
-                        keepAll: false,
-                        reportDir: '.',
-                        reportFiles: 'index.html',
-                        reportName: "TestNG Report"
-                    ])
+                        /*
+                         * Please read https://wiki.jenkins.io/display/JENKINS/Configuring+Content+Security+Policy
+                         * to allow Jenkins to load static files
+                         */
+                        publishHTML (target: [
+                            allowMissing: false,
+                            alwaysLinkToLastBuild: true,
+                            keepAll: true,
+                            reportDir: '.',
+                            reportFiles: 'index.html',
+                            reportName: "TestNG Report"
+                        ])
+                    }
                 }
             }
         }
