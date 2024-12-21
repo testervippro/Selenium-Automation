@@ -1,26 +1,17 @@
 pipeline {
     agent any
- 
     stages {
         stage('Test') {
             steps {
-             sh 'cd selenium-java-automation && mvn clean test' 
-               
+                dir('selenium-java-automation') {
+                    bat 'mvn clean'
+                }
             }
- 
-            post {                
-                // If Maven was able to run the tests, even if some of the test
-                // failed, record the test results and archive the jar file.
-                success {
-                   publishHTML([
-                       allowMissing: false, 
-                       alwaysLinkToLastBuild: false, 
-                       keepAll: false, 
-                       reportDir: 'target/surefire-reports/', 
-                       reportFiles: 'emailable-report.html', 
-                       reportName: 'HTML Report', 
-                       reportTitles: '', 
-                       useWrapperFileDirectly: true])
+        }
+        stage('Deploy') {
+            steps {
+                dir('selenium-java-automation') {
+                    bat 'mvn test'
                 }
             }
         }
