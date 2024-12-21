@@ -77,16 +77,17 @@ public class AllureManager {
     }
 
     public static void allureOpen() {
-        Thread dt = new Thread( () -> {
-            if(Boolean.valueOf(configuration().autoReport()));
-            try {
-                AllureManager.generateReport();
-            } catch (IOException | InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        });
-        dt.setDaemon(true);
-        dt.start();
+        // Thread dt = new Thread( () -> {
+        //     if(Boolean.valueOf(configuration().autoReport()));
+        //     try {
+        //         AllureManager.generateReport();
+        //     } catch (IOException | InterruptedException e) {
+        //         throw new RuntimeException(e);
+        //     }
+        // });
+        // dt.setDaemon(true);
+        // dt.start();
+         AllureManager.generateReport();
     }
 
 }
