@@ -1,15 +1,18 @@
 pipeline {
     agent any
     stages {
-       
         stage('Test') {
             steps {
-                bat 'mvn clean'
+                dir('selenium-java-automation') {
+                    bat 'mvn clean'
+                }
             }
         }
         stage('Deploy') {
             steps {
-                bat 'mvn test'
+                dir('selenium-java-automation') {
+                    bat 'mvn test'
+                }
             }
         }
     }
