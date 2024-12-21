@@ -1,5 +1,5 @@
 # Set up 
-![image](https://github.com/user-attachments/assets/b6ba3a60-1fab-4617-ae5d-932ec284b99f)
+![image](https://github.com/user-attachments/assets/e12310e6-19b2-45ce-8b71-027ffabc291e)
 
 # Set up git 
 ![image](https://github.com/user-attachments/assets/4b4887ab-d9b2-413b-8abd-1eb115fa2729)
