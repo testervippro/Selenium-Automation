@@ -36,7 +36,7 @@ public abstract class BaseWeb {
    public WebDriver driver;
     @BeforeSuite
     public void beforeSuite() throws IOException {
-       // AllureManager.deleteOldReport();
+       AllureManager.deleteOldReport();
         AllureManager.setAllureEnvironmentInformation();
     }
 
@@ -56,7 +56,7 @@ public abstract class BaseWeb {
     }
     @AfterSuite ()
     public void genReport() throws IOException {
-      //AllureManager.allureOpen();
+      AllureManager.allureOpen();
     }
 
 
