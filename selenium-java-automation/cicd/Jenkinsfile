@@ -27,9 +27,11 @@ pipeline {
                     reportFiles: 'index.html',
                     reportName: "TestNG Report"
                 ])
-                 script {
-                // Change directory to target and execute allure serve
-                bat 'cd target && allure serve'
+                script {
+                // Execute allure serve only if environment is CI (e.g., Jenkins)
+                if (env.BUILD_TYPE == 'CI') {
+                    bat 'cd target && allure serve'
+                }
             }
             }
         }
