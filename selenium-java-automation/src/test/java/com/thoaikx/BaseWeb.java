@@ -37,7 +37,8 @@ public abstract class BaseWeb {
     @BeforeSuite
     public void beforeSuite() throws IOException {
        AllureManager.deleteOldReport();
-        AllureManager.setAllureEnvironmentInformation();
+      AllureManager.setAllureEnvironmentInformation();
+      System.out.println("before suite called");
     }
 
     @BeforeTest
@@ -56,6 +57,7 @@ public abstract class BaseWeb {
     }
     @AfterSuite ()
     public void genReport() throws IOException {
+         System.out.println("after suite called");
       AllureManager.allureOpen();
     }
 
