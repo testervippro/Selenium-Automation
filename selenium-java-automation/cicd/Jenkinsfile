@@ -5,6 +5,7 @@ pipeline {
 
         stage('Test Execution') {
             steps {
+                
                 try {
                     dir('selenium-java-automation') {
                         bat 'mvn test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=false -Dbrowser=chrome'
