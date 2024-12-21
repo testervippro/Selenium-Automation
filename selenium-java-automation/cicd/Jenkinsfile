@@ -29,7 +29,8 @@ pipeline {
                     reportFiles: 'index.html',
                     reportName: "TestNG Report"
                 ])
-               
+                
+                bat 'cd target && allure serve'
                     
            
            
