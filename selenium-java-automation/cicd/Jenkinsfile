@@ -4,7 +4,6 @@ pipeline {
   
 
     stages {
-    
 
         stage('Test Execution') {
             steps {
@@ -13,8 +12,7 @@ pipeline {
                 }
             }
         }
-
-      
+    
     }
 
     post {
