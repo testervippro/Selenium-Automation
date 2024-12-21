@@ -28,10 +28,10 @@ pipeline {
                     reportFiles: 'index.html',
                     reportName: "TestNG Report"
                 ])
-                script {
+               
                     
-                
-            }
+           
+           
             }
         }
     }
