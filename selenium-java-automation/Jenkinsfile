@@ -1,15 +1,37 @@
 pipeline {
     agent any
+
     stages {
-       
-        stage('Test') {
+        stage('Test Execution') {
             steps {
-                bat 'mvn clean'
+                dir('selenium-java-automation') {
+                    bat 'mvn test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=false -Dbrowser=chrome'
+                    /*
+                    bat 'mvn test -Pweb-execution -Dsuite=local-suite -Dtarget=local-suite -Dheadless=false -Dbrowser=chrome'
+                    */
+                }
             }
         }
-        stage('Deploy') {
-            steps {
-                bat 'mvn test'
+
+    
+    }
+
+    post {
+        always {
+            dir('selenium-java-automation') {
+                junit '**/target/surefire-reports/TEST-*.xml'
+                publishHTML (target: [
+        
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: 'target/surefire-reports',
+                    reportFiles: 'index.html',
+                    reportName: "TestNG Report"
+                ])
+                
+                 
+           
             }
         }
     }
