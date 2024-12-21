@@ -26,6 +26,9 @@ pipeline {
                     reportFiles: 'index.html',
                     reportName: "TestNG Report"
                 ])
+                // Generate and publish Allure report
+                bat 'allure generate -c'
+                bat 'start report\\index.html'  // Opens the report
             }
         }
     }
