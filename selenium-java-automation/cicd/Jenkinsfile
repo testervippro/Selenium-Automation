@@ -28,10 +28,8 @@ pipeline {
                     reportName: "TestNG Report"
                 ])
                 script {
-                // Execute allure serve only if environment is CI (e.g., Jenkins)
-                if (env.BUILD_TYPE == 'CI') {
-                    bat 'cd target && allure serve'
-                }
+                      bat 'cd target && allure serve && exit'
+                
             }
             }
         }
