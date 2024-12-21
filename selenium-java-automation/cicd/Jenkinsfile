@@ -19,7 +19,7 @@ pipeline {
             dir('selenium-java-automation') {
                 junit '**/target/surefire-reports/TEST-*.xml'
                 publishHTML (target: [
-                    skipPublishingChecks: true,
+        
                     allowMissing: false,
                     alwaysLinkToLastBuild: true,
                     keepAll: true,
