@@ -10,8 +10,5 @@
         <module name="selenium-java-automation" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="selenium-java-lean-test-architecture" target="17" />
-    </bytecodeTargetLevel>
   </component>
 </project>
