@@ -12,6 +12,14 @@ pipeline {
                 }
             }
         }
+
+         stage('Report ') {
+            steps {
+                dir('selenium-java-automation') {
+                    bat 'cd target && allure serve'
+                }
+            }
+        }
     }
 
     post {
