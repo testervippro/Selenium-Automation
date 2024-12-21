@@ -17,6 +17,7 @@ pipeline {
             steps {
                 dir('selenium-java-automation') {
                     bat 'cd target && allure serve'
+                    bat 'echo ^C'  // Simulating Ctrl+C
                 }
             }
         }
