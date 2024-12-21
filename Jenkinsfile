@@ -4,8 +4,7 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                bat "mvn -D clean test" 
-                sh 'ls -la'
+             sh 'cd selenium-java-automation && mvn clean test' 
                
             }
  
