@@ -11,26 +11,25 @@ pipeline {
                     }
                 } catch (Exception e) {
                     currentBuild.result = 'FAILURE'
-                } finally {
-                    dir('selenium-java-automation/target') {
-                        junit '**/surefire-reports/TEST-*.xml'
-
-                        /*
-                         * Please read https://wiki.jenkins.io/display/JENKINS/Configuring+Content+Security+Policy
-                         * to allow Jenkins to load static files
-                         */
-                        publishHTML (target: [
-                            allowMissing: false,
-                            alwaysLinkToLastBuild: true,
-                            keepAll: true,
-                            reportDir: '.',
-                            reportFiles: 'index.html',
-                            reportName: "TestNG Report"
-                        ])
-                    }
                 }
             }
         }
 
+    }
+
+    post {
+        always {
+            dir('selenium-java-automation/target') {
+                junit '**/surefire-reports/TEST-*.xml'
+                publishHTML (target: [
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: '.',
+                    reportFiles: 'index.html',
+                    reportName: "TestNG Report"
+                ])
+            }
+        }
     }
 }
