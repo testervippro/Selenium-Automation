@@ -18,7 +18,7 @@ pipeline {
 
         stage('Test Execution') {
         try {
-            sh "'${mvnHome}/bin/mvn' test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=true -Dbrowser=chrome
+            bat 'mvn test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=true -Dbrowser=chrome '
         } catch (Exception e) {
             currentBuild.result = 'FAILURE'
         } finally {
