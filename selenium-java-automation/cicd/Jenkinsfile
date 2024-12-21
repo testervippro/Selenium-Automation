@@ -4,7 +4,7 @@ pipeline {
         stage('Clean') {
             steps {
                 dir('selenium-java-automation') {
-                    bat 'mvn clean'
+                   // bat 'mvn clean'
                 }
             }
         }
