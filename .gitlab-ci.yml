@@ -12,11 +12,11 @@ cache:
 build:
   stage: build
   script:
-  - cd selenium-java-automation
+  # - cd selenium-java-automation
   - mvn clean package -DskipTests=true
 
 test:
   stage: test
   script:
-  - cd selenium-java-automation
+  # - cd selenium-java-automation
   - mvn test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=true -Dbrowser=chrome
