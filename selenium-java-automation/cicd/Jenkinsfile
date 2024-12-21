@@ -15,7 +15,7 @@ pipeline {
 
     post {
         always {
-            dir('selenium-java-automation/target') {
+            dir('selenium-java-automation') {
                 junit '**/surefire-reports/TEST-*.xml'
                 publishHTML (target: [
                     allowMissing: false,
