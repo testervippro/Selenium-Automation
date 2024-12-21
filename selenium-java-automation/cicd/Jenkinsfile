@@ -2,45 +2,15 @@ pipeline {
     agent any
 
     stages {
-        stage('Clean') {
-            steps {
-                dir('selenium-java-automation') {
-                    //bat 'mvn clean'
-                }
-            }
-        }
 
         stage('Test') {
             steps {
                 dir('selenium-java-automation') {
-                    //bat 'mvn test'
+                    // Run Maven tests with specific options
+                    bat 'mvn test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=false -Dbrowser=chrome'
                 }
             }
         }
 
-        stage('Test Execution') {
-            steps {
-                try {
-                    dir('selenium-java-automation') {
-                        bat 'mvn test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=false -Dbrowser=chrome'
-                    }
-                } catch (Exception e) {
-                    currentBuild.result = 'FAILURE'
-                } finally {
-                    dir('selenium-java-automation') {
-                        junit '**/target/surefire-reports/TEST-*.xml'
-
-                        publishHTML (target: [
-                            allowMissing: false,
-                            alwaysLinkToLastBuild: true,
-                            keepAll: true,
-                            reportDir: 'target/surefire-reports',
-                            reportFiles: 'index.html',
-                            reportName: "TestNG Report"
-                        ])
-                    }
-                }
-            }
-        }
     }
 }
