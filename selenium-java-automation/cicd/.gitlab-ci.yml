@@ -1,8 +1,0 @@
-cicd_job:
-  stage: build
-  script:
-    - cd cicd
-    - gitlab-ci-multi-runner exec docker
-  only:
-    changes:
-      - cicd/
