@@ -7,9 +7,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="selenium-java-automation (1)" />
-        <module name="selenium-java-automation (2)" />
+        <module name="selenium-java-automation" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="selenium-java-automation (1)" target="17" />
+      <module name="selenium-java-automation (2)" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>
