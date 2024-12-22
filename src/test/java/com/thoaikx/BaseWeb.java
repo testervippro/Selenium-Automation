@@ -7,6 +7,7 @@ import static com.thoaikx.driver.DriverManager.getInfo;
 
 import com.thoaikx.driver.DriverManager;
 import com.thoaikx.driver.TargetFactory;
+import com.thoaikx.pages.commons.CustomSelectActions;
 import com.thoaikx.report.AllureManager;
 import java.io.IOException;
 import lombok.extern.log4j.Log4j2;
@@ -21,6 +22,7 @@ import org.testng.annotations.Parameters;
 @Log4j2
 public abstract class BaseWeb {
    protected WebDriver driver;
+   protected CustomSelectActions select ;
 
   @BeforeSuite
     public void beforeSuite() throws IOException {
@@ -34,6 +36,7 @@ public abstract class BaseWeb {
     public void preCondition(@Optional("chrome") String browser) {
       driver = new TargetFactory().createInstance(browser);
       DriverManager.setDriver(driver);
+      select = new CustomSelectActions(DriverManager.getDriver());
       log.info("Infor brower " + getInfo());
 
       DriverManager.getDriver().get(configuration().url());

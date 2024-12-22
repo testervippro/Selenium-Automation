@@ -1,10 +1,10 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Local one browser Edge">
 
-    <test name="Edge Tests">
+    <test name="Chome Tests">
         <parameter name="browser" value="chrome"/>
         <classes>
-            <class name="com.thoaikx.Test01"/>
+            <class name="com.thoaikx.HomePageTest"/>
         </classes>
     </test>
 
