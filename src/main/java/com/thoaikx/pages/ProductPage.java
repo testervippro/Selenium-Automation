@@ -16,6 +16,7 @@ public class ProductPage {
 
   private By checkoutButtonBy = By.cssSelector("#navbarResponsive > .navbar-nav > .nav-item > .nav-link");
 
+
   public ProductPage(WebDriver driver) {
     this.driver = driver;
   }
@@ -39,6 +40,13 @@ public class ProductPage {
       index++;
     }
   }
+
+  public  WebElement  getCheckOutButton(){
+    return driver.findElement(checkoutButtonBy);
+  }
+
+
+
 
 
 }

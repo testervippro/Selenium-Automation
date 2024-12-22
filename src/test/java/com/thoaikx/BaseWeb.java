@@ -10,8 +10,11 @@ import com.thoaikx.driver.TargetFactory;
 import com.thoaikx.pages.commons.CustomSelectActions;
 import com.thoaikx.report.AllureManager;
 import java.io.IOException;
+import java.time.Duration;
 import lombok.extern.log4j.Log4j2;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeSuite;
@@ -23,7 +26,8 @@ import org.testng.annotations.Parameters;
 public abstract class BaseWeb {
    protected WebDriver driver;
    protected CustomSelectActions select ;
-
+   protected WebDriverWait wait;
+  JavascriptExecutor jsExecutor ;
   @BeforeSuite
     public void beforeSuite() throws IOException {
       AllureManager.deleteOldReport();
@@ -37,6 +41,8 @@ public abstract class BaseWeb {
       driver = new TargetFactory().createInstance(browser);
       DriverManager.setDriver(driver);
       select = new CustomSelectActions(DriverManager.getDriver());
+      wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(60_000));
+      jsExecutor = (JavascriptExecutor) DriverManager.getDriver();
       log.info("Infor brower " + getInfo());
 
       DriverManager.getDriver().get(configuration().url());

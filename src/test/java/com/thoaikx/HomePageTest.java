@@ -1,19 +1,19 @@
 package com.thoaikx;
 
 import static com.thoaikx.ultis.RecordUtils.startRecordATU;
+import static org.openqa.selenium.support.ui.ExpectedConditions.*;
+
 import static org.testng.AssertJUnit.assertEquals;
 
-import com.thoaikx.dataprovider.Fixture;
 import com.thoaikx.pages.HomePage;
 import com.thoaikx.pages.ProductPage;
-import com.thoaikx.pages.commons.CustomSelectActions;
 import com.thoaikx.ultis.RecordUtils;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Stream;
 import lombok.extern.log4j.Log4j2;
-import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -37,7 +37,7 @@ public class HomePageTest extends BaseWeb {
     }
 
     @Test(priority = 0)
-    public void test02()  {
+    public void homePage()  {
         HomePage homePage = new HomePage(driver);
         homePage.getEditBox().sendKeys("bob");
         var expectValue  = homePage.getTwoWayDataBinding().getAttribute("value");
@@ -69,8 +69,43 @@ public class HomePageTest extends BaseWeb {
 
     }
 
-    @Test(dataProvider = "csv",dataProviderClass = Fixture.class)
-    public  void  testDataProvider(String name , String age , String city) {
-        System.out.println("Paremeter is" + name + age + city);
+    @Test(priority = 2)
+    public  void  checkOut() throws InterruptedException {
+        ProductPage productPage = new ProductPage(driver);
+        productPage.getCheckOutButton().click();
+        // Locate elements and sum their values
+        int sum = driver.findElements(By.cssSelector("tr td:nth-child(4) strong")).stream()
+            .mapToInt(element -> Integer.parseInt(element.getText().replaceAll("[^0-9]", ""))) // Parse text to integer
+            .reduce(0, Integer::sum);
+
+
+        int total = Integer.parseInt(driver.findElement(By.cssSelector("h3 strong")).getText().replaceAll("[^0-9]",""));
+
+        Assert.assertEquals(sum, total,"Check sum of each proudct = Total ");
+
+        driver.findElement(By.xpath("//*[contains(text() ,'Checkout')]")).click();
+
+        driver.findElement(By.id("country")).sendKeys("India");
+        WebElement suggestions  = wait.until(visibilityOfElementLocated(By.className("suggestions")));
+        suggestions.findElement(By.cssSelector("ul > li > a")).click();
+
+        WebElement checkBox2 = driver.findElement(By.xpath("//*[@id ='checkbox2']"));
+        jsExecutor.executeScript("arguments[0].click();",checkBox2 );
+
+
+        // Submit the form
+        driver.findElement(By.cssSelector("input[type='submit']")).click();
+
+        WebElement alert = wait.until(visibilityOfElementLocated(By.cssSelector(".alert")));
+        String actualText = alert.getText();
+
+        Assert.assertTrue(actualText.contains("Success"));
     }
+
+
+
+//    @Test(dataProvider = "csv",dataProviderClass = Fixture.class)
+//    public  void  testDataProvider(String name , String age , String city) {
+//        System.out.println("Paremeter is" + name + age + city);
+//    }
 }

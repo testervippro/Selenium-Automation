@@ -1,6 +1,5 @@
 package com.thoaikx.pages;
 
-import com.thoaikx.utils.SeleniumUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -27,7 +26,7 @@ public class HomePage {
 
   // Get the Two-Way Data Binding element
   public WebElement getTwoWayDataBinding() {
-    SeleniumUtils.explicitWaitElement(twoWayDataBindingBy);
+   // SeleniumUtils.explicitWaitElement(twoWayDataBindingBy);
     return driver.findElement(twoWayDataBindingBy);
   }
   // Get the Gender dropdown element
