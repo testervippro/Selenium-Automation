@@ -1,57 +1,50 @@
 package com.thoaikx;
 
-import static java.util.Arrays.sort;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.BufferedReader;
-import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.text.Collator;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import static com.thoaikx.config.ConfigurationManager.configuration;
-import net.bytebuddy.implementation.bytecode.ByteCodeAppender.Size;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URL;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.nio.file.Path;
 
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
 
+        String urlDowload = "https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.27.0/selenium-java-4.27.0.zip";
+
+         String targetPath = Path.of(System.getProperty("user.dir"), "lib/selenium-java-4.27.0.jar").toString(); 
 
 
-
-        // Create ObjectMapper instance
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        System.out.println(System.getProperty("${user.home"));
-
-        try {
-            // Read the JSON file and map it to a List of Person records
-            //convert json  to record https://www.danvega.dev/tools/json-to-java-record
-            List<Person> persons = objectMapper.readValue(
-                new File("src/test/resources/data/person.json"),
-                objectMapper.getTypeFactory().constructCollectionType(List.class, Person.class));
-
-            // Print the list of persons
-            persons.forEach(System.out::println);
-        } catch (IOException e) {
-            e.printStackTrace();
+         downloadSeleniumServer(urlDowload, targetPath);
+     
         }
 
+  public static void downloadSeleniumServer (String url , String outputPath ) throws FileNotFoundException, IOException, InterruptedException{
+
+    HttpClient client = HttpClient.newHttpClient();
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .build();
+
+
+     HttpResponse<InputStream> response = client.send(request, HttpResponse.BodyHandlers.ofInputStream());
+
+        try (InputStream inputStream = response.body();
+             FileOutputStream outputStream = new FileOutputStream(outputPath)) {
+
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+        }
+
+  }      
+
 
 }
-record Person(String name, int age, String city) {}
-
-}
-
-
-
-
-
-
-
-
