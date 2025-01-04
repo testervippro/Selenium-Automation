@@ -7,10 +7,10 @@ pipeline {
                 script {
                     if (isUnix()) {
                         // For macOS and Linux
-                        sh 'mvn test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=false -Dbrowser=chrome'
+                        sh 'mvn test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=false -Dbrowser=chrome -Dauto.report=false'
                     } else {
                         // For Windows
-                        bat 'mvn test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=false -Dbrowser=chrome'
+                        bat 'mvn test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=false -Dbrowser=chrome -Dauto.report=false'
                     }
                 }
             }
