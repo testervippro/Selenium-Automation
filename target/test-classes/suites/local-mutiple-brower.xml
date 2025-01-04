@@ -1,0 +1,18 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Mutiple browser " parallel="tests" thread-count="99">
+
+    <test name="Edge brower Tests">
+        <parameter name="browser" value="edge"/>
+        <classes>
+            <class name="com.thoaikx.HomePageTest"/>
+        </classes>
+    </test>
+
+    <test name="Chrome brower Tests">
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="com.thoaikx.HomePageTest"/>
+        </classes>
+    </test>
+
+</suite>

@@ -28,6 +28,8 @@ public abstract class BaseWeb {
    protected CustomSelectActions select ;
    protected WebDriverWait wait;
   JavascriptExecutor jsExecutor ;
+
+
   @BeforeSuite
     public void beforeSuite() throws IOException {
       AllureManager.deleteOldReport();

@@ -5,11 +5,15 @@ import org.aeonbits.owner.Config.LoadType;
 import org.aeonbits.owner.Config;
 
 
+//The "system:properties" source in configuration frameworks
+// (like MicroProfile Config, owner, or QConfig) refers to the JVM
+// system properties.
+// These are key-value pairs that can be passed to the Java application
+// at runtime using the -D flag.
 @LoadPolicy(LoadType.MERGE)
 @Config.Sources({
     "system:properties",
-    "classpath:general.properties",
-    "classpath:selenium-grid.properties"})
+    "classpath:config.properties"})
 public interface Configuration  extends Config{
 
     @Key("target")

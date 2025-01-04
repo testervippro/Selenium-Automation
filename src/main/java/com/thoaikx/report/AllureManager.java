@@ -38,7 +38,7 @@ public class AllureManager {
 
     public static void generateReport() throws IOException, InterruptedException {
         //current directory
-        Path targetDirectory = Path.of(System.getProperty("user.dir") + "\\target");
+        Path targetDirectory = Path.of(System.getProperty("user.dir") ,"target");
 
         // Detect the OS
         String os = System.getProperty("os.name").toLowerCase();
@@ -46,7 +46,7 @@ public class AllureManager {
         // Build the Process based on OS
         ProcessBuilder builder = switch (getOS(os)) {
             case "windows" -> new ProcessBuilder("cmd.exe", "/c", "cd " + targetDirectory + " && allure serve");
-            case "mac", "linux" -> new ProcessBuilder("/bin/bash", "-c", "cd " + targetDirectory + " && allure serve");
+            case "mac", "linux" -> new ProcessBuilder("/bin/bash", "-c", "cd " + targetDirectory + " && allure serve --host localhost --port 12345");
             default -> throw new IllegalStateException("Unsupported operating system: " + os);
         };
 
