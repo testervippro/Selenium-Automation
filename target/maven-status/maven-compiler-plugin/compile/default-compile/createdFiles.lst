@@ -15,6 +15,5 @@ com/thoaikx/data/changeless/BrowserData.class
 com/thoaikx/report/AllureManager.class
 com/thoaikx/report/AllureTestLifecycleListener.class
 com/thoaikx/driver/BrowserFactory$1.class
-com/thoaikx/Main.class
 com/thoaikx/enums/Target.class
 com/thoaikx/network/UtilsNetwork.class
