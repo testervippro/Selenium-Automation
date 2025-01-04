@@ -24,6 +24,7 @@ import org.testng.annotations.Parameters;
 
 @Log4j2
 public abstract class BaseWeb {
+    private   int TIMEOUT = configuration().timeout();
    protected WebDriver driver;
    protected CustomSelectActions select ;
    protected WebDriverWait wait;
@@ -43,7 +44,7 @@ public abstract class BaseWeb {
       driver = new TargetFactory().createInstance(browser);
       DriverManager.setDriver(driver);
       select = new CustomSelectActions(DriverManager.getDriver());
-      wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(60_000));
+      wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(TIMEOUT));
       jsExecutor = (JavascriptExecutor) DriverManager.getDriver();
       log.info("Infor brower " + getInfo());
 

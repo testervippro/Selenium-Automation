@@ -72,18 +72,23 @@ public class AllureManager {
         Path targetPath = Path.of(System.getProperty("user.dir"), "target");
         String targetDirectory = targetPath.toString();
 
-        Path directory = Path.of(targetDirectory +"\\allure-results");
-        FileUtils.deleteDirectory(directory.toFile());
+        Path oldReportAllure = Path.of(targetDirectory +"allure-results");
+        Path oldReportSureFire = Path.of(targetDirectory +"surefire-reports");
+        FileUtils.deleteDirectory(oldReportAllure.toFile());
+        FileUtils.deleteDirectory(oldReportSureFire.toFile());
     }
 
     public static void allureOpen() {
         Thread dt = new Thread( () -> {
-            if(Boolean.valueOf(configuration().autoReport()));
-            try {
-                AllureManager.generateReport();
-            } catch (IOException | InterruptedException e) {
-                throw new RuntimeException(e);
+            if(Boolean.valueOf(configuration().autoReport()))
+            {
+                try {
+                    AllureManager.generateReport();
+                } catch (IOException | InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
+
         });
         dt.setDaemon(true);
         dt.start();

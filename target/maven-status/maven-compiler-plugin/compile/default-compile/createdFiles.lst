@@ -1,5 +1,6 @@
 com/thoaikx/driver/BrowserFactory$2.class
 com/thoaikx/pages/commons/CustomSelectActions.class
+com/thoaikx/Test01.class
 com/thoaikx/driver/BrowserFactory$4.class
 com/thoaikx/driver/TargetFactory.class
 com/thoaikx/config/ConfigurationManager.class
@@ -16,4 +17,5 @@ com/thoaikx/report/AllureManager.class
 com/thoaikx/report/AllureTestLifecycleListener.class
 com/thoaikx/driver/BrowserFactory$1.class
 com/thoaikx/enums/Target.class
+com/thoaikx/SetUp.class
 com/thoaikx/network/UtilsNetwork.class
