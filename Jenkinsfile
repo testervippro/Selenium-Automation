@@ -18,16 +18,10 @@ pipeline {
     }
 
     post {
-        always {
-            junit '**/target/surefire-reports/TEST-*.xml'
-            publishHTML (target: [
-                allowMissing: false,
-                alwaysLinkToLastBuild: true,
-                keepAll: true,
-                reportDir: 'target/surefire-reports',
-                reportFiles: 'index.html',
-                reportName: "TestNG Report"
-            ])
+          always {
+            // Publish JUnit test results
+            junit '**/target/surefire-reports/*.xml'
+        }
         }
     }
 }
