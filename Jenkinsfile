@@ -4,7 +4,15 @@ pipeline {
     stages {
         stage('Test Execution') {
             steps {
-                bat 'mvn test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=false -Dbrowser=chrome'
+                script {
+                    if (isUnix()) {
+                        // For macOS and Linux
+                        sh 'mvn test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=false -Dbrowser=chrome'
+                    } else {
+                        // For Windows
+                        bat 'mvn test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=false -Dbrowser=chrome'
+                    }
+                }
             }
         }
     }
