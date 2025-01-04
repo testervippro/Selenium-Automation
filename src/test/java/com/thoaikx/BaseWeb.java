@@ -12,8 +12,11 @@ import com.thoaikx.report.AllureManager;
 import java.io.IOException;
 import java.time.Duration;
 import lombok.extern.log4j.Log4j2;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.AfterTest;
@@ -24,7 +27,7 @@ import org.testng.annotations.Parameters;
 
 @Log4j2
 public abstract class BaseWeb {
-    private   int TIMEOUT = configuration().timeout();
+  private   int TIMEOUT = configuration().timeout();
    protected WebDriver driver;
    protected CustomSelectActions select ;
    protected WebDriverWait wait;
@@ -63,5 +66,25 @@ public abstract class BaseWeb {
     public void genReport()  {
     AllureManager.allureOpen();
     }
+
+
+  // Reusable method to wait for an element to be visible
+  public WebElement waitForElementVisible(By menuIconLocator) {
+    return wait.until(ExpectedConditions.visibilityOfElementLocated(menuIconLocator));
+  }
+
+  // Reusable method to wait for an element to be clickable
+  public WebElement waitForElementClickable(By locator) {
+    return wait.until(ExpectedConditions.elementToBeClickable(locator));
+  }
+
+  public void waitForTextToBePresentInElement(By locator, String text) {
+    wait.until(ExpectedConditions.textToBePresentInElementLocated(locator, text));
+  }
+
+  // Reusable method to wait for an element to be invisible
+  public void waitForInvisibilityOfElementLocated(By locator) {
+    wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
+  }
 
 }
