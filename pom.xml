@@ -28,7 +28,13 @@
         <allure.cmd.download.url>
             https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline
         </allure.cmd.download.url>
-        <testcontainers.selenium.version>1.20.4</testcontainers.selenium.version>
+        <record-video.version>1.0</record-video.version>
+        <opencsv.version>5.7.1</opencsv.version>
+        <jackson-databind.version>2.15.0</jackson-databind.version>
+        <jackson-core.version>2.15.0</jackson-core.version>
+        <poi.version>3.13</poi.version>
+        <poi-ooxml.version>3.13</poi-ooxml.version>
+        <commons-io.version>2.15.1</commons-io.version>
 
 
         <!-- Vulnerability temp libs-->
@@ -43,42 +49,44 @@
         <dependency>
             <groupId>io.github.testervippro</groupId>
             <artifactId>record-video</artifactId>
-            <version>1.0</version>
+            <version>${record-video.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.opencsv</groupId>
             <artifactId>opencsv</artifactId>
-            <version>5.7.1</version>  <!-- Use the latest version -->
+            <version>${opencsv.version}</version>
         </dependency>
+
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.15.0</version> <!-- Use the latest version -->
+            <version>${jackson-databind.version}</version>
         </dependency>
+
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
-            <version>2.15.0</version>
+            <version>${jackson-core.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
-            <version>3.13</version>
+            <version>${poi.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
-            <version>3.13</version>
+            <version>${poi-ooxml.version}</version>
         </dependency>
+
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.15.1</version>
+            <version>${commons-io.version}</version>
         </dependency>
-
 
         <dependency>
             <groupId>org.projectlombok</groupId>
