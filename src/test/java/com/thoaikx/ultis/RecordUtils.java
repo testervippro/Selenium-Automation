@@ -1,6 +1,7 @@
 package com.thoaikx.ultis;
 
 import atu.testrecorder.ATUTestRecorder;
+
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,7 +16,7 @@ public class RecordUtils {
   static DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH-mm-ss");
   static Date date = new Date();
 
-  static  String videoFolderPath = System.getProperty("user.dir") + File.separator+ "video";
+  static  String videoFolderPath = Path.of(System.getProperty("user.dir"), "video").toString();
 
   public static void startRecordATU(String videoName) throws Exception {
     Files.createDirectories(Path.of(videoFolderPath));

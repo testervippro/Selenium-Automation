@@ -2,16 +2,16 @@
 <testng-results ignored="0" total="4" passed="4" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-01-04T18:37:38 ICT" name="Local one browser Edge" finished-at="2025-01-04T18:38:04 ICT" duration-ms="26064">
+  <suite started-at="2025-01-04T21:54:59 ICT" name="Surefire suite" finished-at="2025-01-04T21:55:21 ICT" duration-ms="22567">
     <groups>
     </groups>
-    <test started-at="2025-01-04T18:37:38 ICT" name="Chome Tests" finished-at="2025-01-04T18:38:04 ICT" duration-ms="26064">
+    <test started-at="2025-01-04T21:54:59 ICT" name="Surefire test" finished-at="2025-01-04T21:55:21 ICT" duration-ms="22567">
       <class name="com.thoaikx.HomePageTest">
-        <test-method is-config="true" signature="beforeSuite()[pri:0, instance:com.thoaikx.HomePageTest@6d6cd1e0]" started-at="2025-01-04T18:37:37 ICT" name="beforeSuite" finished-at="2025-01-04T18:37:38 ICT" duration-ms="419" status="PASS">
+        <test-method is-config="true" signature="beforeSuite()[pri:0, instance:com.thoaikx.HomePageTest@7be94cd6]" started-at="2025-01-04T21:54:59 ICT" name="beforeSuite" finished-at="2025-01-04T21:54:59 ICT" duration-ms="369" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- beforeSuite -->
-        <test-method is-config="true" signature="preCondition(java.lang.String)[pri:0, instance:com.thoaikx.HomePageTest@6d6cd1e0]" started-at="2025-01-04T18:37:38 ICT" name="preCondition" finished-at="2025-01-04T18:37:47 ICT" duration-ms="9299" status="PASS">
+        <test-method is-config="true" signature="preCondition(java.lang.String)[pri:0, instance:com.thoaikx.HomePageTest@7be94cd6]" started-at="2025-01-04T21:54:59 ICT" name="preCondition" finished-at="2025-01-04T21:55:06 ICT" duration-ms="6691" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -22,15 +22,15 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- preCondition -->
-        <test-method is-config="true" signature="start()[pri:0, instance:com.thoaikx.HomePageTest@6d6cd1e0]" started-at="2025-01-04T18:37:47 ICT" name="start" finished-at="2025-01-04T18:37:49 ICT" duration-ms="1380" status="PASS">
+        <test-method is-config="true" signature="start()[pri:0, instance:com.thoaikx.HomePageTest@7be94cd6]" started-at="2025-01-04T21:55:06 ICT" name="start" finished-at="2025-01-04T21:55:06 ICT" duration-ms="744" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- start -->
-        <test-method signature="homePage()[pri:0, instance:com.thoaikx.HomePageTest@6d6cd1e0]" started-at="2025-01-04T18:37:49 ICT" name="homePage" finished-at="2025-01-04T18:37:53 ICT" duration-ms="3714" status="PASS">
+        <test-method signature="homePage()[pri:0, instance:com.thoaikx.HomePageTest@7be94cd6]" started-at="2025-01-04T21:55:06 ICT" name="homePage" finished-at="2025-01-04T21:55:11 ICT" duration-ms="4647" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- homePage -->
-        <test-method signature="selectProduct(java.lang.String)[pri:1, instance:com.thoaikx.HomePageTest@6d6cd1e0]" started-at="2025-01-04T18:37:54 ICT" name="selectProduct" data-provider="product-name" finished-at="2025-01-04T18:37:54 ICT" duration-ms="389" status="PASS">
+        <test-method signature="selectProduct(java.lang.String)[pri:1, instance:com.thoaikx.HomePageTest@7be94cd6]" started-at="2025-01-04T21:55:12 ICT" name="selectProduct" data-provider="product-name" finished-at="2025-01-04T21:55:12 ICT" duration-ms="333" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -41,7 +41,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- selectProduct -->
-        <test-method signature="selectProduct(java.lang.String)[pri:1, instance:com.thoaikx.HomePageTest@6d6cd1e0]" started-at="2025-01-04T18:37:54 ICT" name="selectProduct" data-provider="product-name" finished-at="2025-01-04T18:37:54 ICT" duration-ms="265" status="PASS">
+        <test-method signature="selectProduct(java.lang.String)[pri:1, instance:com.thoaikx.HomePageTest@7be94cd6]" started-at="2025-01-04T21:55:12 ICT" name="selectProduct" data-provider="product-name" finished-at="2025-01-04T21:55:12 ICT" duration-ms="228" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -52,23 +52,23 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- selectProduct -->
-        <test-method signature="checkOut()[pri:2, instance:com.thoaikx.HomePageTest@6d6cd1e0]" started-at="2025-01-04T18:37:54 ICT" name="checkOut" finished-at="2025-01-04T18:38:01 ICT" duration-ms="7090" status="PASS">
+        <test-method signature="checkOut()[pri:2, instance:com.thoaikx.HomePageTest@7be94cd6]" started-at="2025-01-04T21:55:12 ICT" name="checkOut" finished-at="2025-01-04T21:55:19 ICT" duration-ms="6879" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- checkOut -->
-        <test-method is-config="true" signature="stop()[pri:0, instance:com.thoaikx.HomePageTest@6d6cd1e0]" started-at="2025-01-04T18:38:01 ICT" name="stop" finished-at="2025-01-04T18:38:04 ICT" duration-ms="2216" status="PASS">
+        <test-method is-config="true" signature="stop()[pri:0, instance:com.thoaikx.HomePageTest@7be94cd6]" started-at="2025-01-04T21:55:19 ICT" name="stop" finished-at="2025-01-04T21:55:21 ICT" duration-ms="2091" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- stop -->
-        <test-method is-config="true" signature="postCondition()[pri:0, instance:com.thoaikx.HomePageTest@6d6cd1e0]" started-at="2025-01-04T18:38:04 ICT" name="postCondition" finished-at="2025-01-04T18:38:04 ICT" duration-ms="332" status="PASS">
+        <test-method is-config="true" signature="postCondition()[pri:0, instance:com.thoaikx.HomePageTest@7be94cd6]" started-at="2025-01-04T21:55:21 ICT" name="postCondition" finished-at="2025-01-04T21:55:21 ICT" duration-ms="367" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- postCondition -->
-        <test-method is-config="true" signature="genReport()[pri:0, instance:com.thoaikx.HomePageTest@6d6cd1e0]" started-at="2025-01-04T18:38:05 ICT" name="genReport" finished-at="2025-01-04T18:38:05 ICT" duration-ms="2" status="PASS">
+        <test-method is-config="true" signature="genReport()[pri:0, instance:com.thoaikx.HomePageTest@7be94cd6]" started-at="2025-01-04T21:55:22 ICT" name="genReport" finished-at="2025-01-04T21:55:22 ICT" duration-ms="4" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- genReport -->
       </class> <!-- com.thoaikx.HomePageTest -->
-    </test> <!-- Chome Tests -->
-  </suite> <!-- Local one browser Edge -->
+    </test> <!-- Surefire test -->
+  </suite> <!-- Surefire suite -->
 </testng-results>

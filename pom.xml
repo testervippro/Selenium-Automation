@@ -40,30 +40,11 @@
 
     <dependencies>
 
-<!--        <dependency>-->
-<!--            <groupId>com.example</groupId>-->
-<!--            <artifactId>ATUTestRecord</artifactId>-->
-<!--            <version>2.1</version>-->
-<!--            <scope>system</scope>-->
-<!--            <systemPath>${project.basedir}/lib/ATUTestRecorder_2.1.jar</systemPath>-->
-<!--        </dependency>-->
-
-<!--        <dependency>-->
-<!--            <groupId>com.example</groupId>-->
-<!--            <artifactId>ATUReporter_Selenium_testNG</artifactId>-->
-<!--            <version>5.1.1</version>-->
-<!--            <scope>system</scope>-->
-<!--            <systemPath>${project.basedir}/lib/ATUReporter_Selenium_testNG_5.1.1.jar</systemPath>-->
-<!--        </dependency>-->
-
         <dependency>
-            <groupId>com.example</groupId>
-            <artifactId>recors-video</artifactId>
+            <groupId>io.github.testervippro</groupId>
+            <artifactId>record-video</artifactId>
             <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/record-video.jar</systemPath>
         </dependency>
-
 
         <dependency>
             <groupId>com.opencsv</groupId>
