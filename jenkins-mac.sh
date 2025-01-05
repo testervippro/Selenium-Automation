@@ -5,4 +5,6 @@
 #brew uninstall jenkins
 #delete data 
 #sudo rm -rf /var/lib/jenkins
-brew install jenkins && brew services start jenkins && open http://localhost:8080
+brew install jenkins 
+brew services start jenkins 
+open http://localhost:8080
