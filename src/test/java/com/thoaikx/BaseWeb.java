@@ -87,4 +87,13 @@ public abstract class BaseWeb {
     wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
   }
 
+  public  void scrollIntoView( By locator) {
+    var locator1 = driver.findElement(locator);
+    if (driver instanceof JavascriptExecutor) {
+      ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", locator1);
+    } else {
+      throw new IllegalStateException("Not Found Element ");
+    }
+  }
+
 }
