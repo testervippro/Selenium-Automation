@@ -28,13 +28,13 @@
         <allure.cmd.download.url>
             https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline
         </allure.cmd.download.url>
-        <record-video.version>1.0</record-video.version>
         <opencsv.version>5.7.1</opencsv.version>
         <jackson-databind.version>2.15.0</jackson-databind.version>
         <jackson-core.version>2.15.0</jackson-core.version>
         <poi.version>3.13</poi.version>
         <poi-ooxml.version>3.13</poi-ooxml.version>
         <commons-io.version>2.15.1</commons-io.version>
+        <record-video.version>1.2</record-video.version>
 
 
         <!-- Vulnerability temp libs-->
@@ -51,6 +51,7 @@
             <artifactId>record-video</artifactId>
             <version>${record-video.version}</version>
         </dependency>
+
 
         <dependency>
             <groupId>com.opencsv</groupId>

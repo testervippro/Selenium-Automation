@@ -14,3 +14,6 @@
 /Users/mac/IdeaProjects/Selenium-Automation/src/main/java/com/thoaikx/pages/commons/CustomSelectActions.java
 /Users/mac/IdeaProjects/Selenium-Automation/src/main/java/com/thoaikx/report/AllureManager.java
 /Users/mac/IdeaProjects/Selenium-Automation/src/main/java/com/thoaikx/report/AllureTestLifecycleListener.java
+/Users/mac/IdeaProjects/Selenium-Automation/src/main/java/com/thoaikx/utils/ExcelUtils.java
+/Users/mac/IdeaProjects/Selenium-Automation/src/main/java/com/thoaikx/utils/RecordUtils.java
+/Users/mac/IdeaProjects/Selenium-Automation/src/main/java/com/thoaikx/utils/Utils.java

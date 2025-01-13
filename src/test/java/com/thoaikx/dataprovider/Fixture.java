@@ -1,10 +1,10 @@
 package com.thoaikx.dataprovider;
 
-import static com.thoaikx.ultis.ExcelUtils.getCSV;
-import static com.thoaikx.ultis.ExcelUtils.getExcelData;
+import static com.thoaikx.utils.ExcelUtils.getCSV;
+import static com.thoaikx.utils.ExcelUtils.getExcelData;
 
 import java.io.IOException;
-import java.util.List;
+
 import org.testng.annotations.DataProvider;
 
 public class Fixture {

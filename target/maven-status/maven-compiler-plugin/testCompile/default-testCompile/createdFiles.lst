@@ -1,7 +1,4 @@
 com/thoaikx/dataprovider/Fixture.class
 com/thoaikx/dataprovider/model/Person.class
-com/thoaikx/ultis/RecordUtils.class
-com/thoaikx/ultis/ExcelUtils.class
-com/thoaikx/ultis/Utils.class
 com/thoaikx/HomePageTest.class
 com/thoaikx/BaseWeb.class
