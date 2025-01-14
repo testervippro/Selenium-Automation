@@ -17,6 +17,8 @@ public class RecordUtils {
 
   static  String videoFolderPath = Path.of(System.getProperty("user.dir"), "video").toString();
 
+
+
   public static void startRecordATU(String videoName) throws Exception {
     Files.createDirectories(Path.of(videoFolderPath));
     recorder = new ATUTestRecorder(videoFolderPath, videoName + "-" + dateFormat.format(date), false);

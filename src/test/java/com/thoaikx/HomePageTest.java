@@ -27,13 +27,29 @@ public class HomePageTest extends BaseWeb {
 
     @BeforeClass
     public void  start() throws Exception {
+        // Check the operating system
+        var osName = System.getProperty("os.name").toLowerCase();
 
-        startRecordATU("video-01");
+        // If the OS is not Linux, execute startRecordATU
+        if (!osName.contains("linux")) {
+            startRecordATU("video-01");
+        } else {
+            System.out.println("Video recording is disabled on Linux.");
+        }
     }
 
     @AfterClass
     public void  stop() throws Exception {
-        RecordUtils.stopRecordATU();
+        // Check the operating system
+        var osName = System.getProperty("os.name").toLowerCase();
+
+        // If the OS is not Linux, execute startRecordATU
+        if (!osName.contains("linux")) {
+            RecordUtils.stopRecordATU();
+        } else {
+            System.out.println("Video recording is disabled on Linux.");
+        }
+
     }
 
     @Test(priority = 0)
