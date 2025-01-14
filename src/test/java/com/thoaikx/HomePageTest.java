@@ -28,27 +28,37 @@ public class HomePageTest extends BaseWeb {
     @BeforeClass
     public void  start() throws Exception {
         // Check the operating system
-        var osName = System.getProperty("os.name").toLowerCase();
+        String osName = System.getProperty("os.name").toLowerCase();
+        // Check if the system is in a headless environment (no GUI available)
+        boolean isHeadless = java.awt.GraphicsEnvironment.isHeadless();
 
-        // If the OS is not Linux, execute startRecordATU
-        if (!osName.contains("linux")) {
+        // If the OS is not Linux and the system is not headless, execute startRecordATU
+        if (!osName.contains("linux") && !isHeadless) {
             startRecordATU("video-01");
+        } else if (osName.contains("linux") && isHeadless) {
+            System.out.println("Video recording is disabled on Linux due to headless environment.");
         } else {
-            System.out.println("Video recording is disabled on Linux.");
+            System.out.println("Video recording is disabled on a headless environment.");
         }
+
     }
 
     @AfterClass
     public void  stop() throws Exception {
         // Check the operating system
-        var osName = System.getProperty("os.name").toLowerCase();
+        String osName = System.getProperty("os.name").toLowerCase();
+        // Check if the system is in a headless environment (no GUI available)
+        boolean isHeadless = java.awt.GraphicsEnvironment.isHeadless();
 
-        // If the OS is not Linux, execute startRecordATU
-        if (!osName.contains("linux")) {
+        // If the OS is not Linux and the system is not headless, execute startRecordATU
+        if (!osName.contains("linux") && !isHeadless) {
             RecordUtils.stopRecordATU();
+        } else if (osName.contains("linux") && isHeadless) {
+            System.out.println("Video recording is disabled on Linux due to headless environment.");
         } else {
-            System.out.println("Video recording is disabled on Linux.");
+            System.out.println("Video recording is disabled on a headless environment.");
         }
+
 
     }
 
