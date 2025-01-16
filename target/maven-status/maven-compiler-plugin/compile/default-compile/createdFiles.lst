@@ -1,6 +1,7 @@
 com/thoaikx/driver/BrowserFactory$2.class
 com/thoaikx/driver/BrowserFactory$4.class
 com/thoaikx/utils/ExcelUtils.class
+com/thoaikx/ngrock/Ngrock.class
 com/thoaikx/config/Configuration.class
 com/thoaikx/data/changeless/BrowserData.class
 com/thoaikx/report/AllureTestLifecycleListener.class

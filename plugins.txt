@@ -1,0 +1,15 @@
+git: 5.7.0
+workflow-aggregator: 600.vb_57cdd26fdd7
+configuration-as-code: 1915.vcdd0a_d0d2625
+matrix-auth: 3.2.3
+job-dsl: 1.90
+allure-jenkins-plugin: 2.32.0
+credentials: 1405.vb_cda_74a_f8974
+docker-plugin: 1.7.0
+email-ext: 1866.v14fa_6d201654
+sonar: 2.17.3
+slack: 751.v2e44153c8fe1
+htmlpublisher: 1.37
+github: 1.40.0
+prometheus: 801.v98e119d8eeda_
+nodejs: 1.6.2

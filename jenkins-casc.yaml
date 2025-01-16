@@ -1,0 +1,99 @@
+jenkins:
+  systemMessage: "Jenkins configured automatically by Jenkins Configuration as Code plugin"
+
+  # Security Realm for user authentication
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+        - id: "admin"
+          password: "admin"
+
+  # Authorization Strategy
+  authorizationStrategy:
+    projectMatrix:
+      entries:
+        - user:
+            name: admin
+            permissions:
+              - Overall/Administer
+        - user:
+            name: developer
+            permissions:
+              - Overall/Read
+              - Job/Build
+        - user:
+            name: viewer
+            permissions:
+              - Overall/Read
+
+# Tool Configuration
+tool:
+  git:
+    installations:
+      - name: "Default"
+        home: "/usr/bin/git"
+  maven:
+    installations:
+      - name: maven3
+        properties:
+          - installSource:
+              installers:
+                - maven:
+                    id: "3.8.4"
+
+# Job Configuration with Groovy Script Loaded
+jobs:
+  - script: >
+      pipelineJob('example-pipeline-job') {
+        definition {
+          cps {
+            script('''
+              pipeline {
+                  agent any
+
+                  stages {
+                      stage('Checkout Repository') {
+                          steps {
+                              // Use Jenkins Git plugin to checkout the code
+                              git(
+                                  url: 'https://github.com/your-repo-url.git', // Replace with your repository URL
+                                  branch: 'main', // Replace with your branch name
+                                  credentialsId: 'your-credential-id' // Replace with your Jenkins credential ID
+                              )
+                          }
+                      }
+
+                      stage('Test Execution') {
+                          steps {
+                              script {
+                                  if (isUnix()) {
+                                      // For macOS and Linux
+                                      sh 'mvn test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=false -Dbrowser=chrome -Dauto.report=false'
+                                  } else {
+                                      // For Windows
+                                      bat 'mvn test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=false -Dbrowser=chrome -Dauto.report=false'
+                                  }
+                              }
+                          }
+                      }
+                  }
+
+                  post {
+                      always {
+                          // Publish HTML reports
+                          publishHTML(target: [
+                              allowMissing: false,
+                              alwaysLinkToLastBuild: true,
+                              keepAll: true,
+                              reportDir: 'target/site', // Directory containing the HTML report
+                              reportFiles: 'index.html', // Entry point for the HTML report
+                              reportName: 'Test Report'
+                          ])
+                      }
+                  }
+              }
+            ''')
+          }
+        }
+      }
