@@ -43,15 +43,15 @@ public abstract class BaseWeb {
     @BeforeTest
     @Parameters("browser")
     public void preCondition(@Optional("chrome") String browser) {
-//      driver = new TargetFactory().createInstance(browser);
-//      DriverManager.setDriver(driver);
-//      select = new CustomSelectActions(DriverManager.getDriver());
-//      wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(TIMEOUT));
-//      jsExecutor = (JavascriptExecutor) DriverManager.getDriver();
-//      log.info("Infor brower " + getInfo());
-//
-//      DriverManager.getDriver().get(configuration().url());
-      WebDriverManager.chromedriver().setup();
+      driver = new TargetFactory().createInstance(browser);
+      DriverManager.setDriver(driver);
+      select = new CustomSelectActions(DriverManager.getDriver());
+      wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(TIMEOUT));
+      jsExecutor = (JavascriptExecutor) DriverManager.getDriver();
+      log.info("Infor brower " + getInfo());
+
+      DriverManager.getDriver().get(configuration().url());
+    //  WebDriverManager.chromedriver().setup();
 
     }
 
