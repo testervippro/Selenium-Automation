@@ -51,7 +51,7 @@ public abstract class BaseWeb {
     }
 
 
-    @AfterTest()
+    @AfterMethod()
     public void postCondition()  {
 
     DriverManager.quit();
