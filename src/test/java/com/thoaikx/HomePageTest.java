@@ -30,12 +30,12 @@ public class HomePageTest extends BaseWeb {
     @BeforeClass
     public void  start() throws Exception {
 
-        startRecordATU("video-01");
+        //startRecordATU("video-01");
     }
 
     @AfterClass
     public void  stop() throws Exception {
-        RecordUtils.stopRecordATU();
+        //RecordUtils.stopRecordATU();
     }
 
     @Test(priority = 0)
