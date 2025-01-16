@@ -11,6 +11,8 @@ import com.thoaikx.pages.commons.CustomSelectActions;
 import com.thoaikx.report.AllureManager;
 import java.io.IOException;
 import java.time.Duration;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -41,14 +43,15 @@ public abstract class BaseWeb {
     @BeforeTest
     @Parameters("browser")
     public void preCondition(@Optional("chrome") String browser) {
-      driver = new TargetFactory().createInstance(browser);
-      DriverManager.setDriver(driver);
-      select = new CustomSelectActions(DriverManager.getDriver());
-      wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(TIMEOUT));
-      jsExecutor = (JavascriptExecutor) DriverManager.getDriver();
-      log.info("Infor brower " + getInfo());
-
-      DriverManager.getDriver().get(configuration().url());
+//      driver = new TargetFactory().createInstance(browser);
+//      DriverManager.setDriver(driver);
+//      select = new CustomSelectActions(DriverManager.getDriver());
+//      wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(TIMEOUT));
+//      jsExecutor = (JavascriptExecutor) DriverManager.getDriver();
+//      log.info("Infor brower " + getInfo());
+//
+//      DriverManager.getDriver().get(configuration().url());
+      WebDriverManager.chromedriver().setup();
 
     }
 
