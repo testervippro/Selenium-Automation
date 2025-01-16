@@ -6,13 +6,12 @@
     <classes>
       <class name="com.thoaikx.HomePageTest">
         <methods>
+          <include name="homePage"/>
           <include name="checkOut"/>
-          <include name="start"/>
           <include name="beforeSuite"/>
           <include name="genReport"/>
           <include name="postCondition"/>
           <include name="preCondition"/>
-          <include name="stop"/>
         </methods>
       </class> <!-- com.thoaikx.HomePageTest -->
     </classes>

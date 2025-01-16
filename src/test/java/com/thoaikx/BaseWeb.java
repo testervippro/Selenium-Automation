@@ -40,7 +40,7 @@ public abstract class BaseWeb {
     public void preCondition(@Optional("chrome") String browser) {
       driver = new TargetFactory().createInstance(browser);
       DriverManager.setDriver(driver);
-      select = new CustomSelectActions(DriverManager.getDriver());
+     select = new CustomSelectActions(DriverManager.getDriver());
       wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(TIMEOUT));
       jsExecutor = (JavascriptExecutor) DriverManager.getDriver();
       log.info("Infor brower " + getInfo());
