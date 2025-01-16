@@ -33,10 +33,9 @@ public abstract class BaseWeb {
     public void beforeSuite() throws IOException {
       AllureManager.deleteOldReport();
       AllureManager.setAllureEnvironmentInformation();
-      System.out.println("before suite called");
     }
 
-    @BeforeMethod
+    @BeforeTest
     @Parameters("browser")
     public void preCondition(@Optional("chrome") String browser) {
       driver = new TargetFactory().createInstance(browser);
@@ -51,7 +50,7 @@ public abstract class BaseWeb {
     }
 
 
-    @AfterMethod()
+    @AfterTest()
     public void postCondition()  {
 
     DriverManager.quit();
