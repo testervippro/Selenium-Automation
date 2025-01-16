@@ -2,6 +2,16 @@ pipeline {
     agent any
 
     stages {
+        stage('Checkout Repository') {
+            steps {
+                // Checkout the code from the repository using the Git plugin
+                git(
+                    url: 'https://github.com/testervippro/Selenium-Automation.git', // Repository URL
+                    branch: 'main', // Branch name
+                    credentialsId: '3e97af83-a30d-4b78-ad61-e2619023491a' // Jenkins Credential ID
+                )
+            }
+        }
 
         stage('Test Execution') {
             steps {

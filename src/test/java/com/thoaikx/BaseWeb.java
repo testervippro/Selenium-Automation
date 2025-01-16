@@ -18,12 +18,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
+import org.testng.annotations.*;
 
 @Log4j2
 public abstract class BaseWeb {
@@ -41,7 +36,7 @@ public abstract class BaseWeb {
       System.out.println("before suite called");
     }
 
-    @BeforeTest
+    @BeforeMethod
     @Parameters("browser")
     public void preCondition(@Optional("chrome") String browser) {
       driver = new TargetFactory().createInstance(browser);
