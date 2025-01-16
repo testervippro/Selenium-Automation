@@ -34,7 +34,7 @@ public class HomePageTest extends BaseWeb {
 
         // If the OS is not Linux and the system is not headless, execute startRecordATU
         if (!osName.contains("linux") && !isHeadless) {
-            startRecordATU("video-01");
+            ////startRecordATU("video-01");
         } else if (osName.contains("linux") && isHeadless) {
             System.out.println("Video recording is disabled on Linux due to headless environment.");
         } else {
@@ -52,7 +52,7 @@ public class HomePageTest extends BaseWeb {
 
         // If the OS is not Linux and the system is not headless, execute startRecordATU
         if (!osName.contains("linux") && !isHeadless) {
-            RecordUtils.stopRecordATU();
+           // RecordUtils.stopRecordATU();
         } else if (osName.contains("linux") && isHeadless) {
             System.out.println("Video recording is disabled on Linux due to headless environment.");
         } else {
@@ -127,11 +127,4 @@ public class HomePageTest extends BaseWeb {
 
         Assert.assertTrue(actualText.contains("Success"));
     }
-
-
-
-//    @Test(dataProvider = "csv",dataProviderClass = Fixture.class)
-//    public  void  testDataProvider(String name , String age , String city) {
-//        System.out.println("Paremeter is" + name + age + city);
-//    }
 }

@@ -1,7 +1,6 @@
 pipeline {
     agent any
 
-
     stages {
         stage('Checkout Repository') {
             steps {
@@ -18,13 +17,11 @@ pipeline {
             steps {
                 script {
                     if (isUnix()) {
-                        // For macOS/Linux, run the Maven Wrapper using the shell script
-                        sh '''#!/bin/bash
-                        ./mvnw clean test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=false -Dbrowser=chrome -Dauto.report=false
-                        '''
+                        // For macOS and Linux, use Maven Wrapper (mvnw)
+                        sh './mvnw test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=false -Dbrowser=chrome'
                     } else {
-                        // For Windows, run the Maven Wrapper using the batch script
-                        bat '''mvnw.cmd clean test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=false -Dbrowser=chrome -Dauto.report=false'''
+                        // For Windows, use Maven Wrapper (mvnw.cmd)
+                        bat 'mvnw.cmd test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=false -Dbrowser=chrome'
                     }
                 }
             }
@@ -33,15 +30,18 @@ pipeline {
 
     post {
         always {
-             // Publish HTML report (TestNG report in this case)
-                        publishHTML (target: [
-                            allowMissing: false,
-                            alwaysLinkToLastBuild: true,
-                            keepAll: true,
-                            reportDir: 'target/surefire-reports',
-                            reportFiles: 'index.html',
-                            reportName: " Report"
-                        ])
+            // Publish JUnit test results
+            junit '**/target/surefire-reports/TEST-*.xml'
+
+            // Publish HTML reports (TestNG report in this case)
+            publishHTML (target: [
+                allowMissing: false,
+                alwaysLinkToLastBuild: true,
+                keepAll: true,
+                reportDir: 'target/surefire-reports', // Directory containing the HTML report
+                reportFiles: 'index.html', // Entry point for the HTML report
+                reportName: "TestNG Report"
+            ])
         }
     }
 }
