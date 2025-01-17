@@ -2,9 +2,8 @@ pipeline {
     agent any
 
     tools {
-        // Specify the Git tool configured in Jenkins Global Tool Configuration
-        git 'Git' // 'Git' is the name you gave in the Global Tool Configuration
-        allure 'Allure Commandline' // 'Allure Commandline' is the name you gave in the Global Tool Configuration
+       
+        allure 'allure'
     }
 
     stages {
