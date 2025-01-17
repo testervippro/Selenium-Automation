@@ -6,16 +6,16 @@ pipeline {
     }
 
     stages {
-        stage('Test Execution') {
+        stage('Clean and Test Execution') {
             steps {
                 script {
-                    // Run tests depending on the operating system
+                    // Clean the target folder and run tests depending on the operating system
                     if (isUnix()) {
                         // For Unix-based systems, use Maven Wrapper
-                        sh './mvnw test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=false -Dbrowser=chrome'
+                        sh './mvnw clean test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=false -Dbrowser=chrome Dsuite=local'
                     } else {
                         // For Windows, use Maven Wrapper with .cmd
-                        bat 'mvnw.cmd test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=false -Dbrowser=chrome'
+                        bat 'mvnw.cmd clean test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=false -Dbrowser=chrome Dsuite=local'
                     }
                 }
             }
