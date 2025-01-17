@@ -2,19 +2,20 @@ pipeline {
     agent any
 
     tools {
-        allure 'allure'  // Allure tool configured in Jenkins Global Tool Configuration
+        allure 'allure' // Ensure Allure is configured in Jenkins Global Tool Configuration
     }
 
-    
+    stages {
         stage('Test Execution') {
             steps {
                 script {
+                    // Run tests depending on the operating system
                     if (isUnix()) {
-                        // Run tests on Unix-based systems using Maven Wrapper and specify the suite file
-                        sh './mvnw test -Dsuite=local -Dtarget=local -Dheadless=false -Dbrowser=chrome -DsuiteXmlFile=Selenium-Automation/src/test/resources/suites/local.xml'
+                        // For Unix-based systems, use Maven Wrapper
+                        sh './mvnw test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=false -Dbrowser=chrome'
                     } else {
-                        // Run tests on Windows using Maven Wrapper and specify the suite file
-                        bat 'mvnw.cmd test -Dsuite=local -Dtarget=local -Dheadless=false -Dbrowser=chrome -DsuiteXmlFile=Selenium-Automation/src/test/resources/suites/local.xml'
+                        // For Windows, use Maven Wrapper with .cmd
+                        bat 'mvnw.cmd test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=false -Dbrowser=chrome'
                     }
                 }
             }
@@ -23,11 +24,11 @@ pipeline {
 
     post {
         always {
-            // Publish Allure test reports
+            // Publish Allure test results after the test execution, regardless of success or failure
             allure(
                 includeProperties: false,
-                jdk: '', 
-                results: [[path: 'target/allure-results']]
+                jdk: '', // Optionally, specify JDK if required
+                results: [[path: 'target/allure-results']] // Path to Allure results folder
             )
         }
     }
