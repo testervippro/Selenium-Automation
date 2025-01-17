@@ -23,6 +23,37 @@ pipeline {
             // Publish JUnit test results
             junit '**/target/surefire-reports/TEST-*.xml'
 
+            pipeline {
+    agent any
+
+    stages {
+        stage('Test Execution') {
+            steps {
+                bat 'mvn test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=false -Dbrowser=chrome'
+            }
+        }
+    }
+
+    post {
+        always {
+
+            junit '**/target/surefire-reports/TEST-*.xml'
+
+            allure includeProperties: false, jdk: '', results: [[path: 'target/allure-results']]
+            
+            publishHTML (target: [
+                allowMissing: false,
+                alwaysLinkToLastBuild: true,
+                keepAll: true,
+                reportDir: 'target/allure-report',
+                reportFiles: 'index.html',
+                reportName: "TestNG Report"
+            ])
+        }
+    }
+}
+
+
             // Publish HTML reports (TestNG report in this case)
             publishHTML (target: [
                 allowMissing: false,
