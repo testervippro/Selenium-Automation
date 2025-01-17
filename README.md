@@ -201,8 +201,8 @@ After setting up your Dockerfile and configuration files, build and run the Dock
 # Build the Docker image
 docker build -t jenkins-jcasc .
 
-# Run the Docker container
-docker run --name jenkins -p 8080:8080 jenkins-jcasc
+# Run the Docker container (window)
+docker run --name jenkins -p 8080:8080 -v C:\Dowloads:/var/jenkins_home jenkins-jcasc
 ```
 
 ### Access Jenkins:
