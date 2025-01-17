@@ -1,15 +1,30 @@
 pipeline {
     agent any
 
+    tools {
+        // Specify the Git tool configured in Jenkins Global Tool Configuration
+        git 'Git' // 'Git' is the name you gave in the Global Tool Configuration
+        allure 'Allure Commandline' // 'Allure Commandline' is the name you gave in the Global Tool Configuration
+    }
+
     stages {
+        stage('Checkout') {
+            steps {
+                script {
+                    // Perform a Git checkout of the repository
+                    checkout scm
+                }
+            }
+        }
+        
         stage('Test Execution') {
             steps {
                 script {
                     if (isUnix()) {
-                        // For macOS and Linux, use Maven Wrapper (mvnw)
+                        // Run tests on Unix-based systems using Maven Wrapper
                         sh './mvnw test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=false -Dbrowser=chrome'
                     } else {
-                        // For Windows, use Maven Wrapper (mvnw.cmd)
+                        // Run tests on Windows using Maven Wrapper
                         bat 'mvnw.cmd test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=false -Dbrowser=chrome'
                     }
                 }
@@ -19,21 +34,15 @@ pipeline {
 
     post {
         always {
-            // Publish JUnit test results
-            junit '**/target/surefire-reports/TEST-*.xml'
-
+          
             // Publish Allure test reports
-            allure includeProperties: false, jdk: '', results: [[path: 'target/allure-results']]
+            allure(
+                includeProperties: false,
+                jdk: '', 
+                results: [[path: 'target/allure-results']]
+            )
 
-            // Publish HTML reports (TestNG report in this case)
-            publishHTML target: [
-                allowMissing: false,
-                alwaysLinkToLastBuild: true,
-                keepAll: true,
-                reportDir: 'target/surefire-reports', // Directory containing the HTML report
-                reportFiles: 'index.html', // Entry point for the HTML report
-                reportName: "TestNG Report"
-            ]
+           
         }
     }
 }
