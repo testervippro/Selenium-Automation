@@ -32,6 +32,11 @@ if (-not (Test-Path $DownloadPath)) {
 }
 
 ```
+## Run to setup jekin ( then open http://localhost:8080)
+```bash
+
+java -jar jenkins.war
+```
 
 ![Set Up](https://github.com/user-attachments/assets/e12310e6-19b2-45ce-8b71-027ffabc291e)
 
