@@ -40,7 +40,7 @@ public abstract class BaseWeb {
     public void preCondition(@Optional("chrome") String browser) {
       driver = new TargetFactory().createInstance(browser);
       DriverManager.setDriver(driver);
-     select = new CustomSelectActions(DriverManager.getDriver());
+       select = new CustomSelectActions(DriverManager.getDriver());
       wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(TIMEOUT));
       jsExecutor = (JavascriptExecutor) DriverManager.getDriver();
       log.info("Infor brower " + getInfo());
@@ -62,32 +62,5 @@ public abstract class BaseWeb {
     }
 
 
-  // Reusable method to wait for an element to be visible
-  public WebElement waitForElementVisible(By menuIconLocator) {
-    return wait.until(ExpectedConditions.visibilityOfElementLocated(menuIconLocator));
-  }
-
-  // Reusable method to wait for an element to be clickable
-  public WebElement waitForElementClickable(By locator) {
-    return wait.until(ExpectedConditions.elementToBeClickable(locator));
-  }
-
-  public void waitForTextToBePresentInElement(By locator, String text) {
-    wait.until(ExpectedConditions.textToBePresentInElementLocated(locator, text));
-  }
-
-  // Reusable method to wait for an element to be invisible
-  public void waitForInvisibilityOfElementLocated(By locator) {
-    wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
-  }
-
-  public  void scrollIntoView( By locator) {
-    var locator1 = driver.findElement(locator);
-    if (driver instanceof JavascriptExecutor) {
-      ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", locator1);
-    } else {
-      throw new IllegalStateException("Not Found Element ");
-    }
-  }
 
 }

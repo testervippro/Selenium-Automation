@@ -1,4 +1,4 @@
-com/thoaikx/dataprovider/Fixture.class
-com/thoaikx/dataprovider/model/Person.class
-com/thoaikx/HomePageTest.class
-com/thoaikx/BaseWeb.class
+com\thoaikx\HomePageTest.class
+com\thoaikx\dataprovider\model\Person.class
+com\thoaikx\BaseWeb.class
+com\thoaikx\dataprovider\Fixture.class

@@ -1,8 +1,8 @@
 package com.thoaikx.utils;
 
 
-import atu.testrecorder.ATUTestRecorder;
 
+import atu.testrecorder.ATUTestRecorder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.DateFormat;
