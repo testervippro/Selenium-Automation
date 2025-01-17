@@ -3,9 +3,40 @@
 ---
 
 ### Set Up Jenkins
+# Jenkins Installation Guide
+
+Downloading and running Jenkins using a PowerShell script.
+
+## Prerequisites
+Before you begin, ensure that you have:
+- Java installed on your machine.
+- An internet connection to download the Jenkins WAR file.
+
+## Step 1: Download Jenkins WAR file
+
+Use the following PowerShell script to download the latest stable version of Jenkins:
+
+```powershell
+# Define Jenkins URL and download path
+$JenkinsURL = "https://get.jenkins.io/war-stable/latest/jenkins.war"
+$DownloadPath = Join-Path -Path ([Environment]::GetFolderPath("UserProfile")) -ChildPath "Downloads\jenkins.war"
+
+# Check if the Jenkins WAR file already exists
+if (-not (Test-Path $DownloadPath)) {
+    # Download Jenkins WAR file
+    Write-Host "Downloading Jenkins..."
+    Invoke-WebRequest -Uri $JenkinsURL -OutFile $DownloadPath
+    Write-Host "Jenkins has been downloaded to $DownloadPath"
+} else {
+    Write-Host "Jenkins WAR file already exists at $DownloadPath"
+}
+
+```
+
 ![Set Up](https://github.com/user-attachments/assets/e12310e6-19b2-45ce-8b71-027ffabc291e)
 
 ---
+
 
 ### Set Up Git
 ![Set Up Git](https://github.com/user-attachments/assets/4b4887ab-d9b2-413b-8abd-1eb115fa2729)
