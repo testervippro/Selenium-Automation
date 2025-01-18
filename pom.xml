@@ -48,6 +48,12 @@
 
         <dependency>
             <groupId>io.github.testervippro</groupId>
+            <artifactId>selenium-server</artifactId>
+            <version>4.27.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.testervippro</groupId>
             <artifactId>record-video</artifactId>
             <version>2.1</version>
         </dependency>

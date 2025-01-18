@@ -32,7 +32,7 @@ tool:
   git:
     installations:
       - name: "Default"
-        home: "/usr/bin/git"
+        home: "/usr/bin/git" # Git executable path on Linux
   maven:
     installations:
       - name: maven3
@@ -41,6 +41,15 @@ tool:
               installers:
                 - maven:
                     id: "3.8.4"
+  allure:
+    installations:
+      - name: "allure" # Name of the Allure tool
+        properties:
+          - installSource:
+              installers:
+                - commandline:
+                    command: "/usr/local/bin/allure" # Allure executable path on Linux
+                    label: "allure"
 
 # Job Configuration with Groovy Script Loaded
 jobs:
@@ -50,48 +59,33 @@ jobs:
           cps {
             script('''
               pipeline {
-                  agent any
+                agent any
 
-                  stages {
-                      stage('Checkout Repository') {
-                          steps {
-                              // Use Jenkins Git plugin to checkout the code
-                              git(
-                                  url: 'https://github.com/your-repo-url.git', // Replace with your repository URL
-                                  branch: 'main', // Replace with your branch name
-                                  credentialsId: 'your-credential-id' // Replace with your Jenkins credential ID
-                              )
-                          }
-                      }
+                tools {
+                  allure 'allure' // Use the Allure tool configured above
+                }
 
-                      stage('Test Execution') {
-                          steps {
-                              script {
-                                  if (isUnix()) {
-                                      // For macOS and Linux
-                                      sh 'mvn test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=false -Dbrowser=chrome -Dauto.report=false'
-                                  } else {
-                                      // For Windows
-                                      bat 'mvn test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=false -Dbrowser=chrome -Dauto.report=false'
-                                  }
-                              }
-                          }
+                stages {
+                  stage('Test Execution') {
+                    steps {
+                      script {
+                        // For Linux
+                        sh 'mvn clean test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=false -Dbrowser=chrome -Dauto.report=false'
                       }
+                    }
                   }
+                }
 
-                  post {
-                      always {
-                          // Publish HTML reports
-                          publishHTML(target: [
-                              allowMissing: false,
-                              alwaysLinkToLastBuild: true,
-                              keepAll: true,
-                              reportDir: 'target/site', // Directory containing the HTML report
-                              reportFiles: 'index.html', // Entry point for the HTML report
-                              reportName: 'Test Report'
-                          ])
-                      }
+                post {
+                  always {
+                    // Generate and publish Allure report
+                    allure([
+                      includeProperties: false,
+                      jdk: '', // Optionally, specify JDK if required
+                      results: [[path: 'target/allure-results']] // Path to Allure results folder
+                    ])
                   }
+                }
               }
             ''')
           }

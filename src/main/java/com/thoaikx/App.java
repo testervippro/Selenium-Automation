@@ -6,9 +6,10 @@ import com.github.dockerjava.core.DockerClientBuilder;
 public class App {
 
   public static void main(String[] args) {
-    DockerClient dockerClient = DockerClientBuilder.getInstance("tcp://127.0.0.1:2375").build();
-    System.out.println(dockerClient.versionCmd().exec());
+    // Start the Selenium Grid server in standalone mode
+    //Main.main(new String[]{"standalone", "--port", "4444"});
 
   }
+
 
 }
