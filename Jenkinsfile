@@ -16,10 +16,10 @@ pipeline {
                         // Clean the target folder and run tests depending on the operating system
                         if (isUnix()) {
                             // For Unix-based systems, use Maven Wrapper
-                            sh './mvnw test -Pweb-execution -Dsuite=local-suite -Dtarget=selenium-grid -Dheadless=true -Dbrowser=chrome -Dusername=$USERNAME -Dpassword=$PASSWORD'
+                            sh './mvnw test -Pweb-execution -Dsuite=local-suite -Dtarget=selenium-grid -Dheadless=true -Dbrowser=chrome '
                         } else {
                             // For Windows, use Maven Wrapper with .cmd
-                            bat "mvnw.cmd test -Pweb-execution -Dsuite=local-suite -Dtarget=selenium-grid -Dheadless=true -Dbrowser=chrome -Dusername=$USERNAME -Dpassword=$PASSWORD"
+                            bat "mvnw.cmd test -Pweb-execution -Dsuite=local-suite -Dtarget=selenium-grid -Dheadless=true -Dbrowser=chrome"
                         }
                     }
                 }
