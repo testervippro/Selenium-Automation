@@ -1,6 +1,6 @@
-# To execute this docker compose yml file use `docker compose -f docker-compose-v3-video.yml up`
+# To execute this docker compose yml file use `docker compose -f docker-compose-video.yml up`
 # Add the `-d` flag at the end for detached execution
-# To stop the execution, hit Ctrl+C, and then `docker compose -f docker-compose-v3-video.yml down`
+# To stop the execution, hit Ctrl+C, and then `docker compose -f docker-compose-video.yml down`
 version: "3"
 services:
   chrome:
@@ -42,8 +42,8 @@ services:
     environment:
       - DISPLAY_CONTAINER_NAME=chrome
       - SE_NODE_GRID_URL=http://selenium-hub:4444
-      #      - FILE_NAME=chrome_video.mp4
-      - SE_VIDEO_FILE_NAME=auto
+      - FILE_NAME=chrome_video.mp4
+      #- SE_VIDEO_FILE_NAME=auto
 
   edge_video:
     image: selenium/video:ffmpeg-7.1-20250101
@@ -54,8 +54,8 @@ services:
     environment:
       - DISPLAY_CONTAINER_NAME=edge
       - SE_NODE_GRID_URL=http://selenium-hub:4444
-      #      - FILE_NAME=edge_video.mp4
-      - SE_VIDEO_FILE_NAME=auto
+      - FILE_NAME=edge_video.mp4
+      #- SE_VIDEO_FILE_NAME=auto
 
   firefox_video:
     image: selenium/video:ffmpeg-7.1-20250101
@@ -66,8 +66,8 @@ services:
     environment:
       - DISPLAY_CONTAINER_NAME=firefox
       - SE_NODE_GRID_URL=http://selenium-hub:4444
-      #      - FILE_NAME=firefox_video.mp4
-      - SE_VIDEO_FILE_NAME=auto
+       - FILE_NAME=firefox_video.mp4
+      #- SE_VIDEO_FILE_NAME=auto
 
 
   selenium-hub:

@@ -1,0 +1,23 @@
+
+# docker compose -f docker-compose-dynamic-grid.yml up
+version: "3"
+services:
+  node-docker:
+    image: selenium/node-docker:latest
+    volumes:
+     # - ./assets:/opt/selenium/assets
+      - ./config.toml:/opt/bin/config.toml
+    depends_on:
+      - selenium-hub
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub-dynamic-grid
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+
+  selenium-hub:
+    image: selenium/hub:latest
+    container_name: selenium-hub-dynamic-grid
+    ports:
+      - "4442:4442"
+      - "4443:4443"
+      - "4444:4444"

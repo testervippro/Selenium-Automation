@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite thread-count="99" parallel="tests" name="Failed suite [Multi browser test]" guice-stage="DEVELOPMENT" verbose="0">
+  <test thread-count="99" parallel="tests" name="Safari Execution(failed)" verbose="0">
+    <parameter name="browser" value="safari"/>
+    <classes>
+      <class name="com.thoaikx.HomePageTest">
+        <methods>
+          <include name="homePage"/>
+          <include name="checkOut"/>
+          <include name="beforeSuite"/>
+          <include name="genReport"/>
+          <include name="postCondition"/>
+          <include name="preCondition"/>
+          <include name="selectProduct"/>
+        </methods>
+      </class> <!-- com.thoaikx.HomePageTest -->
+    </classes>
+  </test> <!-- Safari Execution(failed) -->
+  <test thread-count="99" parallel="tests" name="Edge Execution(failed)" verbose="0">
+    <parameter name="browser" value="Edge"/>
+    <classes>
+      <class name="com.thoaikx.HomePageTest">
+        <methods>
+          <include name="homePage"/>
+          <include name="checkOut"/>
+          <include name="beforeSuite"/>
+          <include name="genReport"/>
+          <include name="postCondition"/>
+          <include name="preCondition"/>
+          <include name="selectProduct"/>
+        </methods>
+      </class> <!-- com.thoaikx.HomePageTest -->
+    </classes>
+  </test> <!-- Edge Execution(failed) -->
+  <test thread-count="99" parallel="tests" name="FireFox Execution(failed)" verbose="0">
+    <parameter name="browser" value="firefox"/>
+    <classes>
+      <class name="com.thoaikx.HomePageTest">
+        <methods>
+          <include name="homePage"/>
+          <include name="checkOut"/>
+          <include name="beforeSuite"/>
+          <include name="genReport"/>
+          <include name="postCondition"/>
+          <include name="preCondition"/>
+          <include name="selectProduct"/>
+        </methods>
+      </class> <!-- com.thoaikx.HomePageTest -->
+    </classes>
+  </test> <!-- FireFox Execution(failed) -->
+  <test thread-count="99" parallel="tests" name="Chrome execution(failed)" verbose="0">
+    <parameter name="browser" value="chrome"/>
+    <classes>
+      <class name="com.thoaikx.HomePageTest">
+        <methods>
+          <include name="homePage"/>
+          <include name="checkOut"/>
+          <include name="beforeSuite"/>
+          <include name="genReport"/>
+          <include name="postCondition"/>
+          <include name="preCondition"/>
+          <include name="selectProduct"/>
+        </methods>
+      </class> <!-- com.thoaikx.HomePageTest -->
+    </classes>
+  </test> <!-- Chrome execution(failed) -->
+</suite> <!-- Failed suite [Multi browser test] -->
