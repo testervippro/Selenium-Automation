@@ -1,12 +1,8 @@
 pipeline {
     agent any
 
-    tools {
-        allure 'allure' // Ensure Allure is configured in Jenkins Global Tool Configuration
-    }
-
     stages {
-        stage('Clean and Test Execution') {
+        stage('Test Execution') {
             steps {
                 script {
                     // Clean the target folder and run tests depending on the operating system
