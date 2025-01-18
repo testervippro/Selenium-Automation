@@ -10,17 +10,19 @@ pipeline {
         stage('Start Selenium Chrome') {
             steps {
                 script {
-                    // Start the Selenium Chrome standalone container using Docker Compose
-                    sh 'docker-compose -f docker-compose-standalone-chrome.yml up -d'
-
-                    // Wait for the Selenium Chrome standalone to be ready
-                    sh '''
-                        echo "Waiting for Selenium Chrome standalone to be ready..."
-                        while ! curl -sSL "http://localhost:4444/wd/hub/status" | grep '"ready": true'; do
-                            sleep 5
-                        done
-                        echo "Selenium Chrome standalone is ready!"
-                    '''
+                    // Use Docker Pipeline Plugin to start the Selenium Chrome container
+                    docker.image('selenium/standalone-chrome:latest').withRun(
+                        "-p 4444:4444 -p 7900:7900 --shm-size=2g --name selenium-chrome"
+                    ) { c ->
+                        // Wait for the Selenium Chrome standalone to be ready
+                        sh '''
+                            echo "Waiting for Selenium Chrome standalone to be ready..."
+                            while ! curl -sSL "http://localhost:4444/wd/hub/status" | grep '"ready": true'; do
+                                sleep 5
+                            done
+                            echo "Selenium Chrome standalone is ready!"
+                        '''
+                    }
                 }
             }
         }
@@ -47,8 +49,8 @@ pipeline {
         stage('Stop Selenium Chrome') {
             steps {
                 script {
-                    // Stop and remove the Selenium Chrome standalone container
-                    sh 'docker-compose -f docker-compose-standalone-chrome.yml down'
+                    // Stop and remove the Selenium Chrome container
+                    sh 'docker stop selenium-chrome && docker rm selenium-chrome'
                 }
             }
         }
