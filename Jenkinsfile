@@ -10,12 +10,8 @@ pipeline {
         stage('Start Selenium Chrome') {
             steps {
                 script {
-                    // Use Docker plugin to start the Selenium Chrome standalone container
-                    dockerCompose(
-                        composeFilePath: 'docker-compose-standalone-chrome.yml',
-                        useCustomDockerComposeFile: true,
-                        upOptions: '--detach'
-                    )
+                    // Start the Selenium Chrome standalone container using Docker Compose
+                    sh 'docker-compose -f docker-compose-standalone-chrome.yml up -d'
 
                     // Wait for the Selenium Chrome standalone to be ready
                     sh '''
@@ -45,12 +41,8 @@ pipeline {
         stage('Stop Selenium Chrome') {
             steps {
                 script {
-                    // Use Docker plugin to stop and remove the Selenium Chrome standalone container
-                    dockerCompose(
-                        composeFilePath: 'docker-compose-standalone-chrome.yml',
-                        useCustomDockerComposeFile: true,
-                        downOptions: '--volumes --remove-orphans'
-                    )
+                    // Stop and remove the Selenium Chrome standalone container
+                    sh 'docker-compose -f docker-compose-standalone-chrome.yml down'
                 }
             }
         }
