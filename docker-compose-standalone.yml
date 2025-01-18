@@ -1,0 +1,45 @@
+version: '3'
+## each brower run separe port to finish test ( now if use port 4444 hub cannot finish test
+services:
+  selenium-chrome:
+    image: selenium/standalone-chrome:latest
+    container_name: selenium-chrome
+    ports:
+      - "4444:4444"  # Chrome standalone port
+      - "7900:7900"  # noVNC port for Chrome (optional)
+    shm_size: "2g"   # Shared memory for Chrome
+    environment:
+      - SE_NODE_MAX_SESSIONS=5  # Maximum number of concurrent sessions
+      - SE_NODE_OVERRIDE_MAX_SESSIONS=true
+    networks:
+      - selenium-network
+
+  selenium-firefox:
+    image: selenium/standalone-firefox:latest
+    container_name: selenium-firefox
+    ports:
+      - "4445:4444"  # Firefox standalone port
+      - "7901:7900"  # noVNC port for Firefox (optional)
+    shm_size: "2g"   # Shared memory for Firefox
+    environment:
+      - SE_NODE_MAX_SESSIONS=5  # Maximum number of concurrent sessions
+      - SE_NODE_OVERRIDE_MAX_SESSIONS=true
+    networks:
+      - selenium-network
+
+  selenium-edge:
+    image: selenium/standalone-edge:latest
+    container_name: selenium-edge
+    ports:
+      - "4446:4444"  # Edge standalone port
+      - "7902:7900"  # noVNC port for Edge (optional)
+    shm_size: "2g"   # Shared memory for Edge
+    environment:
+      - SE_NODE_MAX_SESSIONS=5  # Maximum number of concurrent sessions
+      - SE_NODE_OVERRIDE_MAX_SESSIONS=true
+    networks:
+      - selenium-network
+
+networks:
+  selenium-network:
+    driver: bridge

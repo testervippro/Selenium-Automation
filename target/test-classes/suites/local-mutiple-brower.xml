@@ -15,4 +15,11 @@
         </classes>
     </test>
 
+    <test name="Fire brower Tests">
+        <parameter name="browser" value="firefox"/>
+        <classes>
+            <class name="com.thoaikx.HomePageTest"/>
+        </classes>
+    </test>
+
 </suite>

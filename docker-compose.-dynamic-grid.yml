@@ -1,5 +1,6 @@
 
 # docker compose -f docker-compose-dynamic-grid.yml up
+# now not work
 version: "3"
 services:
   node-docker:

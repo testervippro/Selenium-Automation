@@ -40,5 +40,8 @@ public interface Configuration  extends Config{
 
     @Key("auto.report")
     boolean autoReport();
+
+    @Key("grid.separate")
+    boolean separatePort();
     
 } 

@@ -1,5 +1,9 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="Multi browser test" verbose="1" parallel="tests" thread-count="99">
+<suite name="Multi browser test" verbose="1" parallel="methods" thread-count="99">
+
+<!--    <listeners>-->
+<!--        <listener class-name="com.thoaikx.report.AllureTestLifecycleListener" />-->
+<!--    </listeners>-->
 
     <test name="Chrome execution">
         <parameter name="browser" value="chrome"/>
