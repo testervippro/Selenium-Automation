@@ -69,6 +69,7 @@ services:
       #      - FILE_NAME=firefox_video.mp4
       - SE_VIDEO_FILE_NAME=auto
 
+
   selenium-hub:
     image: selenium/hub:4.27.0-20250101
     container_name: selenium-hub
