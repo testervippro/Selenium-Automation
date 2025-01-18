@@ -1,0 +1,1 @@
+mvn test -Pweb-execution -Dsuite=selenium-grid -Dtarget=selenium-grid -Dheadless=false

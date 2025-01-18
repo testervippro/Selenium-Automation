@@ -1,0 +1,34 @@
+version: "3"
+services:
+  selenium-hub:
+    image: selenium/hub:latest
+    container_name: selenium-hub
+    ports:
+      - "5555:4444"  # Map host port 5555 to container port 4444 (Selenium Hub)
+    environment:
+      - SE_OPTS=--port 4444  # Ensure the Hub runs on port 4444 internally
+
+  selenium-node-chrome:
+    image: selenium/node-chrome:latest
+    container_name: selenium-node-chrome
+    depends_on:
+      - selenium-hub
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_NODE_MAX_SESSIONS=5  # Limit concurrent sessions
+      - SE_NODE_OVERRIDE_MAX_SESSIONS=true
+    ports:
+      - "7901:7900"  # Map host port 7901 to container port 7900 (noVNC)
+    shm_size: 2gb  # Increase shared memory for Chrome
+
+  selenium-video:
+    image: selenium/video:latest
+    container_name: selenium-video
+    volumes:
+      - ./videos:/videos  # Save recorded videos to ./videos on the host
+    depends_on:
+      - selenium-node-chrome
+    environment:
+      - VIDEO_FILE_NAME=test_video.mp4  # Customize the video file name
