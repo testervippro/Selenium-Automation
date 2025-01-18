@@ -24,12 +24,13 @@ pipeline {
 
     post {
         always {
-            // Publish Allure test results after the test execution, regardless of success or failure
-            allure(
-                includeProperties: false,
-                jdk: '', // Optionally, specify JDK if required
-                results: [[path: 'target/allure-results']] // Path to Allure results folder
-            )
+            // Publish Allure report as HTML using the HTML Publisher plugin
+            publishHTML(target: [
+                reportDir: 'target/allure-report', // Path to Allure report folder
+                reportFiles: 'index.html', // Main file in the Allure report
+                reportName: 'Report', // Name of the report in Jenkins UI
+                alwaysLinkToLastBuild: true
+            ])
         }
     }
 }

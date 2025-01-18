@@ -48,7 +48,7 @@ public class AllureTestLifecycleListener implements TestLifecycleListener {
     private void stopSeleniumGrid() {
         try {
             // Execute the `docker-compose down` command
-            Process process = Runtime.getRuntime().exec("docker-compose -f docker-compose.yml down");
+            Process process = Runtime.getRuntime().exec("docker-compose -f docker-compose-grid.yml down");
             process.waitFor();  // Wait for the command to complete
             System.out.println("Selenium Grid stopped successfully.");
         } catch (IOException | InterruptedException e) {
