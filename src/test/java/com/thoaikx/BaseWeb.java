@@ -8,6 +8,7 @@ import static com.thoaikx.driver.DriverManager.getInfo;
 import com.thoaikx.driver.DriverManager;
 import com.thoaikx.driver.TargetFactory;
 import com.thoaikx.pages.commons.CustomSelectActions;
+import com.thoaikx.processsbuilder.DockerManager;
 import com.thoaikx.report.AllureManager;
 import java.io.IOException;
 import java.time.Duration;
@@ -22,6 +23,14 @@ import org.testng.annotations.*;
 
 @Log4j2
 public abstract class BaseWeb {
+
+
+  String composeFile = "docker-compose-standalone-chrome.yml"; // Path to your docker-compose file
+  String commandUp = "docker-compose -f " + composeFile + " up"; // Command to start the Selenium Chrome container
+  String commandDown = "docker-compose -f " + composeFile + " down"; //
+
+  String getCommandUpUntik = "Started Selenium Standalone";
+
   private   int TIMEOUT = configuration().timeout();
    protected WebDriver driver;
    protected CustomSelectActions select ;
@@ -33,6 +42,8 @@ public abstract class BaseWeb {
     public void beforeSuite() throws IOException {
       AllureManager.deleteOldReport();
       AllureManager.setAllureEnvironmentInformation();
+      DockerManager.executeCommandAndWaitForStart(commandUp,getCommandUpUntik);
+
     }
 
     @BeforeTest
@@ -57,7 +68,8 @@ public abstract class BaseWeb {
 
     }
     @AfterSuite ()
-    public void genReport()  {
+    public void genReport() throws IOException {
+    DockerManager.executeCommand(commandDown);
     AllureManager.allureOpen();
     }
 
