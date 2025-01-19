@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // Define the path to the docker-compose YAML file
-        COMPOSE_FILE = 'docker-compose-standalone-chrome.yml' // Path to your docker-compose YAML file
+        COMPOSE_FILE = 'docker-compose-standalone-chrome.yml'
     }
 
     stages {
@@ -40,9 +40,9 @@ pipeline {
 
             // Publish Allure report as HTML
             publishHTML(target: [
-                reportDir: 'target/allure-report', // Path to Allure report folder
-                reportFiles: 'index.html', // Main file in the Allure report
-                reportName: 'Allure Report', // Name of the report in Jenkins UI
+                reportDir: 'target/allure-report',
+                reportFiles: 'index.html',
+                reportName: 'Allure Report',
                 alwaysLinkToLastBuild: true
             ])
         }
