@@ -23,13 +23,9 @@ pipeline {
         stage('Clean Old Target') {
             steps {
                 script {
-                    // Clean the old target directory
-                    echo "Cleaning old target directory"
-                    if (isUnix()) {
-                        sh "rm -rf target"
-                    } else {
-                        bat "rmdir /s /q target"
-                    }
+                    // Clean the old target directory using Maven
+                    echo "Cleaning old target directory using Maven"
+                    sh "mvn clean"
                 }
             }
         }
@@ -49,11 +45,14 @@ pipeline {
             steps {
                 script {
                     // Run tests using Maven
-                    if (isUnix()) {
-                        sh "./mvnw test -Pweb-execution -Dsuite=local-suite -Dtarget=selenium-grid -Dheadless=true -Dbrowser=chrome"
-                    } else {
-                        bat "mvnw.cmd test -Pweb-execution -Dsuite=local-suite -Dtarget=selenium-grid -Dheadless=true -Dbrowser=chrome"
-                    }
+                    echo "Running tests with Maven"
+                    sh """
+                        mvn test -Pweb-execution \
+                            -Dsuite=local-suite \
+                            -Dtarget=selenium-grid \
+                            -Dheadless=true \
+                            -Dbrowser=chrome
+                    """
                 }
             }
         }
@@ -65,14 +64,22 @@ pipeline {
             echo "Stopping Selenium Grid using docker-compose"
             sh "docker-compose -f ${COMPOSE_FILE} down"
 
+            // Generate Allure report using Maven
+            echo "Generating Allure report"
+            sh "mvn allure:report"
+
             // Publish Allure report as HTML
-            publishHTML (target : [allowMissing: false,
-             alwaysLinkToLastBuild: true,
-             keepAll: true,
-             reportDir: 'target/allure-results',
-             reportFiles: 'index.html',
-             reportName: 'My Reports',
-             reportTitles: 'The Report'])
+            publishHTML(
+                target: [
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: 'target/site/allure-maven-plugin',
+                    reportFiles: 'index.html',
+                    reportName: 'Allure Report',
+                    reportTitles: 'Allure Test Report'
+                ]
+            )
         }
     }
 }
