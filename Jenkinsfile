@@ -2,15 +2,17 @@ pipeline {
     agent any
 
     environment {
-        // Define the credentials ID for Jenkins to use
-        CREDENTIALS_ID = 'd8d07f72-f09a-4d73-8b77-3b27ba612a24' // Update this with your actual credentials ID
+        // Define the path to the docker-compose YAML file
+        COMPOSE_FILE = 'docker-compose-standalone-chrome.yml' // Path to your docker-compose YAML file
     }
 
     stages {
         stage('Setup Selenium Grid') {
             steps {
                 script {
-                    // Assuming Selenium Grid is already running on a remote machine or locally
+                    // Start Selenium Grid using Docker Compose
+                    echo "Starting Selenium Grid with docker-compose"
+                    sh "docker-compose -f ${COMPOSE_FILE} up -d"
                     echo "Ensure Selenium Grid is running at http://localhost:4444/wd/hub"
                 }
             }
@@ -18,18 +20,12 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                // Inject the username and password credentials securely
-                withCredentials([usernamePassword(credentialsId: CREDENTIALS_ID, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                    script {
-                        // Output the username for debugging (this will not display the password)
-                        echo "Using credentials for username: $USERNAME"
-
-                        // Run tests using Maven
-                        if (isUnix()) {
-                            sh "./mvnw test -Pweb-execution -Dsuite=local-suite -Dtarget=selenium-grid -Dheadless=true -Dbrowser=chrome"
-                        } else {
-                            bat "mvnw.cmd test -Pweb-execution -Dsuite=local-suite -Dtarget=selenium-grid -Dheadless=true -Dbrowser=chrome"
-                        }
+                script {
+                    // Run tests using Maven
+                    if (isUnix()) {
+                        sh "./mvnw test -Pweb-execution -Dsuite=local-suite -Dtarget=selenium-grid -Dheadless=true -Dbrowser=chrome"
+                    } else {
+                        bat "mvnw.cmd test -Pweb-execution -Dsuite=local-suite -Dtarget=selenium-grid -Dheadless=true -Dbrowser=chrome"
                     }
                 }
             }
@@ -38,6 +34,10 @@ pipeline {
 
     post {
         always {
+            // Stop Selenium Grid using Docker Compose after tests
+            echo "Stopping Selenium Grid using docker-compose"
+            sh "docker-compose -f ${COMPOSE_FILE} down"
+
             // Publish Allure report as HTML
             publishHTML(target: [
                 reportDir: 'target/allure-report', // Path to Allure report folder
