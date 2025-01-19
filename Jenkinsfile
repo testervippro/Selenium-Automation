@@ -7,6 +7,19 @@ pipeline {
     }
 
     stages {
+        stage('Clean Disk Space') {
+            steps {
+                script {
+                    echo "Cleaning up disk space"
+                    sh '''
+                        docker system prune -f || true
+                        rm -rf /tmp/* || true
+                        df -h
+                    '''
+                }
+            }
+        }
+
         stage('Clean Old Target') {
             steps {
                 script {
