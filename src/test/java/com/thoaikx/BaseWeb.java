@@ -42,7 +42,7 @@ public abstract class BaseWeb {
     public void beforeSuite() throws IOException {
       AllureManager.deleteOldReport();
       AllureManager.setAllureEnvironmentInformation();
-     DockerManager.executeCommandAndWaitForStart(commandUp,getCommandUpUntik);
+     //DockerManager.executeCommandAndWaitForStart(commandUp,getCommandUpUntik);
 
     }
 
@@ -69,7 +69,7 @@ public abstract class BaseWeb {
     }
     @AfterSuite ()
     public void genReport() throws IOException {
-   DockerManager.executeCommand(commandDown);
+   //DockerManager.executeCommand(commandDown);
     AllureManager.allureOpen();
     }
 
