@@ -7,6 +7,20 @@ pipeline {
     }
 
     stages {
+        stage('Clean Old Target') {
+            steps {
+                script {
+                    // Clean the old target directory
+                    echo "Cleaning old target directory"
+                    if (isUnix()) {
+                        sh "rm -rf target"
+                    } else {
+                        bat "rmdir /s /q target"
+                    }
+                }
+            }
+        }
+
         stage('Setup Selenium Grid') {
             steps {
                 script {
