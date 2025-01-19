@@ -38,8 +38,8 @@ pipeline {
             steps {
                 script {
                     // Start Selenium Grid using Docker Compose
-//                     echo "Starting Selenium Grid with docker-compose"
-//                     sh "docker-compose -f ${COMPOSE_FILE} up -d"
+                    echo "Starting Selenium Grid with docker-compose"
+                    sh "docker-compose -f ${COMPOSE_FILE} up -d"
                     echo "Ensure Selenium Grid is running at http://localhost:4444/wd/hub"
                 }
             }
