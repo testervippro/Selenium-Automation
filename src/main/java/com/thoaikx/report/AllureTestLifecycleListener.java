@@ -23,20 +23,21 @@ public class AllureTestLifecycleListener implements TestLifecycleListener {
 
     @Attachment(value = "Page Screenshot", type = "image/png")
     public byte[] saveScreenshot(WebDriver driver) {
-        if (driver != null) {
-            return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-        } else {
-            System.err.println("Driver is null. Cannot take screenshot.");
-            return new byte[0]; // Return empty byte array if driver is null
-        }
+//        if (driver != null) {
+//            return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+//        } else {
+//            System.err.println("Driver is null. Cannot take screenshot.");
+//            return new byte[0]; // Return empty byte array if driver is null
+//        }
+        return new byte[1];
     }
 
     @Override
     public void beforeTestStop(TestResult result) {
-        if (FAILED == result.getStatus() || BROKEN == result.getStatus()) {
-            WebDriver driver = DriverManager.getDriver(); // Retrieve the driver instance
-            saveScreenshot(driver); // Pass the driver to the screenshot method
-        }
+//        if (FAILED == result.getStatus() || BROKEN == result.getStatus()) {
+//            WebDriver driver = DriverManager.getDriver(); // Retrieve the driver instance
+//            saveScreenshot(driver); // Pass the driver to the screenshot method
+//        }
     }
 
     @Override
@@ -48,7 +49,7 @@ public class AllureTestLifecycleListener implements TestLifecycleListener {
     private void stopSeleniumGrid() {
         try {
             // Execute the `docker-compose down` command
-            Process process = Runtime.getRuntime().exec("docker-compose -f docker-compose-grid.yml down");
+            Process process = Runtime.getRuntime().exec("docker-compose -f docker-compose-grid-basic.yml down");
             process.waitFor();  // Wait for the command to complete
             System.out.println("Selenium Grid stopped successfully.");
         } catch (IOException | InterruptedException e) {

@@ -38,16 +38,17 @@ public class TargetFactory {
         // Return the appropriate WebDriver instance based on the target
         return switch (target) {
             case LOCAL -> valueOf(configuration().browser().toUpperCase()).createLocalDriver();
-            case LOCAL_SUITE -> valueOf(browser.toUpperCase()).createLocalDriver();
-            case SELENIUM_GRID -> {
-                if (configuration().separatePort()) {
-                    // Use separate ports for each browser
-                    yield createRemoteInstanceSepratePortInEachBrower(valueOf(browser.toUpperCase()).getOptions(), browser);
-                } else {
+            case LOCAL_SUITE ->valueOf(browser.toUpperCase()).createLocalDriver();
+
+           case SELENIUM_GRID ->
+//                if (configuration().separatePort()) {
+//                    // Use separate ports for each browser
+//                    yield createRemoteInstanceSepratePortInEachBrower(valueOf(browser.toUpperCase()).getOptions(), browser);
+//                } else {
                     // Use the default Grid URL from configuration
-                    yield createRemoteInstance(valueOf(browser.toUpperCase()).getOptions());
-                }
-            }
+                     createRemoteInstance(valueOf(browser.toUpperCase()).getOptions());
+
+
         };
     }
 
@@ -89,7 +90,7 @@ public class TargetFactory {
         }
     }
 
-    private static BrowserFactory _valueOf(String browser) {
+    private static BrowserFactory ValueOf(String browser) {
         return switch (browser) {
             case "CHROME" -> CHROME;
             case "FIREFOX" -> FIREFOX;
