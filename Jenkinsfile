@@ -39,12 +39,13 @@ pipeline {
             sh "docker-compose -f ${COMPOSE_FILE} down"
 
             // Publish Allure report as HTML
-            publishHTML(target: [
-                reportDir: 'target/allure-report',
-                reportFiles: 'index.html',
-                reportName: 'Allure Report',
-                alwaysLinkToLastBuild: true
-            ])
+            publishHTML (target : [allowMissing: false,
+             alwaysLinkToLastBuild: true,
+             keepAll: true,
+             reportDir: 'target/allure-results',
+             reportFiles: 'index.html',
+             reportName: 'My Reports',
+             reportTitles: 'The Report'])
         }
     }
 }
