@@ -50,9 +50,9 @@ pipeline {
                 script {
                     // Run tests using Maven
                     if (isUnix()) {
-                        sh "./mvnw test -Pweb-execution -Dsuite=local-suite -Dtarget=selenium-grid -Dheadless=true -Dbrowser=chrome"
+                        sh "./mvnw clean test -Pweb-execution -Dsuite=local-suite -Dtarget=selenium-grid -Dheadless=true -Dbrowser=chrome"
                     } else {
-                        bat "mvnw.cmd test -Pweb-execution -Dsuite=local-suite -Dtarget=selenium-grid -Dheadless=true -Dbrowser=chrome"
+                        bat "mvnw.cmd clean test -Pweb-execution -Dsuite=local-suite -Dtarget=selenium-grid -Dheadless=true -Dbrowser=chrome"
                     }
                 }
             }
