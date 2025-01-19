@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // Define the path to the docker-compose YAML file
-        COMPOSE_FILE = 'docker-compose-standalone-chrome.yml'
+        COMPOSE_FILE = 'docker-compose-grid.yml'
     }
 
     stages {
@@ -50,7 +50,7 @@ pipeline {
                 script {
                     // Run tests using Maven
                     if (isUnix()) {
-                        sh "./mvnw clean test -Pweb-execution -Dsuite=local-suite -Dtarget=selenium-grid -Dheadless=true -Dbrowser=chrome"
+                        sh "./mvnw clean test -Pweb-execution -Dsuite=selenium-grid -Dtarget=selenium-grid -Dheadless=true -Dbrowser=chrome"
                     } else {
                         bat "mvnw.cmd clean test -Pweb-execution -Dsuite=local-suite -Dtarget=selenium-grid -Dheadless=true -Dbrowser=chrome"
                     }
