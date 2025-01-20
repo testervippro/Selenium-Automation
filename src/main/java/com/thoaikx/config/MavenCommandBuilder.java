@@ -16,7 +16,7 @@ import java.util.List;
 public class MavenCommandBuilder {
 
     private String profile;
-    private String suite;
+    private Target suite;
     private Target target;
     private Browser browser;
     private Long timeout;
@@ -45,8 +45,11 @@ public class MavenCommandBuilder {
         }
 
         // Add suite if provided
-        if (suite != null && !suite.isEmpty()) {
-            commandParts.add("-Dsuite=" + suite);
+        if (suite != null) {
+            commandParts.add("-Dsuite=" + suite.getValue());
+        }
+        else {
+            commandParts.add("-Dsuite=" +"local-suite");
         }
 
         // Add target if provided
@@ -116,21 +119,6 @@ public class MavenCommandBuilder {
 
     // Example usage
     public static void main(String[] args) {
-        MavenCommandBuilder command = MavenCommandBuilder.builder()
-                .profile("web-execution")
-                .suite("local-suite")
-                .target(Target.LOCAL_SUITE) // Execution target
-                .browser(Browser.FIREFOX) // Browser for local execution
-                .timeout(60000L) // Global test timeout
-                .baseUrl("https://rahulshettyacademy.com/angularpractice/") // Base URL
-                .headless(true) // Headless mode
-                .autoReport(false) // Auto reporting
-                .gridUrl("localhost") // Selenium Grid URL
-                .gridPort(4444) // Selenium Grid port
-                .gridSeparate(false) // Separate ports for each browser
-                .build();
 
-        int exitCode = command.execute();
-        System.out.println("Maven test execution completed with exit code: " + exitCode);
     }
 }
