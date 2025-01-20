@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        // Define the path to the docker-compose YAML file
-        COMPOSE_FILE = 'docker compose -f docker-compose-v3-dynamic-grid.yml'
-    }
 
     stages {
 
