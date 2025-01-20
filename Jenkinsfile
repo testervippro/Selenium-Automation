@@ -26,7 +26,7 @@ pipeline {
                 script {
                     // Run tests using Maven
                     if (isUnix()) {
-                        sh "./mvnw clean test -Pweb-execution -Dsuite=seleium-grid -Dtarget=selenium-grid -Dheadless=true -Dbrowser=chrome"
+                        sh "./mvnw clean test -Pweb-execution -Dsuite=selenium-grid -Dtarget=selenium-grid -Dheadless=true -Dbrowser=chrome"
                     } else {
                         bat "mvnw.cmd clean test -Pweb-execution -Dsuite=local-suite -Dtarget=selenium-grid -Dheadless=true -Dbrowser=chrome"
                     }
