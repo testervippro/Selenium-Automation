@@ -229,6 +229,7 @@
         <pluginManagement>
             <plugins>
                 <plugin>
+
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${maven-surefire-plugin.version}</version>
@@ -246,6 +247,19 @@
                             <version>${aspectj.version}</version>
                         </dependency>
                     </dependencies>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>3.2.2</version>
+                    <configuration>
+                        <archive>
+                            <manifest>
+                                <mainClass>com.thoaikx.App</mainClass>
+                            </manifest>
+                        </archive>
+                    </configuration>
                 </plugin>
 
 

@@ -41,6 +41,7 @@ public enum BrowserFactory {
 
             return chromeOptions;
         }
+
     },
     FIREFOX {
         @Override

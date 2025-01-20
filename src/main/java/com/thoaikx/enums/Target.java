@@ -19,7 +19,7 @@ public enum Target {
     Target(String value) {
         this.value = value;
     }
-     String getValue ( ){
+   public   String getValue ( ){
         return  this.value.toLowerCase();
      }
     Target valueOf(){
@@ -40,3 +40,4 @@ public enum Target {
         return ENUM_MAP.get(value.toLowerCase());
     }
 }
+
