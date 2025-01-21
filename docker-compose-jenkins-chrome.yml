@@ -1,4 +1,5 @@
 version: '3.8'
+
 services:
   jenkins:
     image: trion/jenkins-docker-client
@@ -15,7 +16,6 @@ services:
       - JENKINS_CASC=/provisioning/jenkins-casc.yaml
     volumes:
       - /Users/mac/Documents/jenkins:/var/jenkins_home
-      #https://dev.to/piyushbagani15/understanding-varrundockersock-the-key-to-dockers-inner-workings-nm7
       - /var/run/docker.sock:/var/run/docker.sock
       - ./jenkins-casc.yaml:/provisioning/jenkins-casc.yaml
       - ./plugins.txt:/provisioning/plugins.txt
@@ -23,3 +23,17 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
     user: root
+    networks:
+      - jenkins-net  # Connect to the custom network
+
+  selenium:
+    image: selenium/standalone-chrome:115.0.5790.110
+    container_name: selenium
+    ports:
+      - "4444:4444"
+    networks:
+      - jenkins-net  # Connect to the custom network
+
+networks:
+  jenkins-net:  # Declare the custom network
+    driver: bridge

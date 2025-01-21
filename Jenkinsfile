@@ -7,9 +7,9 @@ pipeline {
                 script {
                     // Run tests using Maven
                     if (isUnix()) {
-                        sh "./mvnw clean test -Pweb-execution -Dsuite=selenium-grid -Dtarget=selenium-grid -Dheadless=true -Dbrowser=chrome"
+                        sh "./mvnw clean test -Pweb-execution -Dsuite=selenium-grid -Dtarget=local-suite -Dheadless=true -Dbrowser=chrome"
                     } else {
-                        bat "mvnw.cmd clean test -Pweb-execution -Dsuite=local-suite -Dtarget=selenium-grid -Dheadless=true -Dbrowser=chrome"
+                        bat "mvnw.cmd clean test -Pweb-execution -Dsuite=selenium-grid -Dtarget=selenium-grid -Dheadless=true -Dbrowser=chrome"
                     }
                 }
             }
@@ -18,9 +18,6 @@ pipeline {
 
     post {
         always {
-            // Stop Selenium Grid using Docker Compose after tests
-            echo "Stopping Selenium Grid using docker-compose"
-            sh "docker-compose -f ${COMPOSE_FILE} down"
 
             // Publish Allure report as HTML
             publishHTML(
