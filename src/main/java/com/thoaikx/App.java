@@ -18,7 +18,7 @@ public class App {
             .profile("web-execution")
             .suite(Target.LOCAL_SUITE)
             .target(Target.LOCAL_SUITE) // Execution target
-            .browser(Browser.FIREFOX) // Browser for local execution
+            .browser(Browser.CHROME) // Browser for local execution
             .timeout(60000L) // Global test timeout
             .baseUrl("https://rahulshettyacademy.com/angularpractice/") // Base URL
             .headless(true) // Headless mode
