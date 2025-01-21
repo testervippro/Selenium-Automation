@@ -16,18 +16,10 @@ Before you begin, ensure that you have:
 
 Use the following PowerShell script to download the latest stable version of Jenkins:
 
-```powershell
-docker run -it --name=jenkins \
-  -e JENKINS_USER=$(id -u) \
-  --rm -p 8080:8080 -p 50000:50000 \
-  --env JENKINS_ADMIN_ID=admin \
-  --env JENKINS_ADMIN_PASSWORD=admin \
-  --env JENKINS_LOCATION=http://localhost:8080 \
- --env JENKINS_CAC=true \
-  --env CASC_JENKINS_CONFIG=/var/jenkins_home/casc_configs/jenkins.yaml \
-  -v /Users/mac/Documents/jenkins:/var/jenkins_home \
-  -v /var/run/docker.sock:/var/run/docker.sock \
-  trion/jenkins-docker-client
+```bash
+docker run -it --name=jenkins -e JENKINS_USER=$(id -u) --rm -p 8080:8080 -p 50000:50000 \
+-v ./jenkins:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock \
+--name jenkins trion/jenkins-docker-client
 ```
 ## Run to setup jekin ( then open http://localhost:8080)
 ```bash
