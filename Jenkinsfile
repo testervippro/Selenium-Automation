@@ -1,26 +1,7 @@
 pipeline {
     agent any
 
-
     stages {
-
-
-        stage('Clean Old Target') {
-            steps {
-                script {
-                    // Clean the old target directory
-                    echo "Cleaning old target directory"
-                    if (isUnix()) {
-                        sh "rm -rf target"
-                    } else {
-                        bat "rmdir /s /q target"
-                    }
-                }
-            }
-        }
-
-
-
         stage('Run Tests') {
             steps {
                 script {
@@ -42,13 +23,17 @@ pipeline {
             sh "docker-compose -f ${COMPOSE_FILE} down"
 
             // Publish Allure report as HTML
-            publishHTML (target : [allowMissing: false,
-             alwaysLinkToLastBuild: true,
-             keepAll: true,
-             reportDir: 'target/allure-results',
-             reportFiles: 'index.html',
-             reportName: 'My Reports',
-             reportTitles: 'The Report'])
+            publishHTML(
+                target: [
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: 'target/allure-results',
+                    reportFiles: 'index.html',
+                    reportName: 'My Reports',
+                    reportTitles: 'The Report'
+                ]
+            )
         }
     }
 }
