@@ -1,0 +1,42 @@
+jenkins:
+  systemMessage: "Jenkins configured automatically by Jenkins Configuration as Code plugin"
+
+  # Security Realm for user authentication
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+        - id: "admin"
+          password: "admin"
+
+  # Authorization Strategy
+  authorizationStrategy:
+    projectMatrix:
+      entries:
+        - user:
+            name: admin
+            permissions:
+              - Overall/Administer
+
+# Sample Job Configuration
+jobs:
+  - script: >
+      pipelineJob('print-message-job') {
+        definition {
+          cps {
+            script('''
+              pipeline {
+                agent any
+
+                stages {
+                  stage('Print Message') {
+                    steps {
+                      echo 'Hello, Jenkins!'
+                    }
+                  }
+                }
+              }
+            ''')
+          }
+        }
+      }

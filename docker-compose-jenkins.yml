@@ -1,0 +1,24 @@
+version: '3.8'
+services:
+  jenkins:
+    image: trion/jenkins-docker-client
+    container_name: jenkins
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    environment:
+      - JENKINS_USER=1000
+      - JENKINS_CAC=true
+      - JENKINS_ADMIN_ID=admin
+      - JENKINS_ADMIN_PASSWORD=admin
+      - JENKINS_LOCATION=http://localhost:8080
+    volumes:
+      - /Users/mac/Documents/jenkins:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./jenkins-casc.yaml:/provisioning/config.yaml
+      - ./plugins.txt:/provisioning/plugins.txt
+    privileged: true
+    #add this to conect from container to local host( eg selenium grid)
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    user: root
