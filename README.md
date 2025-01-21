@@ -21,11 +21,13 @@ docker run -it --name=jenkins -e JENKINS_USER=$(id -u) --rm -p 8080:8080 -p 5000
 -v ./jenkins:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock \
 --name jenkins trion/jenkins-docker-client
 ```
-## Run to setup jekin ( then open http://localhost:8080)
-```bash
+#
 
-java -jar jenkins.war
-```
+creare network allow jenkin connect with selenium image 
+docker network connect jenkins-net jenkins
+docker network connect jenkins-net selenium
+docker network inspect jenkins-net
+
 
 ![Set Up](https://github.com/user-attachments/assets/e12310e6-19b2-45ce-8b71-027ffabc291e)
 
