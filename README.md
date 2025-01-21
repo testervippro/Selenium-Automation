@@ -17,20 +17,17 @@ Before you begin, ensure that you have:
 Use the following PowerShell script to download the latest stable version of Jenkins:
 
 ```powershell
-# Define Jenkins URL and download path
-$JenkinsURL = "https://get.jenkins.io/war-stable/latest/jenkins.war"
-$DownloadPath = Join-Path -Path ([Environment]::GetFolderPath("UserProfile")) -ChildPath "Downloads\jenkins.war"
-
-# Check if the Jenkins WAR file already exists
-if (-not (Test-Path $DownloadPath)) {
-    # Download Jenkins WAR file
-    Write-Host "Downloading Jenkins..."
-    Invoke-WebRequest -Uri $JenkinsURL -OutFile $DownloadPath
-    Write-Host "Jenkins has been downloaded to $DownloadPath"
-} else {
-    Write-Host "Jenkins WAR file already exists at $DownloadPath"
-}
-
+docker run -it --name=jenkins \
+  -e JENKINS_USER=$(id -u) \
+  --rm -p 8080:8080 -p 50000:50000 \
+  --env JENKINS_ADMIN_ID=admin \
+  --env JENKINS_ADMIN_PASSWORD=admin \
+  --env JENKINS_LOCATION=http://localhost:8080 \
+ --env JENKINS_CAC=true \
+  --env CASC_JENKINS_CONFIG=/var/jenkins_home/casc_configs/jenkins.yaml \
+  -v /Users/mac/Documents/jenkins:/var/jenkins_home \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  trion/jenkins-docker-client
 ```
 ## Run to setup jekin ( then open http://localhost:8080)
 ```bash
