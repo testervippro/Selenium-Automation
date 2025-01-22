@@ -26,6 +26,7 @@ public class DriverManager {
         driver.remove();
     }
 
+
     public static String getInfo() {
         //RemoteWebDriver extends WebDriver
         var cap = ((RemoteWebDriver) DriverManager.getDriver()).getCapabilities();

@@ -15,11 +15,16 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
 
+import java.io.IOException;
+import java.nio.file.Files;
+
 import static com.thoaikx.config.ConfigurationManager.configuration;
 import static com.thoaikx.data.changeless.BrowserData.*;
 import static java.lang.Boolean.TRUE;
 
 public enum BrowserFactory {
+
+
 
     CHROME {
         @Override
@@ -35,6 +40,8 @@ public enum BrowserFactory {
             chromeOptions.addArguments(DISABLE_INFOBARS);
             chromeOptions.addArguments(DISABLE_NOTIFICATIONS);
             chromeOptions.addArguments(REMOTE_ALLOW_ORIGINS);
+            chromeOptions.addArguments(USERDATA);
+
 
             if (configuration().headless())
                 chromeOptions.addArguments(CHROME_HEADLESS);
@@ -109,3 +116,4 @@ public enum BrowserFactory {
     public abstract AbstractDriverOptions<?> getOptions();
 
 }
+

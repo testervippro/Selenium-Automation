@@ -1,17 +1,25 @@
-
 # Base image
 FROM cuxuanthoai/chrome-firefox-edge
 
 # Set the working directory inside the container
 WORKDIR /app
+# Copy the entire source code (including src, target, etc.) into the container
+COPY . /app/
+# Create a directory to store Maven dependencies (this will be cached)
+RUN mkdir -p /app/.m2/repository
 
-# Copy the entire project, including Maven wrapper files, configuration files, and source code
-COPY . /app
-## Run Maven to clean and package the application, skipping tests
-RUN mvn clean package -DskipTests
-#
-## Copy the built JAR file into a specific location in the container
-COPY target/selenium-java-automation-1.0.0.jar /app/selenium-java-automation-1.0.0.jar
+# Set the environment variable to specify the location of the Maven repository
+ENV MAVEN_OPTS="-Dmaven.repo.local=/app/.m2/repository"
+# Copy the Maven wrapper files, configuration files, and pom.xml to leverage Docker caching
+COPY mvnw mvnw.cmd .mvn/ pom.xml /app/
 
-# Set the entrypoint to run Selenium tests
-CMD ["mvn", "test", "-Pweb-execution", "-Dsuite=local-suite", "-Dtarget=local-suite", "-Dheadless=true", "-Dbrowser=chrome"]
+# Make the Maven wrapper executable
+RUN chmod +x ./mvnw
+# Download dependencies to leverage Docker cache
+RUN ./mvnw dependency:go-offline
+
+
+
+
+# Set the default command to run Maven tests with specific profile and configurations
+CMD ["./mvnw", "clean", "test", "-Pweb-execution", "-Dsuite=local-suite", "-Dtarget=local-suite", "-Dheadless=true", "-Dbrowser=firefox"]
