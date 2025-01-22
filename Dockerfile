@@ -22,4 +22,4 @@ RUN ./mvnw dependency:go-offline
 
 
 # Set the default command to run Maven tests with specific profile and configurations
-CMD ["./mvnw", "clean", "test", "-Pweb-execution", "-Dsuite=local-suite", "-Dtarget=local-suite", "-Dheadless=true", "-Dbrowser=firefox"]
+CMD ["./mvnw", "clean", "test", "-Pweb-execution", "-Dsuite=local-suite", "-Dtarget=local-suite", "-Dheadless=true", "-Dbrowser=chrome"]

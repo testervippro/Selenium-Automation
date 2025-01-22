@@ -40,7 +40,6 @@ public enum BrowserFactory {
             chromeOptions.addArguments(DISABLE_INFOBARS);
             chromeOptions.addArguments(DISABLE_NOTIFICATIONS);
             chromeOptions.addArguments(REMOTE_ALLOW_ORIGINS);
-            chromeOptions.addArguments(USERDATA);
 
 
             if (configuration().headless())

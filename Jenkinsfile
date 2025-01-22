@@ -2,6 +2,19 @@ pipeline {
     agent any
 
     stages {
+        stage('Prepare Environment') {
+            steps {
+                script {
+                    // Ensure the permissions on .m2 directory
+                    if (isUnix()) {
+                        sh 'chmod -R 755 ~/.m2 || true'
+                    } else {
+                        bat 'icacls %USERPROFILE%\\.m2 /grant Everyone:F'
+                    }
+                }
+            }
+        }
+
         stage('Run Tests') {
             steps {
                 script {
