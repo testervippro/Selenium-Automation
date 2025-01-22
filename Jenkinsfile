@@ -5,11 +5,13 @@ pipeline {
         stage('Run Tests') {
             steps {
                 script {
-                    // Run tests using Maven
-                    if (isUnix()) {
-                        sh "./mvnw clean test -Pweb-execution -Dsuite=selenium-grid -Dtarget=local-suite -Dheadless=true -Dbrowser=chrome"
-                    } else {
-                        bat "mvnw.cmd clean test -Pweb-execution -Dsuite=selenium-grid -Dtarget=selenium-grid -Dheadless=true -Dbrowser=chrome"
+                    // Use Docker image to run tests
+                    docker.image('cuxuanthoai/chrome-firefox-edge').inside {
+                        if (isUnix()) {
+                            sh "./mvnw clean test -Pweb-execution -Dsuite=selenium-grid -Dtarget=local-suite -Dheadless=true -Dbrowser=chrome"
+                        } else {
+                            bat "mvnw.cmd clean test -Pweb-execution -Dsuite=selenium-grid -Dtarget=selenium-grid -Dheadless=true -Dbrowser=chrome"
+                        }
                     }
                 }
             }
@@ -18,7 +20,6 @@ pipeline {
 
     post {
         always {
-
             // Publish Allure report as HTML
             publishHTML(
                 target: [
