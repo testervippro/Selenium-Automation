@@ -7,7 +7,7 @@ services:
     image: selenium/node-docker:4.27.0-20250101
     volumes:
       - ./assets:/opt/selenium/assets
-      - ./config.toml:/opt/selenium/config.toml
+      - ./src/main/java/com/thoaikx/grid/config.toml:/opt/selenium/config.toml
       - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
       - selenium-hub
