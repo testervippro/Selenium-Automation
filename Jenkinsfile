@@ -21,10 +21,10 @@ pipeline {
                         sh """
                         mvn clean test \
                             -Pweb-execution \
-                            -Dsuite=selenium-grid \
-                            -Dtarget=selenium-grid \
+                            -Dsuite=local-suite \
+                            -Dtarget=local-suite \
                             -Dheadless=true \
-                            -Dbrowser=chrome
+                            -Dbrowser=firefox
                         """
                     } else {
                         bat """
