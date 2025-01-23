@@ -11,14 +11,7 @@ pipeline {
             }
         }
 
-        stage('Start Selenium Grid') {
-            steps {
-                script {
-                    // Start the Selenium Grid using docker-compose
-                    sh 'docker-compose -f docker-compose-v3-dynamic-grid.yml up -d'
-                }
-            }
-        }
+
 
         stage('Run Tests') {
             steps {
@@ -38,7 +31,7 @@ pipeline {
         always {
             script {
                 // Stop and remove the Selenium Grid containers
-                sh 'docker-compose -f docker-compose-v3-dynamic-grid.yml down'
+               // sh 'docker-compose -f docker-compose-v3-dynamic-grid.yml down'
             }
 
             // Publish Allure report as HTML
