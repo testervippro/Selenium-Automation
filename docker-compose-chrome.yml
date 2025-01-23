@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  selenium:
+    build: .
+    volumes:
+      - ./chrome-user-data:/tmp/chrome-user-data
+    ports:
+      - "8080:8080"  # If your app needs to expose ports
+    # Other configuration options as needed
+
+volumes:
+  # You don't need to declare a named volume anymore since we're using a host path
+  chrome-user-data:
+    driver: local

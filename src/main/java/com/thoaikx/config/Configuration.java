@@ -18,7 +18,8 @@ public interface Configuration  extends Config{
 
     @Key("target")
     String target();
-    
+    @Key("env")
+    String env();
 
     @Key("browser")
     String browser();
@@ -43,5 +44,8 @@ public interface Configuration  extends Config{
 
     @Key("grid.separate")
     boolean separatePort();
+
+    @Key("userdata")
+    String userdata();
     
 } 

@@ -40,6 +40,11 @@ public enum BrowserFactory {
             chromeOptions.addArguments(DISABLE_INFOBARS);
             chromeOptions.addArguments(DISABLE_NOTIFICATIONS);
             chromeOptions.addArguments(REMOTE_ALLOW_ORIGINS);
+            chromeOptions.addArguments("--incognito");
+            if (configuration().env().equals("ci")){
+                //chromeOptions.addArguments(USERDATA);
+                System.out.printf(USERDATA);
+            }
 
 
             if (configuration().headless())

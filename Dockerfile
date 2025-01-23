@@ -9,7 +9,7 @@ COPY . /app/
 RUN mkdir -p /app/.m2/repository
 
 # Set the environment variable to specify the location of the Maven repository
-ENV MAVEN_OPTS="-Dmaven.repo.local=/app/.m2/repository"
+#ENV MAVEN_OPTS="-Dmaven.repo.local=/app/.m2/repository"
 # Copy the Maven wrapper files, configuration files, and pom.xml to leverage Docker caching
 COPY mvnw mvnw.cmd .mvn/ pom.xml /app/
 
@@ -18,8 +18,5 @@ RUN chmod +x ./mvnw
 # Download dependencies to leverage Docker cache
 RUN ./mvnw dependency:go-offline
 
-
-
-
 # Set the default command to run Maven tests with specific profile and configurations
-CMD ["./mvnw", "clean", "test", "-Pweb-execution", "-Dsuite=local-suite", "-Dtarget=local-suite", "-Dheadless=true", "-Dbrowser=chrome"]
+CMD ["./mvnw", "clean", "test", "-Pweb-execution", "-Dsuite=local-suite", "-Dtarget=local-suite", "-Dheadless=true", "-Dbrowser=firefox"]

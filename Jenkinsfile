@@ -2,15 +2,11 @@ pipeline {
     agent any
 
     stages {
-        stage('Prepare Environment') {
+        stage('Start Selenium Grid') {
             steps {
                 script {
-                    // Ensure the permissions on .m2 directory
-                    if (isUnix()) {
-                        sh 'chmod -R 755 ~/.m2 || true'
-                    } else {
-                        bat 'icacls %USERPROFILE%\\.m2 /grant Everyone:F'
-                    }
+                    // Start the Selenium Grid using docker-compose
+                    sh 'docker-compose -f docker-compose-v3-dynamic-grid.yml up -d'
                 }
             }
         }
@@ -18,13 +14,11 @@ pipeline {
         stage('Run Tests') {
             steps {
                 script {
-                    // Use Docker image to run tests
-                    docker.image('cuxuanthoai/chrome-firefox-edge').inside {
-                        if (isUnix()) {
-                            sh "./mvnw clean test -Pweb-execution -Dsuite=selenium-grid -Dtarget=local-suite -Dheadless=true -Dbrowser=chrome"
-                        } else {
-                            bat "mvnw.cmd clean test -Pweb-execution -Dsuite=selenium-grid -Dtarget=selenium-grid -Dheadless=true -Dbrowser=chrome"
-                        }
+                    // Run Maven tests against the Selenium Grid
+                    if (isUnix()) {
+                        sh "./mvnw clean test -Pweb-execution -Dsuite=selenium-grid -Dtarget=selenium-grid -Dheadless=true -Dbrowser=chrome"
+                    } else {
+                        bat "mvnw.cmd clean test -Pweb-execution -Dsuite=selenium-grid -Dtarget=selenium-grid -Dheadless=true -Dbrowser=chrome"
                     }
                 }
             }
@@ -33,6 +27,11 @@ pipeline {
 
     post {
         always {
+            // Stop and remove the Selenium Grid containers
+            script {
+                sh 'docker-compose -f docker-compose-v3-dynamic-grid.yml down'
+            }
+
             // Publish Allure report as HTML
             publishHTML(
                 target: [
