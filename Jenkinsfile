@@ -33,7 +33,7 @@ pipeline {
                             -Dsuite=selenium-grid ^
                             -Dtarget=selenium-grid ^
                             -Dheadless=true ^
-                            -Dbrowser=chrome
+                            -Dbrowser=firefox
                         """
                     }
                 }
