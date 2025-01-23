@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+     agent {
+        docker { image 'cuxuanthoai/chrome-firefox-edge' }
+      }
 
     stages {
         stage('Clone Repository') {
