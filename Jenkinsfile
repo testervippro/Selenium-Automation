@@ -2,6 +2,15 @@ pipeline {
     agent any
 
     stages {
+        stage('Clone Repository') {
+            steps {
+                script {
+                    // Clone the repository from Git
+                    git branch: 'main', url: 'https://github.com/testervippro/Selenium-Automation.git'
+                }
+            }
+        }
+
         stage('Start Selenium Grid') {
             steps {
                 script {
@@ -27,8 +36,8 @@ pipeline {
 
     post {
         always {
-            // Stop and remove the Selenium Grid containers
             script {
+                // Stop and remove the Selenium Grid containers
                 sh 'docker-compose -f docker-compose-v3-dynamic-grid.yml down'
             }
 
