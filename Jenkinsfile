@@ -19,7 +19,7 @@ pipeline {
                     // Run Maven tests against the Selenium Grid
                     if (isUnix()) {
                         sh """
-                        ./mvnw clean test \
+                        mvn clean test \
                             -Pweb-execution \
                             -Dsuite=selenium-grid \
                             -Dtarget=selenium-grid \
