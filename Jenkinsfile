@@ -1,7 +1,9 @@
 pipeline {
-     agent {
-        docker { image 'cuxuanthoai/chrome-firefox-edge' }
-      }
+    agent {
+        docker {
+            image 'cuxuanthoai/chrome-firefox-edge'
+        }
+    }
 
     stages {
         stage('Clone Repository') {
@@ -16,24 +18,24 @@ pipeline {
         stage('Run Tests') {
             steps {
                 script {
-                    // Run Maven tests against the Selenium Grid
+                    // Run Maven tests based on the operating system
                     if (isUnix()) {
                         sh """
-                        mvn clean test \
-                            -Pweb-execution \
-                            -Dsuite=local-suite \
-                            -Dtarget=local-suite \
-                            -Dheadless=true \
-                            -Dbrowser=firefox
+                            mvn clean test \
+                                -Pweb-execution \
+                                -Dsuite=local-suite \
+                                -Dtarget=local-suite \
+                                -Dheadless=true \
+                                -Dbrowser=firefox
                         """
                     } else {
                         bat """
-                        mvnw.cmd clean test ^
-                            -Pweb-execution ^
-                            -Dsuite=local-suite ^
-                            -Dtarget=local-suite ^
-                            -Dheadless=true ^
-                            -Dbrowser=firefox
+                            mvnw.cmd clean test ^
+                                -Pweb-execution ^
+                                -Dsuite=local-suite ^
+                                -Dtarget=local-suite ^
+                                -Dheadless=true ^
+                                -Dbrowser=firefox
                         """
                     }
                 }
@@ -44,17 +46,15 @@ pipeline {
     post {
         always {
             // Publish Allure report as HTML
-            publishHTML(
-                target: [
-                    allowMissing: false,
-                    alwaysLinkToLastBuild: true,
-                    keepAll: true,
-                    reportDir: 'target/allure-results',
-                    reportFiles: 'index.html',
-                    reportName: 'My Reports',
-                    reportTitles: 'The Report'
-                ]
-            )
+            publishHTML target: [
+                allowMissing: false,
+                alwaysLinkToLastBuild: true,
+                keepAll: true,
+                reportDir: 'target/allure-results',
+                reportFiles: 'index.html',
+                reportName: 'Test Results',
+                reportTitles: 'Execution Report'
+            ]
         }
     }
 }
