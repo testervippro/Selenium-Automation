@@ -5,7 +5,7 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 script {
-                    // Clone the repository from Git
+                    // Clone the repository from GitHub
                     git branch: 'main', url: 'https://github.com/testervippro/Selenium-Automation.git'
                 }
             }
@@ -16,9 +16,23 @@ pipeline {
                 script {
                     // Run Maven tests against the Selenium Grid
                     if (isUnix()) {
-                        sh "./mvnw clean test -Pweb-execution -Dsuite=selenium-grid -Dtarget=selenium-grid -Dheadless=true -Dbrowser=chrome"
+                        sh """
+                        ./mvnw clean test \
+                            -Pweb-execution \
+                            -Dsuite=selenium-grid \
+                            -Dtarget=selenium-grid \
+                            -Dheadless=true \
+                            -Dbrowser=chrome
+                        """
                     } else {
-                        bat "mvnw.cmd clean test -Pweb-execution -Dsuite=selenium-grid -Dtarget=selenium-grid -Dheadless=true -Dbrowser=chrome"
+                        bat """
+                        mvnw.cmd clean test ^
+                            -Pweb-execution ^
+                            -Dsuite=selenium-grid ^
+                            -Dtarget=selenium-grid ^
+                            -Dheadless=true ^
+                            -Dbrowser=chrome
+                        """
                     }
                 }
             }
@@ -27,11 +41,6 @@ pipeline {
 
     post {
         always {
-            script {
-                // Stop and remove the Selenium Grid containers (commented out)
-                // sh 'docker-compose -f docker-compose-v3-dynamic-grid.yml down'
-            }
-
             // Publish Allure report as HTML
             publishHTML(
                 target: [
