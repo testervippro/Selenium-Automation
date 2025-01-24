@@ -17,7 +17,7 @@ pipeline {
                             -Dsuite=local-suite \
                             -Dtarget=local-suite \
                             -Dheadless=true \
-                            -Dbrowser=firefox
+                            -Dbrowser=edge
                     """
                 }
             }
