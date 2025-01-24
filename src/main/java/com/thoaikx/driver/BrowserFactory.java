@@ -76,7 +76,7 @@ public enum BrowserFactory {
         public WebDriver createLocalDriver()  {
 
             // Set the path to the Edge WebDriver binary (if not in PATH)
-          //  System.setProperty("webdriver.edge.driver", "/usr/local/bin/msedgedriver");
+           System.setProperty("webdriver.edge.driver", "/usr/bin/msedgedriver");
 
             // Initialize EdgeDriver
             WebDriver driver = new EdgeDriver(getOptions());
