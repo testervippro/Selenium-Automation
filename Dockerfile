@@ -14,4 +14,4 @@ RUN mkdir -p /app/msedgedriver && \
 # Set the path to msedgedriver
 ENV PATH="/app/msedgedriver:${PATH}"
 # Set the default command to execute Selenium tests
-CMD "mvn","test", "-Pweb-execution", "-Dsuite=local-suite", "-Dtarget=local-suite", "-Dheadless=true", "-Dbrowser=firefox"]
+#CMD "mvn","test", "-Pweb-execution", "-Dsuite=local-suite", "-Dtarget=local-suite", "-Dheadless=true", "-Dbrowser=firefox"]

@@ -2,6 +2,7 @@
 package com.thoaikx.driver;
 
 import com.thoaikx.exceptions.HeadlessNotSupportedException;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -57,7 +58,12 @@ public enum BrowserFactory {
     FIREFOX {
         @Override
         public WebDriver createLocalDriver() {
-            return new FirefoxDriver(getOptions());
+            // Use WebDriverManager to manage FirefoxDriver
+            WebDriverManager.firefoxdriver().setup();  // Downloads and sets up the Firefox driver
+
+            // Initialize FirefoxDriver with desired options (if any)
+            FirefoxOptions options = getOptions();
+            return new FirefoxDriver(options);
         }
 
         @Override

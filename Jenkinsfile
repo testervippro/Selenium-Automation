@@ -12,7 +12,12 @@ pipeline {
                 script {
                     // Run Maven tests inside the Docker container
                     sh """
-                        mvn --version
+                        mvn clean test \
+                            -Pweb-execution \
+                            -Dsuite=local-suite \
+                            -Dtarget=local-suite \
+                            -Dheadless=true \
+                            -Dbrowser=firefox
                     """
                 }
             }
