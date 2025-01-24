@@ -1,0 +1,15 @@
+#can change to standalone-firefox,standalone-edge ,standalone-chrome,
+version: '3'
+
+services:
+  selenium-edge:
+    image: selenium/standalone-edge:latest
+    container_name: selenium-edge-test
+    ports:
+      - "4444:4444"  # Expose port 4444 for Selenium WebDriver
+      - "7900:7900"  # Expose port 7900 for VNC (optional for browser UI access)
+    shm_size: "2g"  # Increase /dev/shm size to prevent crashes
+    restart: always  # Optional: automatically restart container if it crashes
+    environment:
+      - SE_OPTS="-host 0.0.0.0"  # Optional: set other Selenium options
+

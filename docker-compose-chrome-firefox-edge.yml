@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  selenium-test:
+    build: .
+    container_name: selenium-chrome-firefox-edge
+    shm_size: '2gb'  # Increase /dev/shm size to prevent crashes
+    command: ["./mvnw", "test", "-Pweb-execution", "-Dsuite=local-suite", "-Dtarget=local-suite", "-Dheadless=true", "-Dbrowser=edge"]
+    volumes:
+      - mavenrepo:/root/.m2  # Cache Maven dependencies
+    ports:
+      - "4444:4444"  # Expose Selenium WebDriver port
+
+volumes:
+  mavenrepo:
+    driver: local

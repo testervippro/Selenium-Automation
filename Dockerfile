@@ -1,19 +1,17 @@
 FROM cuxuanthoai/chrome-firefox-edge
-#FROM markhobson/maven-chrome:jdk-17
+#FROM mcr.microsoft.com/msedge/msedgedriver
 
 # Set the working directory inside the container
 WORKDIR /app
 
-# Copy the entire project directory to the container
 COPY . .
 #
-## Ensure chromedriver is placed at the expected path
-#RUN mkdir -p /app/chromedriver && \
-# cp ./src/main/java/com/thoaikx/driver/chromedriver/chromedriver /app/chromedriver/chromedriver
-##
-#
-#USER root
-## Ensure chromedriver has execute permissions
-#RUN chmod +x /app/chromedriver
+# Create the directory and copy msedgedriver
+RUN mkdir -p /app/msedgedriver && \
+    cp ./src/main/java/com/thoaikx/driver/msedgedriver/msedgedriver /app/msedgedriver/msedgedriver && \
+    chmod +x /app/msedgedriver/msedgedriver
+
+# Set the path to msedgedriver
+ENV PATH="/app/msedgedriver:${PATH}"
 # Set the default command to execute Selenium tests
-CMD ["./mvnw", "test", "-Pweb-execution", "-Dsuite=local-suite", "-Dtarget=local-suite", "-Dheadless=true", "-Dbrowser=chrome"]
+CMD ["./mvnw", "test", "-Pweb-execution", "-Dsuite=local-suite", "-Dtarget=local-suite", "-Dheadless=true", "-Dbrowser=edge"]

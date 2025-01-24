@@ -2,7 +2,6 @@
 package com.thoaikx.driver;
 
 import com.thoaikx.exceptions.HeadlessNotSupportedException;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -12,12 +11,10 @@ import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.AbstractDriverOptions;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
 
-import java.io.IOException;
-import java.nio.file.Files;
+
 import java.nio.file.Path;
 
 import static com.thoaikx.config.ConfigurationManager.configuration;
@@ -76,14 +73,26 @@ public enum BrowserFactory {
     },
     EDGE {
         @Override
-        public WebDriver createLocalDriver() {
-            return new EdgeDriver(getOptions());
+        public WebDriver createLocalDriver()  {
+
+            // Set the path to the Edge WebDriver binary (if not in PATH)
+          //  System.setProperty("webdriver.edge.driver", "/usr/local/bin/msedgedriver");
+
+            // Initialize EdgeDriver
+            WebDriver driver = new EdgeDriver(getOptions());
+
+            return driver;
+
         }
 
         @Override
         public EdgeOptions getOptions() {
             var edgeOptions = new EdgeOptions();
             edgeOptions.addArguments(START_MAXIMIZED);
+            edgeOptions.addArguments("--incognito");
+            edgeOptions.addArguments("--no-sandbox");
+
+
 
             if (configuration().headless())
                 edgeOptions.addArguments(GENERIC_HEADLESS);
@@ -115,7 +124,7 @@ public enum BrowserFactory {
      *
      * @return a new WebDriver instance based on the browser set
      */
-    public abstract WebDriver createLocalDriver();
+    public abstract WebDriver createLocalDriver() ;
 
     /**
      * @return a new AbstractDriverOptions instance based on the browser set
