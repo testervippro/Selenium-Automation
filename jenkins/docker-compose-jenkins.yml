@@ -20,6 +20,7 @@ services:
       - ./jenkins-casc.yaml:/provisioning/jenkins-casc.yaml
       - ./plugins.txt:/provisioning/plugins.txt
     privileged: true
+    # communication with the host
     extra_hosts:
       - "host.docker.internal:host-gateway"
     user: root
