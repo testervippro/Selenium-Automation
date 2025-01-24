@@ -1,22 +1,26 @@
-# Base image
 FROM cuxuanthoai/chrome-firefox-edge
+
+# Switch to root user to ensure permissions are not restricted
+USER root
 
 # Set the working directory inside the container
 WORKDIR /app
-# Copy the entire source code (including src, target, etc.) into the container
-COPY . /app/
-# Create a directory to store Maven dependencies (this will be cached)
-RUN mkdir -p /app/.m2/repository
 
-# Set the environment variable to specify the location of the Maven repository
-#ENV MAVEN_OPTS="-Dmaven.repo.local=/app/.m2/repository"
-# Copy the Maven wrapper files, configuration files, and pom.xml to leverage Docker caching
-COPY mvnw mvnw.cmd .mvn/ pom.xml /app/
+# Copy the entire project directory to the container
+COPY . .
+#
+## Ensure chromedriver is placed at the expected path
+#RUN mkdir -p /app/chromedriver && \
+#    cp ./src/main/java/com/thoaikx/driver/chromedriver/chromedriver /app/chromedriver/chromedriver
+#
+## Grant execution permissions for chromedriver
+#RUN chmod +x /app/chromedriver/chromedriver
 
-# Make the Maven wrapper executable
-RUN chmod +x ./mvnw
-# Download dependencies to leverage Docker cache
-RUN ./mvnw dependency:go-offline
+# Optional: Install any additional dependencies if required
+# RUN apt-get update && apt-get install -y <additional-packages>
 
-# Set the default command to run Maven tests with specific profile and configurations
-CMD ["./mvnw", "clean", "test", "-Pweb-execution", "-Dsuite=local-suite", "-Dtarget=local-suite", "-Dheadless=true", "-Dbrowser=firefox"]
+# Expose any required ports (if needed for debugging or reporting)
+# EXPOSE 8080
+
+# Set the default command to execute Selenium tests
+CMD ["./mvnw", "test", "-Pweb-execution", "-Dsuite=local-suite", "-Dtarget=local-suite", "-Dheadless=true", "-Dbrowser=firefox"]
