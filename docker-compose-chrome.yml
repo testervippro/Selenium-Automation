@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  selenium-test:
+    build: .
+    container_name: selenium-chrome-test
+    shm_size: '2gb'  # Increase /dev/shm size to prevent crashes
+
+    command: ["./mvnw", "test", "-Pweb-execution", "-Dsuite=local-suite", "-Dtarget=local-suite", "-Dheadless=true", "-Dbrowser=chrome"]
+    # Optionally add ports if you want to access something outside the container
+    # ports:
+    #   - "4444:4444"  # If you need to expose port 4444 for Selenium Grid, for example
