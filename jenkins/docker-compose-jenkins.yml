@@ -3,6 +3,8 @@ services:
   jenkins:
     image: trion/jenkins-docker-client
     container_name: jenkins
+    #share ram
+    shm_size: 2gb
     ports:
       - "8080:8080"
       - "50000:50000"

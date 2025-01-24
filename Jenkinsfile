@@ -1,15 +1,25 @@
 pipeline {
-    agent {
-        docker {
-            image 'cuxuanthoai/chrome-firefox-edge'
-        }
-    }
+    agent none  // No agent specified, because we’ll be running on a Docker container
 
     stages {
-        stage('Run Tests') {
+        stage('Start Docker Compose') {
             steps {
                 script {
-                    // For Unix-based systems
+                    // Run Docker Compose in the background
+                    sh 'docker-compose -f docker-compose-chrome-firefox-edge.yml up -d'
+                }
+            }
+        }
+
+        stage('Run Tests') {
+            agent {
+                docker {
+                    image 'cuxuanthoai/chrome-firefox-edge'
+                }
+            }
+            steps {
+                script {
+                    // Run Maven tests with specific browser settings
                     sh """
                         mvn clean test \
                             -Pweb-execution \
@@ -18,6 +28,15 @@ pipeline {
                             -Dheadless=true \
                             -Dbrowser=firefox
                     """
+                }
+            }
+        }
+
+        stage('Stop Docker Compose') {
+            steps {
+                script {
+                    // Stop and remove Docker containers
+                    sh 'docker-compose -f docker-compose-chrome-firefox-edge.yml down'
                 }
             }
         }
