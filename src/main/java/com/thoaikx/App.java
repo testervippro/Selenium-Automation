@@ -5,6 +5,7 @@ import com.thoaikx.config.MavenCommandBuilder;
 import com.thoaikx.enums.Browser;
 import com.thoaikx.enums.Target;
 import com.thoaikx.processsbuilder.ProcessManager;
+import io.github.bonigarcia.wdm.WebDriverManager;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -30,10 +31,14 @@ public class App {
 //            .build();
 //
 //    int exitCode = command.execute();//   System.out.println("Maven test execution completed with exit code: " + exitCode);
-//   ProcessManager.executeCommand("./mvnw clean test -Pweb-execution -Dsuite=local-suite -Dtarget=local-suite -Dheadless=true -Dbrowser=chrome");
-      String tmpdir = Files.createTempDirectory("tmpDirPrefix").toFile().getAbsolutePath();
+  //ProcessManager.executeCommand("./mvnw test -Pweb-execution -Dsuite=local-suite -Dtarget=local-suite -Dheadless=true -Dbrowser=firefox");
+      //String tmpdir = Files.createTempDirectory("tmpDirPrefix").toFile().getAbsolutePath();
 
-      System.out.printf(tmpdir);
+
+
+    // Get the path of the downloaded ChromeDriver
+    String driverPath = WebDriverManager.chromedriver().getDownloadedDriverPath();
+    System.out.printf(driverPath);
   }
 
 

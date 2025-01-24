@@ -2,6 +2,7 @@
 package com.thoaikx.driver;
 
 import com.thoaikx.exceptions.HeadlessNotSupportedException;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -17,6 +18,7 @@ import org.openqa.selenium.safari.SafariOptions;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 
 import static com.thoaikx.config.ConfigurationManager.configuration;
 import static com.thoaikx.data.changeless.BrowserData.*;
@@ -29,7 +31,10 @@ public enum BrowserFactory {
     CHROME {
         @Override
         public WebDriver createLocalDriver() {
-            return new ChromeDriver(getOptions());
+
+              return new ChromeDriver(getOptions());
+
+
         }
 
         @Override
@@ -41,14 +46,12 @@ public enum BrowserFactory {
             chromeOptions.addArguments(DISABLE_NOTIFICATIONS);
             chromeOptions.addArguments(REMOTE_ALLOW_ORIGINS);
             chromeOptions.addArguments("--incognito");
-            if (configuration().env().equals("ci")){
-                //chromeOptions.addArguments(USERDATA);
-                System.out.printf(USERDATA);
-            }
+            chromeOptions.addArguments("--no-sandbox");
 
 
             if (configuration().headless())
                 chromeOptions.addArguments(CHROME_HEADLESS);
+
 
             return chromeOptions;
         }
