@@ -5,7 +5,7 @@ services:
     build: .
     container_name: selenium-chrome-firefox-edge
     shm_size: '2gb'  # Increase /dev/shm size to prevent crashes
-    command: ["./mvnw", "test", "-Pweb-execution", "-Dsuite=local-suite", "-Dtarget=local-suite", "-Dheadless=true", "-Dbrowser=edge"]
+    command: ["mvn", "test", "-Pweb-execution", "-Dsuite=local-suite", "-Dtarget=local-suite", "-Dheadless=true", "-Dbrowser=edge"]
     volumes:
       - mavenrepo:/root/.m2  # Cache Maven dependencies
     ports:
