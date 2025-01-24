@@ -23,6 +23,12 @@ docker run -it --name=jenkins -e JENKINS_USER=$(id -u) --rm -p 8080:8080 -p 5000
 ```
 #
 
+run docker 
+```bash
+docker build -t chrome-firefox-edge . && docker run --rm --shm-size=2gb chrome-firefox-edge
+
+```
+
 creare network allow jenkin connect with selenium image 
 docker network connect jenkins-net jenkins
 docker network connect jenkins-net selenium
