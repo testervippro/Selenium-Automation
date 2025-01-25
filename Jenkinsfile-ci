@@ -50,7 +50,7 @@ pipeline {
                 def gitBranch = env.GIT_BRANCH ?: 'Unknown'
                 def gitCommit = env.GIT_COMMIT ?: 'Unknown'
                 def gitCommitMessage = sh(script: 'git log -1 --pretty=%B', returnStdout: true).trim()
-                def buildExecutor = env.BUILD_USER_ID ?: 'Unknown'
+                def buildExecutor = env.BUILD_USER ?: 'Unknown'
 
                 // Send email notification
                 def emailRecipient = 'cuxuanthoai@gmail.com'
