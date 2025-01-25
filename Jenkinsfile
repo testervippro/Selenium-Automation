@@ -22,10 +22,11 @@ pipeline {
         stage('Run Maven Tests') {
             steps {
                 script {
-                    // Run the container from the built image and execute the Maven tests
+                    // Run the container from the built image, specifying shm_size as 2GB
                     sh """
                         docker run --rm --name ${CONTAINER_NAME} \
-                            ${IMAGE_NAME}:${IMAGE_TAG} 
+                            --shm-size 2gb \
+                            ${IMAGE_NAME}:${IMAGE_TAG}
                     """
                 }
             }
