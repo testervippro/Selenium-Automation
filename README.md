@@ -28,6 +28,31 @@ run docker
 docker build -t chrome-firefox-edge . && docker run --rm --shm-size=2gb chrome-firefox-edge
 
 ```
+build docker jenkin 
+```bash
+docker build -t jenkin-ascode .
+```
+run docker jenkin 
+```bash
+docker run -it --name=jenkins \
+  -e JENKINS_USER=1000 \
+  -e JENKINS_CAC=true \
+  -e JENKINS_ADMIN_ID=admin \
+  -e JENKINS_ADMIN_PASSWORD=admin \
+  -e JENKINS_LOCATION=http://localhost:8080 \
+  -e JENKINS_CASC=/provisioning/config.yaml \
+  -p 8080:8080 \
+  -p 50000:50000 \
+  -v /Users/mac/Documents/jenkins:/var/jenkins_home \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v ./config.yaml:/provisioning/config.yaml \
+  -v ./plugins.txt:/provisioning/plugins.txt \
+  --shm-size=4gb \
+  --privileged \
+  --add-host="host.docker.internal:host-gateway" \
+  --user=root \
+  jenkin-ascode
+```
 
 creare network allow jenkin connect with selenium image 
 docker network connect jenkins-net jenkins
