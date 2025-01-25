@@ -5,7 +5,7 @@ pipeline {
         IMAGE_NAME = 'cuxuanthoai/chrome-firefox-edge'
         IMAGE_TAG = 'latest'
         CONTAINER_NAME = 'chrome-firefox-edge-container'
-        REPORT_DIR = 'target/allure-results'
+        REPORT_DIR = 'target/allure-results' // Directory to mount
     }
 
     stages {
@@ -35,12 +35,12 @@ pipeline {
         stage('Run Tests in Docker') {
             steps {
                 script {
-                    // Run the container from the built image, set permissions for the report directory, and run the tests
+                    // Run the container from the built image
                     sh """
                         docker run --rm --name ${CONTAINER_NAME} \
                             --shm-size 2gb \
                             -v ${WORKSPACE}/${REPORT_DIR}:${WORKSPACE}/${REPORT_DIR} \
-                            ${IMAGE_NAME}:${IMAGE_TAG}
+                            ${IMAGE_NAME}:${IMAGE_TAG} bash -c "chmod -R 777 ${WORKSPACE}/${REPORT_DIR}"
                     """
                 }
             }
@@ -50,15 +50,9 @@ pipeline {
     post {
         always {
             // Publish Allure or other reports after test execution
-            publishHTML target: [
-                allowMissing: false,
-                alwaysLinkToLastBuild: true,
-                keepAll: true,
-                reportDir: "${WORKSPACE}/${REPORT_DIR}",
-                reportFiles: 'index.html',
-                reportName: 'Test Results',
-                reportTitles: 'Execution Report'
-            ]
+            allure includeProperties: false, 
+                  jdk: '', 
+                  results: [[path: "${WORKSPACE}/${REPORT_DIR}"]]
         }
 
         success {
