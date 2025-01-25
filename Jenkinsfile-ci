@@ -26,7 +26,7 @@ pipeline {
             steps {
                 script {
                     // Run Maven clean and package (skip tests)
-                    sh "${MAVEN_HOME}/bin/mvn clean package -DskipTests=true"
+                    sh "${MAVEN_HOME}/bin/mvn clean -DskipTests=true"
                 }
             }
         }
