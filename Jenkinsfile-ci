@@ -2,17 +2,17 @@ pipeline {
     agent any
 
     environment {
-        // Define a global environment variable (mvnHome) in the environment block
-        mvnHome = ''
+        // Define Maven home path
+        MAVEN_HOME = ''
     }
 
     stages {
         stage('Preparation') {
             steps {
                 script {
-                    // Set mvnHome in the Preparation stage
-                    mvnHome = tool 'maven'  // 'maven' is the name you assigned to your Maven installation in Jenkins' Global Tool Configuration
-                    echo "Maven Home: ${mvnHome}"
+                    // Set MAVEN_HOME using the Maven tool configured in Jenkins
+                    MAVEN_HOME = tool name: 'maven', type: 'maven'
+                    echo "Maven Home: ${MAVEN_HOME}"
                 }
             }
         }
@@ -20,8 +20,8 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    // Use the mvnHome variable to run Maven build
-                    sh "'${mvnHome}/bin/mvn' clean package -DskipTests=true"
+                    // Run Maven clean and package (skip tests)
+                    sh "${MAVEN_HOME}/bin/mvn clean package -DskipTests=true"
                 }
             }
         }
@@ -29,17 +29,8 @@ pipeline {
         stage('Test Execution') {
             steps {
                 script {
-                    // Use the mvnHome variable to run Maven test
-                    sh "'${mvnHome}/bin/mvn' test -Pweb-execution -Dsuite=local-suite -Dtarget=local-suite -Dheadless=true -Dbrowser=chrome"
-                }
-            }
-        }
-
-        stage('Allure Report Generation') {
-            steps {
-                script {
-                    // Generate Allure report
-                    sh "'${mvnHome}/bin/mvn' allure:report"
+                    // Run Maven tests with specific profiles and parameters
+                    sh "${MAVEN_HOME}/bin/mvn test -Pweb-execution -Dsuite=local-suite -Dtarget=local-suite -Dheadless=true -Dbrowser=chrome"
                 }
             }
         }
@@ -47,12 +38,41 @@ pipeline {
 
     post {
         always {
-            // Publish Allure reports to Jenkins (adjust the report path and name as needed)
-            allure([
-                results: [[path: 'target/allure-results']],
-                reportBuildPolicy: 'ALWAYS',
-                includeProperties: false
-            ])
+            script {
+                // Generate Allure report
+                allure([
+                    results: [[path: 'target/allure-results']],
+                    reportBuildPolicy: 'ALWAYS',
+                    includeProperties: false
+                ])
+
+                // Send email notification
+                def emailRecipient = 'cuxuanthoai@gmail.com'
+                def emailSubject = "[Jenkins Build] ${env.JOB_NAME} - ${currentBuild.currentResult} - (#${env.BUILD_NUMBER})"
+                def emailBody = """
+                    <html>
+                        <body>
+                            <p>Hello,</p>
+                            <p>The Jenkins build for <strong>${env.JOB_NAME}</strong> (#${env.BUILD_NUMBER}) has completed.</p>
+                            <ul>
+                                <li><strong>Status:</strong> ${currentBuild.currentResult}</li>
+                                <li><strong>Build Duration:</strong> ${currentBuild.durationString}</li>
+                                <li><strong>Jenkins Server:</strong> <a href="https://ed1f-116-96-46-98.ngrok-free.app">Visit Jenkins</a></li>
+                                <li><strong>Allure Report:</strong> <a href="https://ed1f-116-96-46-98.ngrok-free.app/job/${env.JOB_NAME}/${env.BUILD_NUMBER}/allure">View Allure Report</a></li>
+                                <li><strong>Build URL:</strong> <a href="${env.BUILD_URL}">Open Build Details</a></li>
+                            </ul>
+                            <p>Best regards,<br><strong>testervippro</strong></p>
+                        </body>
+                    </html>
+                """
+
+                mail(
+                    to: emailRecipient,
+                    subject: emailSubject,
+                    body: emailBody,
+                    mimeType: 'text/html'
+                )
+            }
         }
 
         success {
