@@ -6,11 +6,6 @@ pipeline {
         MAVEN_HOME = ''
     }
 
-    options {
-        // Enable withBuildUser to capture the build user
-        withBuildUser()
-    }
-
     stages {
         stage('Preparation') {
             steps {
@@ -26,7 +21,7 @@ pipeline {
             steps {
                 script {
                     // Run Maven clean and package (skip tests)
-                    sh "${MAVEN_HOME}/bin/mvn clean -DskipTests=true"
+                    sh "${MAVEN_HOME}/bin/mvn clean package -DskipTests=true"
                 }
             }
         }
@@ -55,7 +50,7 @@ pipeline {
                 def gitBranch = env.GIT_BRANCH ?: 'Unknown'
                 def gitCommit = env.GIT_COMMIT ?: 'Unknown'
                 def gitCommitMessage = sh(script: 'git log -1 --pretty=%B', returnStdout: true).trim()
-                def buildExecutor = env.BUILD_USER ?: 'Unknown' // Get the build user from withBuildUser
+                def buildExecutor = env.BUILD_USER ?: 'Unknown'
 
                 // Send email notification
                 def emailRecipient = 'cuxuanthoai@gmail.com'
