@@ -22,6 +22,9 @@ docker run -it --name=jenkins -e JENKINS_USER=$(id -u) --rm -p 8080:8080 -p 5000
 --name jenkins trion/jenkins-docker-client
 ```
 #
+ngrock
+docker run --net=host -it -e NGROK_AUTHTOKEN=Changed2rY9YqgpPARdpK34kiVFwAzhajr_37gX2rHushKdELPhkTaof ngrok/ngrok:latest http 0.0.0.0:8080
+
 
 run docker 
 ```bash

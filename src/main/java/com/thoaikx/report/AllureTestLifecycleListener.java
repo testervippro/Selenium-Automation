@@ -4,6 +4,9 @@ import com.thoaikx.driver.DriverManager;
 import io.qameta.allure.Attachment;
 import io.qameta.allure.listener.TestLifecycleListener;
 import io.qameta.allure.model.TestResult;
+
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -23,37 +26,35 @@ public class AllureTestLifecycleListener implements TestLifecycleListener {
 
     @Attachment(value = "Page Screenshot", type = "image/png")
     public byte[] saveScreenshot(WebDriver driver) {
-//        if (driver != null) {
-//            return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-//        } else {
-//            System.err.println("Driver is null. Cannot take screenshot.");
-//            return new byte[0]; // Return empty byte array if driver is null
-//        }
-        return new byte[1];
+        if (driver != null) {
+            return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+        } else {
+            System.err.println("Driver is null. Cannot take screenshot.");
+            return new byte[0]; // Return empty byte array if driver is null
+        }
     }
+//    @Attachment(value = "Test Video", type = "video/mp4")
+//    public byte[] saveVideo(WebDriver driver) {
+//
+//        File videoFile = new File("path/to/video.mp4");
+//        try (FileInputStream fis = new FileInputStream(videoFile)) {
+//            byte[] videoBytes = new byte[(int) videoFile.length()];
+//            fis.read(videoBytes);
+//            return videoBytes;
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            return new byte[0];
+//        }
+//    }
 
     @Override
     public void beforeTestStop(TestResult result) {
-//        if (FAILED == result.getStatus() || BROKEN == result.getStatus()) {
-//            WebDriver driver = DriverManager.getDriver(); // Retrieve the driver instance
-//            saveScreenshot(driver); // Pass the driver to the screenshot method
-//        }
-    }
-
-    @Override
-    public void afterTestStop(TestResult result) {
-        // Stop Selenium Grid after all tests finish
-       // stopSeleniumGrid();
-    }
-
-    private void stopSeleniumGrid() {
-        try {
-            // Execute the `docker-compose down` command
-            Process process = Runtime.getRuntime().exec("docker-compose -f docker-compose-grid-basic.yml down");
-            process.waitFor();  // Wait for the command to complete
-            System.out.println("Selenium Grid stopped successfully.");
-        } catch (IOException | InterruptedException e) {
-            System.out.println("Failed to stop Selenium Grid: " + e.getMessage());
+        if (FAILED == result.getStatus() || BROKEN == result.getStatus()) {
+            WebDriver driver = DriverManager.getDriver(); // Retrieve the driver instance
+            saveScreenshot(driver); // Pass the driver to the screenshot method
         }
     }
+
+
+
 }
