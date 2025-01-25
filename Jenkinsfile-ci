@@ -34,15 +34,6 @@ pipeline {
                 }
             }
         }
-
-        stage('Allure Report Generation') {
-            steps {
-                script {
-                    // Generate Allure report
-                    //sh "'${mvnHome}/bin/mvn' allure:report"
-                }
-            }
-        }
     }
 
     post {
