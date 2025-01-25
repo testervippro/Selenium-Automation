@@ -39,7 +39,7 @@ pipeline {
             steps {
                 script {
                     // Generate Allure report
-                    sh "'${mvnHome}/bin/mvn' allure:report"
+                    //sh "'${mvnHome}/bin/mvn' allure:report"
                 }
             }
         }
