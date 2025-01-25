@@ -1,13 +1,18 @@
 pipeline {
     agent any
 
+    environment {
+        // Define a global environment variable (mvnHome) in the environment block
+        mvnHome = ''
+    }
+
     stages {
         stage('Preparation') {
             steps {
                 script {
-                    // Get Maven from the Jenkins tool configuration
-                    def mvnHome = tool 'maven'  // 'maven' is the name you assigned to your Maven installation in Jenkins' Global Tool Configuration
-
+                    // Set mvnHome in the Preparation stage
+                    mvnHome = tool 'maven'  // 'maven' is the name you assigned to your Maven installation in Jenkins' Global Tool Configuration
+                    echo "Maven Home: ${mvnHome}"
                 }
             }
         }
@@ -15,7 +20,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    // Run Maven build using the tool path
+                    // Use the mvnHome variable to run Maven build
                     sh "'${mvnHome}/bin/mvn' clean package -DskipTests=true"
                 }
             }
@@ -24,7 +29,7 @@ pipeline {
         stage('Test Execution') {
             steps {
                 script {
-                    // Run tests using the specified Maven tool
+                    // Use the mvnHome variable to run Maven test
                     sh "'${mvnHome}/bin/mvn' test -Pweb-execution -Dsuite=local-suite -Dtarget=local-suite -Dheadless=true -Dbrowser=chrome"
                 }
             }
@@ -38,7 +43,7 @@ pipeline {
                 allowMissing: false,
                 alwaysLinkToLastBuild: true,
                 includes: '**/*',
-                reportDir: "${WORKSPACE}/target/allure-results",
+                reportDir: "target/allure-results",
                 reportFiles: 'index.html',
                 reportName: 'Test Results'
             ]
