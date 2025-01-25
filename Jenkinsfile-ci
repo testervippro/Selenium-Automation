@@ -4,6 +4,9 @@ pipeline {
     environment {
         // Define Maven home path
         MAVEN_HOME = ''
+        // Define Jenkins server URL as an environment variable
+        JENKINS_SERVER_URL = 'https://ed1f-116-96-46-98.ngrok-free.app'
+        EMAIL_RECIPIENT = 'cuxuanthoai@gmail.com' // Consider using Jenkins credentials
     }
 
     stages {
@@ -53,7 +56,6 @@ pipeline {
                 def buildExecutor = env.BUILD_USER ?: 'Unknown'
 
                 // Send email notification
-                def emailRecipient = 'cuxuanthoai@gmail.com'
                 def emailSubject = "[Jenkins Build] ${env.JOB_NAME} - ${currentBuild.currentResult} - (#${env.BUILD_NUMBER})"
                 def emailBody = """
                     <html>
@@ -63,8 +65,8 @@ pipeline {
                             <ul>
                                 <li><strong>Status:</strong> ${currentBuild.currentResult}</li>
                                 <li><strong>Build Duration:</strong> ${currentBuild.durationString}</li>
-                                <li><strong>Jenkins Server:</strong> <a href="https://ed1f-116-96-46-98.ngrok-free.app">Visit Jenkins</a></li>
-                                <li><strong>Allure Report:</strong> <a href="https://ed1f-116-96-46-98.ngrok-free.app/job/${env.JOB_NAME}/${env.BUILD_NUMBER}/allure">View Allure Report</a></li>
+                                <li><strong>Jenkins Server:</strong> <a href="${JENKINS_SERVER_URL}">Visit Jenkins</a></li>
+                                <li><strong>Allure Report:</strong> <a href="${JENKINS_SERVER_URL}/job/${env.JOB_NAME}/${env.BUILD_NUMBER}/allure">View Allure Report</a></li>
                                 <li><strong>Build URL:</strong> <a href="${env.BUILD_URL}">Open Build Details</a></li>
                                 <li><strong>Git Branch:</strong> ${gitBranch}</li>
                                 <li><strong>Git Commit:</strong> ${gitCommit}</li>
@@ -77,7 +79,7 @@ pipeline {
                 """
 
                 mail(
-                    to: emailRecipient,
+                    to: EMAIL_RECIPIENT,
                     subject: emailSubject,
                     body: emailBody,
                     mimeType: 'text/html'
