@@ -20,7 +20,8 @@ pipeline {
             steps {
                 script {
                     // Execute tests with the specified parameters using Maven wrapper
-                    sh "./mvnw test -Pweb-execution -Dsuite=local-suite -Dtarget=local-suite -Dheadless=true -Dbrowser=chrome"
+                    sh "./mvnw test -Pweb-execution -Dsuite=local-suite -Dtarget=local-suite -Dheadless=true -Dbrowser=chrome -Dmaven.repo.local=./m2/repository"
+                    //sh "./mvnw test -Pweb-execution -Dsuite=local-suite -Dtarget=local-suite -Dheadless=true -Dbrowser=chrome "
                 }
             }
         }

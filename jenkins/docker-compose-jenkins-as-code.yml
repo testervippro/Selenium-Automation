@@ -22,7 +22,7 @@ services:
       - ./config.yaml:/provisioning/config.yaml
       - ./plugins.txt:/provisioning/plugins.txt
     privileged: true
-    # communication with the host
+    # communication with the host( eg selenium grid0
     extra_hosts:
       - "host.docker.internal:host-gateway"
     user: root
