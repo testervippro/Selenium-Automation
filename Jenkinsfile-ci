@@ -3,14 +3,14 @@ pipeline {
 
     environment {
         REPORT_DIR = 'target/allure-results'
-        MAVEN_OPTS = '-Dmaven.repo.local=./m2/repository'
+        MAVEN_OPTS = '-Dmaven.repo.local=./m2/repository'  // Cache Maven dependencies locally
     }
 
     stages {
         stage('Cache Maven dependencies') {
             steps {
                 script {
-                    // Create .m2 directory in workspace if it doesn't exist
+                    // Ensure .m2/repository exists in the workspace to cache dependencies
                     sh "mkdir -p ./m2/repository"
                 }
             }
@@ -20,8 +20,10 @@ pipeline {
             steps {
                 script {
                     // Execute tests with the specified parameters using Maven wrapper
+                    // Run tests in headless mode on Chrome and cache dependencies locally
                     sh "./mvnw test -Pweb-execution -Dsuite=local-suite -Dtarget=local-suite -Dheadless=true -Dbrowser=chrome -Dmaven.repo.local=./m2/repository"
-                    //sh "./mvnw test -Pweb-execution -Dsuite=local-suite -Dtarget=local-suite -Dheadless=true -Dbrowser=chrome "
+                    // Uncomment below if you wish to run tests without dependency caching (for testing)
+                    // sh "./mvnw test -Pweb-execution -Dsuite=local-suite -Dtarget=local-suite -Dheadless=true -Dbrowser=chrome"
                 }
             }
         }
@@ -29,7 +31,7 @@ pipeline {
 
     post {
         always {
-            // Publish Allure reports
+            // Publish Allure reports to Jenkins
             publishHTML target: [
                 allowMissing: false,
                 alwaysLinkToLastBuild: true,
