@@ -3,13 +3,23 @@ pipeline {
 
     environment {
         REPORT_DIR = 'target/allure-results'
+        MAVEN_OPTS = '-Dmaven.repo.local=${WORKSPACE}/.m2/repository'
     }
 
     stages {
+        stage('Cache Maven dependencies') {
+            steps {
+                script {
+                    // Create .m2 directory in workspace if it doesn't exist
+                    sh "mkdir -p ${WORKSPACE}/.m2/repository"
+                }
+            }
+        }
+
         stage('Run Tests') {
             steps {
                 script {
-                    // Execute tests with the specified parameters using the Maven wrapper
+                    // Execute tests with the specified parameters using Maven wrapper
                     sh "./mvnw test -Pweb-execution -Dsuite=local-suite -Dtarget=local-suite -Dheadless=true -Dbrowser=chrome"
                 }
             }
