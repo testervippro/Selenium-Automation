@@ -1,27 +1,12 @@
 pipeline {
-    agent none
+    agent any  // Define no global agent to ensure stages have their own agent
 
     stages {
-        stage('Build Docker Image') {
-            agent {
-                dockerfile {
-                    dir '.'  // This specifies the directory with your Dockerfile (default is the root of the repository)
-                    filename 'Dockerfile'  // Use the Dockerfile to build the image
-                }
-            }
-            steps {
-                script {
-                    // Ensure Docker is built before proceeding
-                    echo 'Building Docker Image'
-                }
-            }
-        }
-
         stage('Run Tests') {
             agent {
                 docker {
-                    image 'cuxuanthoai/chrome-firefox-edge'  // Use the specified image for the container
-                    args '-u root'  // Optional: Use necessary Docker arguments, like running as root if needed
+                    image 'cuxuanthoai/chrome-firefox-edge'  // Use the specified Docker image for the container
+                   
                 }
             }
             steps {
