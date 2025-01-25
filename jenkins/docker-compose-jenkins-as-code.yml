@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   jenkins:
-    image: trion/jenkins-docker-client
+    image: cuxuanthoai/jenkins-docker
     container_name: jenkins
     #share ram
     shm_size: 4gb
@@ -14,12 +14,12 @@ services:
       - JENKINS_ADMIN_ID=admin
       - JENKINS_ADMIN_PASSWORD=admin
       - JENKINS_LOCATION=http://localhost:8080
-      - JENKINS_CASC=/provisioning/jenkins-casc.yaml
+      - JENKINS_CASC=/provisioning/config.yaml
     volumes:
       - /Users/mac/Documents/jenkins:/var/jenkins_home
       #https://dev.to/piyushbagani15/understanding-varrundockersock-the-key-to-dockers-inner-workings-nm7
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./jenkins-casc.yaml:/provisioning/jenkins-casc.yaml
+      - ./config.yaml:/provisioning/config.yaml
       - ./plugins.txt:/provisioning/plugins.txt
     privileged: true
     # communication with the host

@@ -2,7 +2,9 @@ version: '3.8'
 
 services:
   selenium-test:
-    build: .
+    build:
+      context: .  # Build the image from the current directory
+      dockerfile: Dockerfile  # Specify the Dockerfile to use for this build
     container_name: selenium-chrome-firefox-edge
     shm_size: '2gb'  # Increase /dev/shm size to prevent crashes
     command: ["mvn", "test", "-Pweb-execution", "-Dsuite=local-suite", "-Dtarget=local-suite", "-Dheadless=true", "-Dbrowser=edge"]
@@ -10,6 +12,8 @@ services:
       - mavenrepo:/root/.m2  # Cache Maven dependencies
     ports:
       - "4444:4444"  # Expose Selenium WebDriver port
+    environment:
+      - DISPLAY=:99  # Set display for headless browsers
 
 volumes:
   mavenrepo:

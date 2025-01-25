@@ -29,12 +29,9 @@ public enum BrowserFactory {
     CHROME {
         @Override
         public WebDriver createLocalDriver() {
+            WebDriver driver;
 
-
-
-            WebDriverManager.chromedriver().setup();  // Downloads and sets up the Firefox driver
-
-
+            WebDriverManager.chromedriver().setup();
             ChromeOptions options = getOptions();
             return new ChromeDriver (options);
 
@@ -49,8 +46,8 @@ public enum BrowserFactory {
             chromeOptions.addArguments(DISABLE_INFOBARS);
             chromeOptions.addArguments(DISABLE_NOTIFICATIONS);
             chromeOptions.addArguments(REMOTE_ALLOW_ORIGINS);
-            chromeOptions.addArguments("--incognito");
             chromeOptions.addArguments("--no-sandbox");
+            //https://github.com/SeleniumHQ/seleniumhq.github.io/pull/2139
 
 
             if (configuration().headless())
@@ -90,9 +87,7 @@ public enum BrowserFactory {
             // Set the path to the Edge WebDriver binary (if not in PATH)
            //System.setProperty("webdriver.edge.driver", "/usr/bin/msedgedriver");
 
-
             WebDriverManager.edgedriver().setup();  // Downloads and sets up the Firefox driver
-
 
             EdgeOptions options = getOptions();
             return new EdgeDriver(options);
@@ -104,10 +99,8 @@ public enum BrowserFactory {
         public EdgeOptions getOptions() {
             var edgeOptions = new EdgeOptions();
             edgeOptions.addArguments(START_MAXIMIZED);
-            edgeOptions.addArguments("--incognito");
             edgeOptions.addArguments("--no-sandbox");
-
-
+            //
 
             if (configuration().headless())
                 edgeOptions.addArguments(GENERIC_HEADLESS);
