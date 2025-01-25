@@ -5,6 +5,7 @@ pipeline {
         IMAGE_NAME = 'cuxuanthoai/chrome-firefox-edge'
         IMAGE_TAG = 'latest'
         CONTAINER_NAME = 'chrome-firefox-edge-container'
+        REPORT_DIR = 'target/allure-results'
     }
 
     stages {
@@ -22,10 +23,11 @@ pipeline {
         stage('Run Maven Tests') {
             steps {
                 script {
-                    // Run the container from the built image, specifying shm_size as 2GB
+                    // Run the container and mount a volume for test results
                     sh """
                         docker run --rm --name ${CONTAINER_NAME} \
                             --shm-size 2gb \
+                            -v ${WORKSPACE}/target/allure-results:/app/target/allure-results \
                             ${IMAGE_NAME}:${IMAGE_TAG}
                     """
                 }
@@ -46,7 +48,6 @@ pipeline {
                 reportTitles: 'Execution Report'
             ]
         }
-
 
         success {
             echo 'Tests completed successfully!'
