@@ -9,6 +9,15 @@ pipeline {
     }
 
     stages {
+        stage('Prepare Report Directory') {
+            steps {
+                script {
+                    // Ensure the report directory exists on the Jenkins host machine
+                    sh "mkdir -p ${WORKSPACE}/${REPORT_DIR}"
+                }
+            }
+        }
+
         stage('Build Docker Image') {
             steps {
                 script {
@@ -23,11 +32,11 @@ pipeline {
         stage('Run Maven Tests') {
             steps {
                 script {
-                    // Run the container and mount a volume for test results
+                    // Run the container from the built image
                     sh """
                         docker run --rm --name ${CONTAINER_NAME} \
                             --shm-size 2gb \
-                            -v ${WORKSPACE}/target/allure-results:/app/target/allure-results \
+                            -v ${WORKSPACE}/${REPORT_DIR}:${WORKSPACE}/${REPORT_DIR} \
                             ${IMAGE_NAME}:${IMAGE_TAG}
                     """
                 }
@@ -42,7 +51,7 @@ pipeline {
                 allowMissing: false,
                 alwaysLinkToLastBuild: true,
                 keepAll: true,
-                reportDir: 'target/allure-results',
+                reportDir: "${WORKSPACE}/${REPORT_DIR}",
                 reportFiles: 'index.html',
                 reportName: 'Test Results',
                 reportTitles: 'Execution Report'
