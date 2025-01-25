@@ -40,7 +40,7 @@ pipeline {
                         docker run --rm --name ${CONTAINER_NAME} \
                             --shm-size 2gb \
                             -v ${WORKSPACE}/${REPORT_DIR}:${WORKSPACE}/${REPORT_DIR} \
-                            ${IMAGE_NAME}:${IMAGE_TAG} bash -c "chmod -R 777 ${WORKSPACE}/${REPORT_DIR}"
+                            ${IMAGE_NAME}:${IMAGE_TAG}
                     """
                 }
             }
