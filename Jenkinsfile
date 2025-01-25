@@ -52,13 +52,13 @@ pipeline {
     post {
         always {
             // Ensure HTML report directory permissions are set before publishing
-            sh "chmod -R 777 ${WORKSPACE}/builds"
 
             // Publish HTML reports after test execution
             publishHTML target: [
                 allowMissing: false,
                 alwaysLinkToLastBuild: true,
                 keepAll: true,
+                includes: '**/*',
                 reportDir: "${WORKSPACE}/${REPORT_DIR}",
                 reportFiles: 'index.html', // Ensure index.html exists in the report directory
                 reportName: 'Test Results',
