@@ -1,17 +1,11 @@
 pipeline {
-    agent any  // Define no global agent to ensure stages have their own agent
+    agent any  // Use any available agent
 
     stages {
         stage('Run Tests') {
-            agent {
-                docker {
-                    image 'cuxuanthoai/chrome-firefox-edge'  // Use the specified Docker image for the container
-                   
-                }
-            }
             steps {
                 script {
-                    // Run Maven tests inside the Docker container
+                    // Run Maven tests
                     sh """
                         mvn clean test \
                             -Pweb-execution \
