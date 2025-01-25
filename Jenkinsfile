@@ -12,9 +12,12 @@ pipeline {
         stage('Prepare Report Directory') {
             steps {
                 script {
+                    // Clean workspace to avoid any conflicts
+                    cleanWs()
+
                     // Ensure the report directory exists on the Jenkins host machine
                     sh "mkdir -p ${WORKSPACE}/${REPORT_DIR}"
-                    
+
                     // Fix permissions for the report directory to ensure Jenkins can access it
                     sh "chmod -R 777 ${WORKSPACE}/${REPORT_DIR}"  // Make it readable, writable, and executable by anyone
                 }
@@ -40,7 +43,7 @@ pipeline {
                         docker run --rm --name ${CONTAINER_NAME} \
                             --shm-size 2gb \
                             -v ${WORKSPACE}/${REPORT_DIR}:${WORKSPACE}/${REPORT_DIR} \
-                            ${IMAGE_NAME}:${IMAGE_TAG} bash -c "chmod -R 777 ${WORKSPACE}/${REPORT_DIR}"
+                            ${IMAGE_NAME}:${IMAGE_TAG}
                     """
                 }
             }
@@ -49,14 +52,16 @@ pipeline {
 
     post {
         always {
+            // Ensure HTML report directory permissions are set before publishing
+            sh "chmod -R 777 ${WORKSPACE}/htmlreports"
+
             // Publish HTML reports after test execution
             publishHTML target: [
                 allowMissing: false,
                 alwaysLinkToLastBuild: true,
                 keepAll: true,
-                includes: '**/*',
                 reportDir: "${WORKSPACE}/${REPORT_DIR}",
-                reportFiles: 'index.html', // Make sure index.html exists in the report directory
+                reportFiles: 'index.html', // Ensure index.html exists in the report directory
                 reportName: 'Test Results',
                 reportTitles: 'Execution Report'
             ]
