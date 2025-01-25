@@ -47,20 +47,20 @@ pipeline {
             // Send an email notification with Allure report link
             mail(
                 to: 'cuxuanthoai@gmail.com',
-                subject: "[Jenkins Build] ${env.JOB_NAME} - ${currentBuild.currentResult}",
+                subject: "[Jenkins Build] ${env.JOB_NAME} - ${currentBuild.currentResult} - (#${env.BUILD_NUMBER}",
                 body: """
                     Hello,
 
-                    The Jenkins build for **${env.JOB_NAME}** (#${env.BUILD_NUMBER}) has completed.
+                    The Jenkins build for [${env.JOB_NAME}] (#${env.BUILD_NUMBER}) has completed.
 
-                    **Status:** ${currentBuild.currentResult}  
-                    **Jenkins Server:** [Visit Jenkins](https://ed1f-116-96-46-98.ngrok-free.app)  
-                    **Allure Report:** [View Allure Report](https://ed1f-116-96-46-98.ngrok-free.app/job/${env.JOB_NAME}/${env.BUILD_NUMBER}/allure)  
-                    **Build URL:** [Open Build Details](${env.BUILD_URL})  
+                    Status: ${currentBuild.currentResult}  
+                    Jenkins Server: [Visit Jenkins](https://ed1f-116-96-46-98.ngrok-free.app)  
+                    Allure Report:[View Allure Report](https://ed1f-116-96-46-98.ngrok-free.app/job/${env.JOB_NAME}/${env.BUILD_NUMBER}/allure)  
+                    Build URL:[Open Build Details](${env.BUILD_URL})  
 
                     Best regards,  
-                    **testervippro**  
-                    Jenkins CI/CD
+                    testervippro 
+    
                 """
             )
         }
