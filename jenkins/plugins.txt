@@ -9,3 +9,4 @@ email-ext: 1866.v14fa_6d201654
 htmlpublisher: 1.37
 nodejs: 1.6.2
 git:5.0.0
+build-user-vars-plugin:182.v378b_9f14b_487
