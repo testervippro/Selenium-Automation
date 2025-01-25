@@ -41,7 +41,7 @@ pipeline {
                     sh """
                         docker run --rm --name ${CONTAINER_NAME} \
                             --shm-size 2gb \
-                            -v ${WORKSPACE}:./app \
+                            -v ${WORKSPACE}:${WORKSPACE} \
                             ${IMAGE_NAME}:${IMAGE_TAG}
                     """
                 }
