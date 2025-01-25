@@ -1,29 +1,31 @@
 pipeline {
     agent any
 
-    environment {
-        REPORT_DIR = 'target/allure-results'
-        MAVEN_OPTS = '-Dmaven.repo.local=./m2/repository'  // Cache Maven dependencies locally
-    }
-
     stages {
-        stage('Cache Maven dependencies') {
+        stage('Preparation') {
             steps {
                 script {
-                    // Ensure .m2/repository exists in the workspace to cache dependencies
-                    sh "mkdir -p ./m2/repository"
+                    // Get Maven from the Jenkins tool configuration
+                    def mvnHome = tool 'maven'  // 'maven' is the name you assigned to your Maven installation in Jenkins' Global Tool Configuration
+
                 }
             }
         }
 
-        stage('Run Tests') {
+        stage('Build') {
             steps {
                 script {
-                    // Execute tests with the specified parameters using Maven wrapper
-                    // Run tests in headless mode on Chrome and cache dependencies locally
-                    sh "./mvnw test -Pweb-execution -Dsuite=local-suite -Dtarget=local-suite -Dheadless=true -Dbrowser=chrome -Dmaven.repo.local=./m2/repository"
-                    // Uncomment below if you wish to run tests without dependency caching (for testing)
-                    // sh "./mvnw test -Pweb-execution -Dsuite=local-suite -Dtarget=local-suite -Dheadless=true -Dbrowser=chrome"
+                    // Run Maven build using the tool path
+                    sh "'${mvnHome}/bin/mvn' clean package -DskipTests=true"
+                }
+            }
+        }
+
+        stage('Test Execution') {
+            steps {
+                script {
+                    // Run tests using the specified Maven tool
+                    sh "'${mvnHome}/bin/mvn' test -Pweb-execution -Dsuite=local-suite -Dtarget=local-suite -Dheadless=true -Dbrowser=chrome"
                 }
             }
         }
@@ -31,12 +33,12 @@ pipeline {
 
     post {
         always {
-            // Publish Allure reports to Jenkins
+            // Publish Allure reports to Jenkins (adjust the report path and name as needed)
             publishHTML target: [
                 allowMissing: false,
                 alwaysLinkToLastBuild: true,
                 includes: '**/*',
-                reportDir: "${WORKSPACE}/${REPORT_DIR}",
+                reportDir: "${WORKSPACE}/target/allure-results",
                 reportFiles: 'index.html',
                 reportName: 'Test Results'
             ]
