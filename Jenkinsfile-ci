@@ -34,19 +34,25 @@ pipeline {
                 }
             }
         }
+
+        stage('Allure Report Generation') {
+            steps {
+                script {
+                    // Generate Allure report
+                    sh "'${mvnHome}/bin/mvn' allure:report"
+                }
+            }
+        }
     }
 
     post {
         always {
             // Publish Allure reports to Jenkins (adjust the report path and name as needed)
-            publishHTML target: [
-                allowMissing: false,
-                alwaysLinkToLastBuild: true,
-                includes: '**/*',
-                reportDir: "target/allure-results",
-                reportFiles: 'index.html',
-                reportName: 'Test Results'
-            ]
+            allure([
+                results: [[path: 'target/allure-results']],
+                reportBuildPolicy: 'ALWAYS',
+                includeProperties: false
+            ])
         }
 
         success {
