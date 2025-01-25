@@ -30,7 +30,13 @@ public enum BrowserFactory {
         @Override
         public WebDriver createLocalDriver() {
 
-              return new ChromeDriver(getOptions());
+
+
+            WebDriverManager.chromedriver().setup();  // Downloads and sets up the Firefox driver
+
+
+            ChromeOptions options = getOptions();
+            return new ChromeDriver (options);
 
 
         }
@@ -82,12 +88,15 @@ public enum BrowserFactory {
         public WebDriver createLocalDriver()  {
 
             // Set the path to the Edge WebDriver binary (if not in PATH)
-           System.setProperty("webdriver.edge.driver", "/usr/bin/msedgedriver");
+           //System.setProperty("webdriver.edge.driver", "/usr/bin/msedgedriver");
 
-            // Initialize EdgeDriver
-            WebDriver driver = new EdgeDriver(getOptions());
 
-            return driver;
+            WebDriverManager.edgedriver().setup();  // Downloads and sets up the Firefox driver
+
+
+            EdgeOptions options = getOptions();
+            return new EdgeDriver(options);
+
 
         }
 
