@@ -1,35 +1,66 @@
-node {
-    def mvnHome
+pipeline {
+    agent any
 
-    stage('Preparation') {
-       
-        mvnHome = tool 'maven'
+    environment {
+        // Define a global environment variable (mvnHome) in the environment block
+        mvnHome = ''
     }
 
-    stage('Build') {
-        sh "'${mvnHome}/bin/mvn' clean package -DskipTests=true"
+    stages {
+        stage('Preparation') {
+            steps {
+                script {
+                    // Set mvnHome in the Preparation stage
+                    mvnHome = tool 'maven'  // 'maven' is the name you assigned to your Maven installation in Jenkins' Global Tool Configuration
+                    echo "Maven Home: ${mvnHome}"
+                }
+            }
+        }
+
+        stage('Build') {
+            steps {
+                script {
+                    // Use the mvnHome variable to run Maven build
+                    sh "'${mvnHome}/bin/mvn' clean package -DskipTests=true"
+                }
+            }
+        }
+
+        stage('Test Execution') {
+            steps {
+                script {
+                    // Use the mvnHome variable to run Maven test
+                    sh "'${mvnHome}/bin/mvn' test -Pweb-execution -Dsuite=local-suite -Dtarget=local-suite -Dheadless=true -Dbrowser=chrome"
+                }
+            }
+        }
+
+        stage('Allure Report Generation') {
+            steps {
+                script {
+                    // Generate Allure report
+                    sh "'${mvnHome}/bin/mvn' allure:report"
+                }
+            }
+        }
     }
 
-    stage('Test Execution') {
-        try {
-            sh "'${mvnHome}/bin/mvn' test -Pweb-execution -Dsuite=local-suite -Dtarget=local-suite -Dheadless=true -Dbrowser=chrome"
-        } catch (Exception e) {
-            currentBuild.result = 'FAILURE'
-        } finally {
-            junit '**/target/surefire-reports/TEST-*.xml'
-
-            /*
-             * Please read https://wiki.jenkins.io/display/JENKINS/Configuring+Content+Security+Policy
-             * to allow Jenkins to load static files
-             */
-            publishHTML (target: [
-                allowMissing: false,
-                alwaysLinkToLastBuild: true,
-                keepAll: true,
-                reportDir: 'target/surefire-reports',
-                reportFiles: 'index.html',
-                reportName: "TestNG Report"
+    post {
+        always {
+            // Publish Allure reports to Jenkins (adjust the report path and name as needed)
+            allure([
+                results: [[path: 'target/allure-results']],
+                reportBuildPolicy: 'ALWAYS',
+                includeProperties: false
             ])
+        }
+
+        success {
+            echo 'Tests completed successfully!'
+        }
+
+        failure {
+            echo 'Tests failed!'
         }
     }
 }
