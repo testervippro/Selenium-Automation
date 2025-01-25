@@ -12,8 +12,7 @@ pipeline {
         stage('Prepare Report Directory') {
             steps {
                 script {
-                    // Clean workspace to avoid any conflicts
-                    cleanWs()
+                  
 
                     // Ensure the report directory exists on the Jenkins host machine
                     sh "mkdir -p ${WORKSPACE}/${REPORT_DIR}"
@@ -53,7 +52,7 @@ pipeline {
     post {
         always {
             // Ensure HTML report directory permissions are set before publishing
-            sh "chmod -R 777 ${WORKSPACE}/htmlreports"
+            sh "chmod -R 777 ${WORKSPACE}/builds"
 
             // Publish HTML reports after test execution
             publishHTML target: [
