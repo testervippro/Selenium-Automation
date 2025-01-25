@@ -7,7 +7,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import static com.thoaikx.config.ConfigurationManager.configuration;
-import static org.glassfish.jersey.internal.config.ExternalPropertiesConfigurationFactory.configure;
 
 public final class BrowserData {
 
