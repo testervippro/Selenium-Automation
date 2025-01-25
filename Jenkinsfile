@@ -14,6 +14,9 @@ pipeline {
                 script {
                     // Ensure the report directory exists on the Jenkins host machine
                     sh "mkdir -p ${WORKSPACE}/${REPORT_DIR}"
+                    
+                    // Fix permissions for the report directory to ensure Jenkins can access it
+                    sh "chmod -R 777 ${WORKSPACE}/${REPORT_DIR}"  // Make it readable, writable, and executable by anyone
                 }
             }
         }
@@ -29,7 +32,7 @@ pipeline {
             }
         }
 
-        stage('Run Maven Tests') {
+        stage('Run Tests in Docker') {
             steps {
                 script {
                     // Run the container from the built image
