@@ -30,7 +30,7 @@ pipeline {
             steps {
                 script {
                     // Run Maven tests with specific profiles and parameters
-                    sh "${MAVEN_HOME}/bin/mvn test -Pweb-execution -Dsuite=local-suite -Dtarget=local-suite -Dheadless=true -Dbrowser=chrome"
+                    sh "${MAVEN_HOME}/bin/mvn test -Pweb-execution -Dsuite=local-suite -Dtarget=local-suite -Dheadless=false -Dbrowser=chrome"
                 }
             }
         }
