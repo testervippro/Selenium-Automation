@@ -13,7 +13,7 @@ pipeline {
                     checkout([
                         $class: 'GitSCM',
                         branches: [[name: '*/main']], // Replace with your branch name if different
-                        extensions: [],
+                        extensions: [[$class: 'CloneOption', depth: 1, shallow: true]], // Shallow clone
                         userRemoteConfigs: [[
                             url: 'https://github.com/testervippro/Selenium-Automation.git', // Your repository URL
                             credentialsId: '72a36d73-7b27-4213-aa99-c560b1f83b90' // Your Jenkins credentials ID
