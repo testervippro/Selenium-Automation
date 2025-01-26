@@ -64,7 +64,7 @@ public class AllureManager {
 
     public static void allureOpen() {
         Thread dt = new Thread( () -> {
-            if(Boolean.valueOf(configuration().autoReport()))
+            if(Boolean.valueOf(configuration().autoOpenReport()))
             {
                 try {
                     AllureManager.generateReport();
