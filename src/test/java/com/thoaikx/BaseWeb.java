@@ -66,7 +66,9 @@ public abstract class BaseWeb {
     @AfterSuite ()
     public void genReport() throws IOException {
     //DockerManager.executeCommand(commandDown);
-    //AllureManager.allureOpen();
+    if ("true".equals(configuration().autoOpenReport())){
+           AllureManager.allureOpen();
+      }
     }
 
 

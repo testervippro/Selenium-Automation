@@ -39,8 +39,8 @@ public interface Configuration  extends Config{
     @Key("grid.port")
     String gridPort();
 
-    @Key("auto.report")
-    boolean autoReport();
+    @Key("auto.open.report")
+    boolean autoOpenReport();
 
     @Key("grid.separate")
     boolean separatePort();

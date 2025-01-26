@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   jenkins:
-    image: cuxuanthoai/jenkins-docker:v1.0
+    image: cuxuanthoai/jenkins-docker:v1.1
     container_name: jenkins80
     #share ram
     shm_size: 6gb
