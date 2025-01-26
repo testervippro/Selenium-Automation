@@ -2,7 +2,7 @@
 <suite name="Local one browser Chrome">
 
     <test name="Chome Tests">
-        <parameter name="browser" value="chrome"/>
+        <parameter name="browser" value="firefox"/>
         <classes>
             <class name="com.thoaikx.HomePageTest"/>
         </classes>

@@ -54,6 +54,13 @@ public enum BrowserFactory {
                 chromeOptions.addArguments(CHROME_HEADLESS);
 
 
+            if(configuration().gridVideo()) {
+                chromeOptions.setCapability("se:recordVideo", true);
+                chromeOptions.setCapability("se:screenResolution", "1920x1080");
+                chromeOptions.setCapability("se:name", "test_visit_basic_auth_secured_page (ChromeTests)");
+            }
+
+
             return chromeOptions;
         }
 
@@ -77,6 +84,12 @@ public enum BrowserFactory {
             if (configuration().headless())
                 firefoxOptions.addArguments(GENERIC_HEADLESS);
 
+            if(configuration().gridVideo()) {
+                firefoxOptions.setCapability("se:recordVideo", true);
+                firefoxOptions.setCapability("se:screenResolution", "1920x1080");
+                firefoxOptions.setCapability("se:name", "test_visit_basic_auth_secured_page (FireFox)");
+            }
+
             return firefoxOptions;
         }
     },
@@ -84,8 +97,6 @@ public enum BrowserFactory {
         @Override
         public WebDriver createLocalDriver()  {
 
-            // Set the path to the Edge WebDriver binary (if not in PATH)
-           //System.setProperty("webdriver.edge.driver", "/usr/bin/msedgedriver");
 
             WebDriverManager.edgedriver().setup();  // Downloads and sets up the Firefox driver
 
@@ -104,6 +115,13 @@ public enum BrowserFactory {
 
             if (configuration().headless())
                 edgeOptions.addArguments(GENERIC_HEADLESS);
+
+
+            if(configuration().gridVideo()) {
+                edgeOptions.setCapability("se:recordVideo", true);
+                edgeOptions.setCapability("se:screenResolution", "1920x1080");
+                edgeOptions.setCapability("se:name", "test_visit_basic_auth_secured_page (EdgeTest)");
+            }
 
             return edgeOptions;
         }

@@ -1,6 +1,5 @@
 package com.thoaikx;
 
-import static com.thoaikx.utils.RecordUtils.startRecordATU;
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 import static org.testng.AssertJUnit.assertEquals;
@@ -10,19 +9,16 @@ import com.thoaikx.pages.ProductPage;
 import java.util.Iterator;
 import java.util.List;
 
-import com.thoaikx.utils.RecordUtils;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 
 @Log4j2
-public class HomePageTest extends BaseWeb {
+public class HomePageTest extends BaseTest {
 
 
 //    @BeforeClass

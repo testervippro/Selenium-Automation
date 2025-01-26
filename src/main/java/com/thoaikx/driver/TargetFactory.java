@@ -41,11 +41,6 @@ public class TargetFactory {
             case LOCAL_SUITE ->valueOf(browser.toUpperCase()).createLocalDriver();
 
            case SELENIUM_GRID ->
-//                if (configuration().separatePort()) {
-//                    // Use separate ports for each browser
-//                    yield createRemoteInstanceSepratePortInEachBrower(valueOf(browser.toUpperCase()).getOptions(), browser);
-//                } else {
-                    // Use the default Grid URL from configuration
                      createRemoteInstance(valueOf(browser.toUpperCase()).getOptions());
 
 
@@ -70,26 +65,6 @@ public class TargetFactory {
     }
 
     //each brower use diff port
-
-    private   static RemoteWebDriver createRemoteInstanceSepratePortInEachBrower(MutableCapabilities capability, String browser) {
-        try {
-            // Define the Selenium Grid URL based on the browser
-            String gridURL = switch (browser.toLowerCase()) {
-                case "chrome" -> "http://localhost:4444"; // Chrome standalone
-                case "firefox" -> "http://localhost:4445"; // Firefox standalone
-                case "edge" -> "http://localhost:4446";   // Edge standalone
-                default -> throw new IllegalArgumentException("Unsupported browser: " + browser);
-            };
-
-            // Create and return the RemoteWebDriver instance
-            return new RemoteWebDriver(new URL(gridURL), capability);
-        } catch (MalformedURLException e) {
-            System.err.println("Grid URL is invalid or Grid is not available for browser: " + capability.getBrowserName());
-            e.printStackTrace();
-            return null;
-        }
-    }
-
     private static BrowserFactory ValueOf(String browser) {
         return switch (browser) {
             case "CHROME" -> CHROME;

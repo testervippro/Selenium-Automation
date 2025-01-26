@@ -39,6 +39,9 @@ public interface Configuration  extends Config{
     @Key("grid.port")
     String gridPort();
 
+    @Key("grid.video")
+    boolean gridVideo();
+
     @Key("auto.open.report")
     boolean autoOpenReport();
 
