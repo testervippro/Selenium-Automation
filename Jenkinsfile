@@ -7,6 +7,22 @@ pipeline {
     }
 
     stages {
+        stage('Checkout Code') {
+            steps {
+                retry(3) { // Retry the checkout up to 3 times in case of transient errors
+                    checkout([
+                        $class: 'GitSCM',
+                        branches: [[name: '*/main']], // Replace with your branch name if different
+                        extensions: [],
+                        userRemoteConfigs: [[
+                            url: 'https://github.com/testervippro/Selenium-Automation.git', // Your repository URL
+                            credentialsId: '72a36d73-7b27-4213-aa99-c560b1f83b90' // Your Jenkins credentials ID
+                        ]]
+                    ])
+                }
+            }
+        }
+
         stage('Preparation') {
             steps {
                 script {
