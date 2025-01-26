@@ -1,10 +1,10 @@
 version: '3.8'
 services:
   jenkins:
-    image: cuxuanthoai/jenkins-docker
-    container_name: jenkins
+    image: cuxuanthoai/jenkins-docker:v1.0
+    container_name: jenkins80
     #share ram
-    shm_size: 4gb
+    shm_size: 6gb
     ports:
       - "8080:8080"
       - "50000:50000"
@@ -16,7 +16,7 @@ services:
       - JENKINS_LOCATION=http://localhost:8080
       - JENKINS_CASC=/provisioning/config.yaml
     volumes:
-      - /Users/mac/Documents/jenkins:/var/jenkins_home
+      - /Users/mac/Documents/jenkins02:/var/jenkins_home
       #https://dev.to/piyushbagani15/understanding-varrundockersock-the-key-to-dockers-inner-workings-nm7
       - /var/run/docker.sock:/var/run/docker.sock
       - ./config.yaml:/provisioning/config.yaml
