@@ -9,6 +9,8 @@ import com.thoaikx.driver.DriverManager;
 import com.thoaikx.driver.TargetFactory;
 import com.thoaikx.pages.commons.CustomSelectActions;
 import com.thoaikx.report.AllureManager;
+
+import java.awt.*;
 import java.io.IOException;
 import java.time.Duration;
 import lombok.extern.log4j.Log4j2;
@@ -66,7 +68,7 @@ public abstract class BaseTest {
     @AfterSuite ()
     public void genReport() throws IOException {
     //DockerManager.executeCommand(commandDown);
-    if ("true".equals(configuration().autoOpenReport())){
+    if ("true".equals(configuration().autoOpenReport()) & !GraphicsEnvironment.isHeadless()){
       AllureManager.allureOpen();
       }
     }

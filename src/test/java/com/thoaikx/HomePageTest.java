@@ -6,13 +6,18 @@ import static org.testng.AssertJUnit.assertEquals;
 
 import com.thoaikx.pages.HomePage;
 import com.thoaikx.pages.ProductPage;
+
+import java.awt.*;
 import java.util.Iterator;
 import java.util.List;
 
+import com.thoaikx.record.RecordVideo;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -21,42 +26,26 @@ import org.testng.annotations.Test;
 public class HomePageTest extends BaseTest {
 
 
-//    @BeforeClass
-//    public void  start() throws Exception {
-//        // Check the operating system
-//        String osName = System.getProperty("os.name").toLowerCase();
-//        // Check if the system is in a headless environment (no GUI available)
-//        boolean isHeadless = java.awt.GraphicsEnvironment.isHeadless();
+    @BeforeClass
+    public void  start() throws Exception {
 //
-//        // If the OS is not Linux and the system is not headless, execute startRecordATU
-//        if (!osName.contains("linux") && !isHeadless) {
-//            ////startRecordATU("video-01");
-//        } else if (osName.contains("linux") && isHeadless) {
-//            System.out.println("Video recording is disabled on Linux due to headless environment.");
-//        } else {
-//            System.out.println("Video recording is disabled on a headless environment.");
-//        }
-//
-//    }
-//
-//    @AfterClass
-//    public void  stop() throws Exception {
-//        // Check the operating system
-//        String osName = System.getProperty("os.name").toLowerCase();
-//        // Check if the system is in a headless environment (no GUI available)
-//        boolean isHeadless = java.awt.GraphicsEnvironment.isHeadless();
-//
-//        // If the OS is not Linux and the system is not headless, execute startRecordATU
-//        if (!osName.contains("linux") && !isHeadless) {
-//           // RecordUtils.stopRecordATU();
-//        } else if (osName.contains("linux") && isHeadless) {
-//            System.out.println("Video recording is disabled on Linux due to headless environment.");
-//        } else {
-//            System.out.println("Video recording is disabled on a headless environment.");
-//        }
-//
-//
-//    }
+
+        if (!GraphicsEnvironment.isHeadless())
+        {RecordVideo.startRecordATU("001");}
+
+
+    }
+
+    @AfterClass
+    public void  stop() throws Exception {
+
+        if (!GraphicsEnvironment.isHeadless())
+        {RecordVideo.stopRecordATU();;;}
+
+
+
+
+    }
 
     @Test(priority = 0)
     public void homePage()  {
