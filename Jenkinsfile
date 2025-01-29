@@ -59,7 +59,8 @@ def sendEmailReport(gitBranch, gitCommit, gitCommitMessage) {
                 <ul>
                     <li>Status: ${currentBuild.currentResult}</li>
                     <li>Duration: ${currentBuild.durationString}</li>
-                    <li>Allure Report: <a href="${env.JENKINS_SERVER_URL}/job/${env.JOB_NAME}/${env.BUILD_NUMBER}/allure">View</a></li>
+                    <li><strong>Allure Report:</strong> <a href="${env.JENKINS_SERVER_URL}/job/${env.JOB_NAME}/${env.BUILD_NUMBER}/allure">View Allure Report</a></li>
+                    <li><strong>Build URL:</strong> <a href="${env.BUILD_URL}">Open Build Details</a></li>
                     <li>Git Branch: ${gitBranch}</li>
                     <li>Git Commit: ${gitCommit}</li>
                     <li>Commit Message: ${gitCommitMessage}</li>
@@ -76,7 +77,7 @@ def sendTelegramReport() {
     sh "zip -r allure-report.zip ./allure-report"
     sh """
         curl -X POST \
-        -F chat_id=${TELEGRAM_CHAT_ID} \
+        -F chat_id=${env.TELEGRAM_CHAT_ID} \
         -F document=@allure-report.zip \
         -F caption="Allure Report for Build #${env.BUILD_NUMBER}" \
         https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendDocument
