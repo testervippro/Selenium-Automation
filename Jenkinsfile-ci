@@ -55,7 +55,7 @@ pipeline {
                 def gitCommitMessage = sh(script: 'git log -1 --pretty=%B', returnStdout: true).trim()
                 def buildExecutor = env.BUILD_USER ?: 'Unknown'
 
-                archiveArtifacts artifacts: 'allure-report.zip', allowEmptyArchive: true
+               // archiveArtifacts artifacts: 'allure-report.zip', allowEmptyArchive: true
                 // Send email report
                 sendEmailReport(gitBranch, gitCommit, gitCommitMessage, buildExecutor)
 
