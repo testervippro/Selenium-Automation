@@ -44,7 +44,7 @@ pipeline {
             script {
                 // Generate Allure report
                 allure([
-                    results: [[path: 'target/allure-report']],
+                    results: [[path: 'target/allure-results']],
                     reportBuildPolicy: 'ALWAYS',
                     includeProperties: false
                 ])
