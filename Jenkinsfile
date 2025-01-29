@@ -60,7 +60,7 @@ def sendEmailReport(gitBranch, gitCommit, gitCommitMessage) {
                     <li>Status: ${currentBuild.currentResult}</li>
                     <li>Duration: ${currentBuild.durationString}</li>
                     <li><strong>Allure Report:</strong> <a href="${env.JENKINS_SERVER_URL}/job/${env.JOB_NAME}/${env.BUILD_NUMBER}/allure">View Allure Report</a></li>
-                    <li><strong>Build URL:</strong> <a href="${env.BUILD_URL}">Open Build Details</a></li>
+                    <li><strong>Build URL:</strong> <a href="${env.JENKINS_SERVER_URL}/job/${env.JOB_NAME}/${env.BUILD_NUMBER}">Open Build Details</a></li>
                     <li>Git Branch: ${gitBranch}</li>
                     <li>Git Commit: ${gitCommit}</li>
                     <li>Commit Message: ${gitCommitMessage}</li>
