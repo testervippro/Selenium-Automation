@@ -44,7 +44,7 @@ public class AllureManager {
         //current directory
         Path targetDirectory = Path.of(System.getProperty("user.dir") ,"target");
 
-        String cmd = "cd " + targetDirectory + " && allure serve";
+        String cmd = "cd " + targetDirectory + " && allure generate";
         ProcessManager.executeCommand(cmd);
 
 
