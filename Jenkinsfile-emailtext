@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        // Define Maven home path
+        // Define Maven home path sample use mailler
         MAVEN_HOME = ''
         JENKINS_SERVER_URL = 'https://ed1f-116-96-46-98.ngrok-free.app'
         EMAIL_RECIPIENT = 'cuxuanthoai@gmail.com'
