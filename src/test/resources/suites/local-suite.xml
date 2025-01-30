@@ -1,8 +1,10 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Local one browser Chrome">
-
+    <listeners>
+        <listener class-name="com.thoaikx.record.VideoRecordingListener"/>
+    </listeners>
     <test name="Chome Tests">
-        <parameter name="browser" value="firefox"/>
+        <parameter name="browser" value="chrome"/>
         <classes>
             <class name="com.thoaikx.HomePageTest"/>
         </classes>

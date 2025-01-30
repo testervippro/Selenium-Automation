@@ -8,11 +8,14 @@ import static com.thoaikx.driver.DriverManager.getInfo;
 import com.thoaikx.driver.DriverManager;
 import com.thoaikx.driver.TargetFactory;
 import com.thoaikx.pages.commons.CustomSelectActions;
+import com.thoaikx.record.RecordVideo;
 import com.thoaikx.report.AllureManager;
 
 import java.awt.*;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.UUID;
+
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -23,19 +26,11 @@ import org.testng.annotations.*;
 public abstract class BaseTest {
 
 
-  String composeFile = "docker-compose-standalone-chrome.yml"; // Path to your docker-compose file
-  String commandUp = "docker-compose -f " + composeFile + " up"; // Command to start the Selenium Chrome container
-  String commandDown = "docker-compose -f " + composeFile + " down"; //
-
-  String getCommandUpUntik = "Started Selenium Standalone";
-
-  private   int TIMEOUT = configuration().timeout();
+   private  int TIMEOUT = configuration().timeout();
    protected WebDriver driver;
    protected CustomSelectActions select ;
    protected WebDriverWait wait;
-  JavascriptExecutor jsExecutor ;
-
-
+    protected JavascriptExecutor jsExecutor ;
   @BeforeSuite
     public void beforeSuite() throws IOException {
       AllureManager.deleteOldReport();
@@ -48,6 +43,7 @@ public abstract class BaseTest {
     @Parameters("browser")
     public void preCondition(@Optional("chrome") String browser) {
       driver = new TargetFactory().createInstance(browser);
+
       DriverManager.setDriver(driver);
       select = new CustomSelectActions(DriverManager.getDriver());
       wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(TIMEOUT));
@@ -61,18 +57,19 @@ public abstract class BaseTest {
 
     @AfterTest()
     public void postCondition()  {
-
     DriverManager.quit();
-
     }
     @AfterSuite ()
     public void genReport() throws IOException {
+
     //DockerManager.executeCommand(commandDown);
     if ("true".equals(configuration().autoOpenReport()) & !GraphicsEnvironment.isHeadless()){
       AllureManager.allureOpen();
       }
     }
-
-
+  private String generateVideoName(String browserName) {
+    String randomPart = UUID.randomUUID().toString().replace("-", "");
+    return browserName + "_" + randomPart;
+  }
 
 }
