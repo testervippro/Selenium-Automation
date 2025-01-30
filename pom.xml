@@ -35,6 +35,11 @@
         <poi-ooxml.version>3.13</poi-ooxml.version>
         <commons-io.version>2.15.1</commons-io.version>
         <record-video.version>1.2</record-video.version>
+        <jsonpath.version>2.8.0</jsonpath.version>
+        <restassured.version>5.5.0</restassured.version>
+        <webdrivermanager.version>5.9.2</webdrivermanager.version>
+        <selenium-edge-driver.version>4.28.1</selenium-edge-driver.version>
+        <record-video.version>2.1</record-video.version>
 
 
         <!-- Vulnerability temp libs-->
@@ -49,51 +54,32 @@
         <dependency>
             <groupId>com.jayway.jsonpath</groupId>
             <artifactId>json-path</artifactId>
-            <version>2.8.0</version>
+            <version>${jsonpath.version}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
-            <version>5.5.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.monte</groupId>
-            <artifactId>monte-screen-recorder</artifactId>
-            <version>1.0.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/MonteScreenRecorder.jar</systemPath>
+            <version>${restassured.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.bytedeco</groupId>
-            <artifactId>javacv-platform</artifactId>
-            <version>1.5.11</version>
-        </dependency>
-
-
-        <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
-            <version>5.9.2</version>
+            <version>${webdrivermanager.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-edge-driver -->
+
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-edge-driver</artifactId>
-            <version>4.28.1</version>
+            <version>${selenium-edge-driver.version}</version>
         </dependency>
-
 
         <dependency>
             <groupId>io.github.testervippro</groupId>
             <artifactId>record-video</artifactId>
-            <version>2.1</version>
+            <version>${record-video.version}</version>
         </dependency>
-
-
 
         <dependency>
             <groupId>com.opencsv</groupId>
