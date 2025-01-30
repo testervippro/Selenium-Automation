@@ -1,20 +1,36 @@
 package com.thoaikx;
 
 
-import com.thoaikx.config.MavenCommandBuilder;
-import com.thoaikx.enums.Browser;
-import com.thoaikx.enums.Target;
+import com.thoaikx.network.UtilsNetwork;
 import com.thoaikx.processsbuilder.ProcessManager;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.restassured.RestAssured;
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
+import org.apache.http.HttpException;
 
 import java.io.IOException;
-import java.nio.file.Files;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class App {
 
-  public static void main(String[] args) throws IOException, InterruptedException {
+  public static void main(String[] args) throws IOException, InterruptedException, HttpException {
+    // Replace with your Selenium Grid hub URL (e.g., localhost or your specific hub)
+    String hubUrl = "http://localhost:4444";
+    // Get and print the list of browser names from all slots
+    String urlselenium = "https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.27.0/selenium-server-4.27.0.jar";
+    String urlJenkin = "https://get.jenkins.io/war-stable/2.479.3/jenkins.war";
+   // UtilsNetwork.downloadFile(urlselenium, Path.of(System.getProperty("user.dir"),"lib","selenium-server-4.27.0.jar").toString());
+    //UtilsNetwork.downloadFile(urlselenium, Path.of(System.getProperty("user.dir"),"lib","jenkins.war").toString());
 
-    System.out.printf("hello word");
+
 
 //    MavenCommandBuilder command = MavenCommandBuilder.builder()
 //            .profile("web-execution")
@@ -35,10 +51,6 @@ public class App {
       //String tmpdir = Files.createTempDirectory("tmpDirPrefix").toFile().getAbsolutePath();
 
 
-
-    // Get the path of the downloaded ChromeDriver
-    String driverPath = WebDriverManager.chromedriver().getDownloadedDriverPath();
-    System.out.printf(driverPath);
   }
 
 
