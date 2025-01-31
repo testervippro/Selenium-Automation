@@ -137,7 +137,7 @@ WebDriver driver = new RemoteWebDriver(new URL("http://selenium-grid-url"), opti
 
 ### **Dockerfile Example**
 ```dockerfile
-FROM cuxuanthoai/chrome-firefox-edge
+FROM cuxuanthoai/chrome-firefox-edge:v1.2
 
 WORKDIR /app
 
@@ -162,7 +162,7 @@ CMD ["mvn", "test"]
 ## **Jenkins as Code  with Docker Compose**
  Docker image `cuxuanthoai/jenkins-docker:v1.2`, which comes with pre-installed necessary tools to run UI automation.
 
-### **Step 1: Start Jenkins**
+### **Step 1: Start Jenkins (in jenkins folder)**
 Run Jenkins with pre-configured tools and plugins:
 ```bash
 docker-compose -f docker-compose-jenkins-as-code.yml up -d
@@ -330,9 +330,10 @@ Send zip report to telegram
 ![image](https://github.com/user-attachments/assets/51fba5dd-3162-4b8e-ab62-5f6b511b66b9)
 
 Run inside container 
- ```bash
-      mvn test -Dtest=TestLabNG
-      ```
+
+Run cmd
+ ```bash mvn test -Dtest=TestLabNG```
+
 ![image](https://github.com/user-attachments/assets/b51ef04e-a881-4fe1-9e6b-fd3dd61e64d4)
 
 
