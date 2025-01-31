@@ -329,11 +329,15 @@ Detail build
 Send zip report to telegram 
 ![image](https://github.com/user-attachments/assets/51fba5dd-3162-4b8e-ab62-5f6b511b66b9)
 
+Run inside container 
+![image](https://github.com/user-attachments/assets/b51ef04e-a881-4fe1-9e6b-fd3dd61e64d4)
+
 
 
 # **Java Class to Download `jenkins.war` and `selenium-server.jar`**
 
 This Java class (`App`) provides a simple way to download the `jenkins.war` and `selenium-server.jar` files and store them in the `lib` folder.
+
 
 ## **References**
 - eliasnogueira(Java Developer)
