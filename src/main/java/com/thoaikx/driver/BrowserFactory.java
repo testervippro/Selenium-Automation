@@ -30,21 +30,11 @@ public enum BrowserFactory {
         @Override
         public WebDriver createLocalDriver() {
 
-            //when selenium grid and os = linux use driver manager more stable
-            //otherwise use local ( mac , win)
-//            if("selenium-grid".equals(configuration().target()) || OS.isLinux()) {
-//                WebDriver driver;
-//
-//                WebDriverManager.chromedriver().setup();
-//                ChromeOptions options = getOptions();
-//                return new ChromeDriver(options);
-//            }
-           // else {
-                //when not selenium -grid use selenium manager more stable
-                return new ChromeDriver(getOptions());
+            WebDriver driver;
 
-           // }
-
+            WebDriverManager.chromedriver().setup();
+            driver = new ChromeDriver(getOptions());
+            return  driver;
 
         }
 
@@ -79,19 +69,12 @@ public enum BrowserFactory {
         @Override
         public WebDriver createLocalDriver() {
 
-            if("selenium-grid".equals(configuration().target()) && OS.isLinux()) {
-                // Use WebDriverManager to manage FirefoxDriver
-                WebDriverManager.firefoxdriver().setup();  // Downloads and sets up the Firefox driver
+            WebDriver driver;
 
-                // Initialize FirefoxDriver with desired options (if any)
-                FirefoxOptions options = getOptions();
-                return new FirefoxDriver(options);
-            }
-            else {
-                //when not selenium -grid use selenium manager more stable
-                return new FirefoxDriver(getOptions());
+            WebDriverManager.firefoxdriver().setup();
+            driver = new FirefoxDriver(getOptions());
+            return  driver;
 
-            }
         }
 
         @Override
@@ -115,16 +98,11 @@ public enum BrowserFactory {
         @Override
         public WebDriver createLocalDriver()  {
 
-            if("selenium-grid".equals(configuration().target())&& OS.isLinux()){
+            WebDriver driver;
 
-                WebDriverManager.edgedriver().setup();  // Downloads and sets up the Firefox driver
-
-                EdgeOptions options = getOptions();
-                return new EdgeDriver(options);
-            }
-        else {
-                return new EdgeDriver(getOptions());
-            }
+            WebDriverManager.edgedriver().setup();
+            driver = new EdgeDriver(getOptions());
+            return  driver;
 
         }
 
@@ -151,7 +129,12 @@ public enum BrowserFactory {
     SAFARI {
         @Override
         public WebDriver createLocalDriver() {
-            return new SafariDriver(getOptions());
+            WebDriver driver;
+
+            WebDriverManager.safaridriver().setup();
+            driver = new SafariDriver(getOptions());
+            return  driver;
+
         }
 
         @Override
