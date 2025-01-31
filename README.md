@@ -95,7 +95,7 @@ mvn test -Pweb-execution -Dsuite=selenium-grid -Dtarget=selenium-grid -Dheadless
 
 ---
 
-# **Selenium Grid with Dynamic Video Recording**
+# **Selenium Grid with Dynamic Video Recording (set grid.video= true)**
 
 ### **Step 1: Set Up Docker Containers**
 
@@ -142,7 +142,7 @@ FROM cuxuanthoai/chrome-firefox-edge
 WORKDIR /app
 
 COPY . .
-
+// can change base on your test case
 CMD ["mvn", "test"]
 ```
 
@@ -152,14 +152,15 @@ CMD ["mvn", "test"]
    docker build -t selenium-tests .
    ```
 
-2. **Run Container**:  
+2. **Run Container(with chrome brower need shm_size: '2gb' or can run docker-compose-chrome-firefox-edge.yml it will auto build and run base on Dockerfile)**:  
    ```bash
    docker run selenium-tests
    ```
 
 ---
 
-## **Jenkins with Docker Compose**
+## **Jenkins as Code  with Docker Compose**
+ Docker image `cuxuanthoai/jenkins-docker:v1.2`, which comes with pre-installed necessary tools to run UI automation.
 
 ### **Step 1: Start Jenkins**
 Run Jenkins with pre-configured tools and plugins:
@@ -176,8 +177,14 @@ docker-compose -f docker-compose-jenkins-as-code.yml up -d
 ## **Set Up Email Notifications in Jenkins**
 
 ### **Step 1: Google SMTP Configuration**
-1. Enable **2-Step Verification** in your Google account.
-2. Generate an **App Password** for Jenkins.
+1. **Enable 2-Step Verification**:
+   - Go to [Google Account Security](https://myaccount.google.com/security).
+   - Turn **2-Step Verification** **ON**.
+
+2. **Generate an App Password**:
+   - Go to [App Passwords](https://myaccount.google.com/apppasswords).
+   - Choose **Mail** as the app and **Other** for the device (e.g., "Jenkins").
+   - Click **Generate** and copy the generated password.
 
 ### **Step 2: Configure Jenkins**
 1. Go to **Manage Jenkins > Configure System**.
@@ -192,7 +199,7 @@ docker-compose -f docker-compose-jenkins-as-code.yml up -d
 
 ---
 
-### **Step 3: Jenkins Pipeline with Email Notifications**
+### **Step 3: Jenkins Pipeline with Email Notifications(gmaill not allow send some file it's related to security problem)**
 ```groovy
 pipeline {
     agent any
@@ -205,11 +212,16 @@ pipeline {
     }
     post {
         always {
-            emailext(
-                to: 'recipient@example.com',
-                subject: "Build Status - ${currentBuild.currentResult}",
-                body: "Build ${env.JOB_NAME} #${env.BUILD_NUMBER} finished with status: ${currentBuild.currentResult}."
-            )
+emailext(
+        to: EMAIL_RECIPIENT,
+        subject: emailSubject,
+        body: emailBody,
+        mimeType: 'text/html',
+        attachLog: true, // Attach the build log file
+        //compressLog: true // Compress the build log before attaching zip 
+        attachmentsPattern: '**/build.log'
+        
+    )
         }
     }
 }
@@ -217,7 +229,8 @@ pipeline {
 
 ---
 
-## **Ngrok Integration**
+
+## **Ngrok Integration ( shoule create user in jenkins just have view permission)**
 
 ### **Step 1: Start Ngrok**
 Run Ngrok to expose your local port:
@@ -237,7 +250,7 @@ Replace `your_ngrok_authtoken` with your Ngrok token. After starting, Ngrok prov
 
 ---
 
-### **Step 2: Send Messages via Jenkins**
+### **Step 2: Send Messages via Jenkins (can combine send zip file, becaue gmaill not allow send some file it's related to security problem) **
 ```groovy
 pipeline {
     agent any
@@ -260,37 +273,24 @@ pipeline {
     }
 }
 ```
+Example when integrate with Ngrok
+Sent mail 
+Report allure 
+Detail build
+Send zip report to telegram 
 
-### **Step 3: Send Files to Telegram**
-```groovy
-pipeline {
-    agent any
-    environment {
-        TELEGRAM_TOKEN = 'your_telegram_token'
-        TELEGRAM_CHAT_ID = 'your_chat_id'
-    }
-    stages {
-        stage('Send File') {
-            steps {
-                script {
-                    sh """
-                        curl -X POST https://api.telegram.org/bot$TELEGRAM_TOKEN/sendDocument \
-                        -F chat_id=$TELEGRAM_CHAT_ID \
-                        -F document=@path_to_file/example.txt
-                    """
-                }
-            }
-        }
-    }
-}
-```
 
----
+# **Java Class to Download `jenkins.war` and `selenium-server.jar`**
+
+This Java class (`App`) provides a simple way to download the `jenkins.war` and `selenium-server.jar` files and store them in the `lib` folder.
 
 ## **References**
 - eliasnogueira(Java Developer)
 - [Selenium Docker GitHub Repository](https://github.com/SeleniumHQ/docker-selenium.git)  
 - [Ngrok Documentation](https://ngrok.com/docs)  
 - [Telegram Bot API](https://core.telegram.org/bots/api)
+- https://github.com/SeleniumHQ/seleniumhq.github.io/pull/2139
+- https://support.google.com/mail/thread/183285153/i-m-trying-to-send-an-attachment-and-i-m-unable-to-send-saying-it-was-blocked-for-a-security-issue?hl=en
+- https://stackoverflow.com/questions/35783964/jenkins-html-publisher-plugin-no-css-is-displayed-when-report-is-viewed-in-j/35785788#35785788
 
 ---
