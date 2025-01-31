@@ -17,7 +17,7 @@
 10. **Cross-Platform Execution**: Compatible with macOS, Windows, Linux, and containers.
 11. **Page Object Model (POM)**: Promotes scalable and maintainable test code.
 12. **Factory Method Design Pattern**: Enables flexible creation of platform and page instances.
-
+13. **Jenkins as code**: Config Jenkins use Jenkins container have pre-install tools, user
 ---
 
 # **Execution Types**
