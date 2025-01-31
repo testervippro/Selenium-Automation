@@ -14,7 +14,7 @@
 7. **Telegram Bot Integration**: Get real-time updates.
 8. **Dynamic Selenium Grid Scaling**: Automatically scales nodes.
 9. **Ngrok Integration**: Expose local ports to the internet.
-10. **Cross-Platform Execution**: Compatible with macOS, Windows, Linux, and containers.
+10. **Cross-Platform Execution**: Compatible with macOS, Windows, Linux, and containers(future  will suport record  in  container).
 11. **Page Object Model (POM)**: Promotes scalable and maintainable test code.
 12. **Factory Method Design Pattern**: Enables flexible creation of platform and page instances.
 13. **Jenkins as code**: Config Jenkins use Jenkins container have pre-install tools, user
@@ -254,30 +254,126 @@ Replace `your_ngrok_authtoken` with your Ngrok token. After starting, Ngrok prov
 ```groovy
 pipeline {
     agent any
+
     environment {
-        TELEGRAM_TOKEN = 'your_telegram_token'
-        TELEGRAM_CHAT_ID = 'your_chat_id'
+        JENKINS_SERVER_URL = 'https://d1f-116-96-46-98.ngrok-free.app'
+        EMAIL_RECIPIENT = 'cuxuanthoai@gmail.com'
+        TELEGRAM_TOKEN = '891845500:AAEAJ5GDawMGUC4Ofv9SvD3YBn5UGmVii7Q'
+        TELEGRAM_CHAT_ID = '5321745388'
     }
+
     stages {
-        stage('Notify Telegram') {
+        stage('Test Execution') {
             steps {
                 script {
-                    sh """
-                        curl -X POST https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage \
-                        -d chat_id=$TELEGRAM_CHAT_ID \
-                        -d text="Test execution completed."
-                    """
+                    echo "Executing Test Stage..."
                 }
             }
         }
     }
+
+    post {
+        always {
+            script {
+                // Collect environment details
+                def gitBranch = env.GIT_BRANCH ?: 'Unknown'
+                def gitCommit = env.GIT_COMMIT ?: 'Unknown'
+                def gitCommitMessage = sh(script: 'git log -1 --pretty=%B', returnStdout: true).trim()
+                def buildExecutor = env.BUILD_USER ?: 'Unknown'
+
+                // Send email report
+                sendEmailReport(gitBranch, gitCommit, gitCommitMessage, buildExecutor)
+
+                // Zip and send Allure report via Telegram
+                sendTelegramReport()
+            }
+        }
+
+        success {
+            echo 'Tests completed successfully!'
+        }
+
+        failure {
+            echo 'Tests failed!'
+        }
+    }
+}
+
+// Function to send the email report with build.log attached
+def sendEmailReport(gitBranch, gitCommit, gitCommitMessage, buildExecutor) {
+    echo "Sending email report..."
+
+    def emailSubject = "[Jenkins Build] ${env.JOB_NAME} - ${currentBuild.currentResult} - (#${env.BUILD_NUMBER})"
+    def emailBody = """
+        <html>
+            <body>
+                <p>Hello,</p>
+                <p>The Jenkins build for <strong>${env.JOB_NAME}</strong> (#${env.BUILD_NUMBER}) has completed.</p>
+                <ul>
+                    <li><strong>Status:</strong> ${currentBuild.currentResult}</li>
+                    <li><strong>Build Duration:</strong> ${currentBuild.durationString}</li>
+                    <li><strong>Allure Report:</strong> <a href="${JENKINS_SERVER_URL}/job/${env.JOB_NAME}/${env.BUILD_NUMBER}/allure">View Allure Report</a></li>
+                    <li><strong>Build URL:</strong> <a href="${env.BUILD_URL}">Open Build Details</a></li>
+                    <li><strong>Git Branch:</strong> ${gitBranch}</li>
+                    <li><strong>Git Commit:</strong> ${gitCommit}</li>
+                    <li><strong>Git Commit Message:</strong> ${gitCommitMessage}</li>
+                    <li><strong>Build Executor:</strong> ${buildExecutor}</li>
+                </ul>
+                <p>Best regards,<br><strong>testervippro</strong></p>
+            </body>
+        </html>
+    """
+
+    emailext(
+        to: EMAIL_RECIPIENT,
+        subject: emailSubject,
+        body: emailBody,
+        mimeType: 'text/html',
+        attachLog: true ,
+        attachmentsPattern: '**/build.log'
+    )
+
+    echo "Email report sent successfully."
+}
+
+// Function to zip and send the Allure report via Telegram
+def sendTelegramReport() {
+    echo "Zipping Allure report..."
+
+    // Compress the Allure report directory into a zip file
+    sh """
+        zip -r allure-report.zip ./allure-report
+    """
+    echo "Allure report zipped successfully."
+
+    echo "Sending Telegram report..."
+
+    def caption = "Allure Report for Jenkins Build #${env.BUILD_NUMBER}"
+
+    // Use Telegram API to send the zip file
+    sh """
+        curl -X POST \
+        -F chat_id=${TELEGRAM_CHAT_ID} \
+        -F document=@allure-report.zip \
+        -F caption=\"${caption}\" \
+        https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendDocument
+    """
+    echo "Telegram report sent successfully."
 }
 ```
 Example when integrate with Ngrok
 Sent mail 
+![image](https://github.com/user-attachments/assets/c8e90d05-df8f-4c1e-aa8a-58b124cd527e)
+
 Report allure 
+![image](https://github.com/user-attachments/assets/00289fd7-c58b-4b39-af2d-923d73d9f91a)
+
 Detail build
+![image](https://github.com/user-attachments/assets/11e25eec-27bf-4c84-beb0-b83b4999d6f0)
+
 Send zip report to telegram 
+![image](https://github.com/user-attachments/assets/51fba5dd-3162-4b8e-ab62-5f6b511b66b9)
+
 
 
 # **Java Class to Download `jenkins.war` and `selenium-server.jar`**
