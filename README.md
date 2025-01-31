@@ -146,6 +146,34 @@ COPY . .
 CMD ["mvn", "test"]
 ```
 
+# Chrome Crashes in Docker
+
+Chrome uses `/dev/shm` (shared memory) for runtime data, which is 64MB by default under Docker. If this memory is insufficient, it can cause Chrome to crash.
+
+## Possible Workarounds
+
+1. **Increase the size of `/dev/shm`**
+    - Run your Docker container with the `--shm-size` flag to increase the shared memory size.
+      ```bash
+      docker run --shm-size=1g <image>
+      ```
+
+2. **Mount `/dev/shm` to the host's shared memory**
+    - Use a bind mount to link the container’s `/dev/shm` to the host’s shared memory.
+      ```bash
+      docker run -v /dev/shm:/dev/shm <image>
+      ```
+
+3. **Start Chrome with the `--disable-dev-shm-usage` flag**
+    - Disable Chrome's use of `/dev/shm` by adding this flag to your Chrome launch options.
+    - Example usage in Selenium (Java):
+      ```java
+      ChromeOptions options = new ChromeOptions();
+      options.addArguments("--disable-dev-shm-usage");
+      WebDriver driver = new ChromeDriver(options);
+      ```
+
+
 ### **Build and Run**
 1. **Build Image**:  
    ```bash
@@ -352,5 +380,7 @@ This Java class (`App`) provides a simple way to download the `jenkins.war` and 
 - https://support.google.com/mail/thread/183285153/i-m-trying-to-send-an-attachment-and-i-m-unable-to-send-saying-it-was-blocked-for-a-security-issue?hl=en
 - https://stackoverflow.com/questions/35783964/jenkins-html-publisher-plugin-no-css-is-displayed-when-report-is-viewed-in-j/35785788#35785788
 - https://github.com/SeleniumHQ/selenium/issues/13077
+- https://issues.chromium.org/issues/40432240
+
 
 ---

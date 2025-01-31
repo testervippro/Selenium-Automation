@@ -47,6 +47,7 @@ public enum BrowserFactory {
             chromeOptions.addArguments(DISABLE_NOTIFICATIONS);
             chromeOptions.addArguments(REMOTE_ALLOW_ORIGINS);
             chromeOptions.addArguments("--no-sandbox");
+            chromeOptions.addArguments("--disable-dev-shm-usage");
             //https://github.com/SeleniumHQ/seleniumhq.github.io/pull/2139
 
 
