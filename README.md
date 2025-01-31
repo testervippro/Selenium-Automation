@@ -256,9 +256,9 @@ pipeline {
     agent any
 
     environment {
-        JENKINS_SERVER_URL = 'https://d1f-116-96-46-98.ngrok-free.app'
-        EMAIL_RECIPIENT = 'cuxuanthoai@gmail.com'
-        TELEGRAM_TOKEN = '891845500:AAEAJ5GDawMGUC4Ofv9SvD3YBn5UGmVii7Q'
+        JENKINS_SERVER_URL = 'https://96-46-98.ngrok-free.app'
+        EMAIL_RECIPIENT = '@gmail.com'
+        TELEGRAM_TOKEN = ':AAEAJ5GDawMGUC4Ofv9SvD3YBn5UGmVii7Q'
         TELEGRAM_CHAT_ID = '5321745388'
     }
 
