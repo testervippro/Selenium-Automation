@@ -24,14 +24,12 @@
 
 ## Local Execution  
 - **Local Machine**:  
-  Run tests directly in your IDE.  
-  - Uses `WebDriverManager` to set up the browser.  
+  Run tests directly in your IDE.   
   - The `createLocalDriver()` method in `BrowserFactory` handles browser instances.
 
 ---
 
 ## Local Suite  
-- Uses `WebDriverManager` to set up the browser.  
 - Browser info is specified in the TestNG suite file for multi-browser tests.  
 
 ### Profiles in `pom.xml` for Local Suite Execution  
