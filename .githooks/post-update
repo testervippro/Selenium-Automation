@@ -7,7 +7,7 @@ BRANCH=$(git rev-parse --abbrev-ref HEAD)
 COMMIT_HASH=$(git log -1 --pretty=format:"%H")
 
 # Set the GitLab repository URL (replace this with your actual GitLab repository URL)
-GITLAB_URL="https://gitlab.com/CuXuanThoai/Sample-Cypress.git"
+GITLAB_URL="https://gitlab.com/CuXuanThoai/Selenium-Automation.git"
 
 # Add the GitLab remote if it doesn't exist
 git remote add gitlab $GITLAB_URL || echo "Remote 'gitlab' already exists"
