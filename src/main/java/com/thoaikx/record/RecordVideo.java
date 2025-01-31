@@ -22,7 +22,7 @@ public class RecordVideo {
     public static synchronized void startRecordATU(String videoName) {
 
         try {
-            if (!"selenium-grid".equals(configuration().target())) {
+            if (!"selenium-grid".equals(configuration().target())&& !configuration().headless()) {
                 atuRecorder = new ATUTestRecorder("./videos",
                         videoName + "-" + dateFormat.format(new Date()), false);
                 atuRecorder.start();
@@ -39,7 +39,7 @@ public class RecordVideo {
     public static synchronized void stopRecordATU() {
 
         try {
-            if (!"selenium-grid".equals(configuration().target()) && atuRecorder != null) {
+            if (!"selenium-grid".equals(configuration().target()) && !configuration().headless()  &&atuRecorder != null) {
                 try {
                     atuRecorder.stop();
                     isRecording = false; // Set the flag to false when recording stops
