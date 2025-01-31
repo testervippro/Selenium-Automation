@@ -1,4 +1,5 @@
-image: markhobson/maven-chrome
+image: cuxuanthoai/chrome-firefox-edge:v1.2
+#add .git/hooks auto push forece to gitlab
 
 stages:
 - build
