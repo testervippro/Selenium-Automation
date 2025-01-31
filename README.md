@@ -330,6 +330,9 @@ Send zip report to telegram
 ![image](https://github.com/user-attachments/assets/51fba5dd-3162-4b8e-ab62-5f6b511b66b9)
 
 Run inside container 
+ ```bash
+      mvn test -Dtest=TestLabNG
+      ```
 ![image](https://github.com/user-attachments/assets/b51ef04e-a881-4fe1-9e6b-fd3dd61e64d4)
 
 
