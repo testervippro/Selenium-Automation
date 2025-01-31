@@ -85,7 +85,7 @@
 
 ### Run Command:
 ```bash
-mvn test -Pweb-execution -Dsuite=selenium-grid -Dtarget=selenium-grid -Dheadless=true
+mvn test -Pweb-execution -Dsuite=selenium-grid -Dtarget=selenium-grid -Dheadless=true -Dgrid.video=true 
 ```
 
 ### Key Notes:
