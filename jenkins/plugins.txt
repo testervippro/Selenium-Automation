@@ -13,3 +13,4 @@ git:5.0.0
 sonar:2.17.3
 ws-cleanup:0.48
 build-user-vars-plugin:182.v378b_9f14b_487
+mailer:489.vd4b_25144138f
