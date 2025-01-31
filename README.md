@@ -347,5 +347,6 @@ This Java class (`App`) provides a simple way to download the `jenkins.war` and 
 - https://github.com/SeleniumHQ/seleniumhq.github.io/pull/2139
 - https://support.google.com/mail/thread/183285153/i-m-trying-to-send-an-attachment-and-i-m-unable-to-send-saying-it-was-blocked-for-a-security-issue?hl=en
 - https://stackoverflow.com/questions/35783964/jenkins-html-publisher-plugin-no-css-is-displayed-when-report-is-viewed-in-j/35785788#35785788
+- https://github.com/SeleniumHQ/selenium/issues/13077
 
 ---
