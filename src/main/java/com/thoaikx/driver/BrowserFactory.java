@@ -32,7 +32,7 @@ public enum BrowserFactory {
 
             //when selenium grid and os = linux use driver manager more stable
             //otherwise use local ( mac , win)
-            if("selenium-grid".equals(configuration().target()) && OS.isLinux()) {
+            if("selenium-grid".equals(configuration().target()) || OS.isLinux()) {
                 WebDriver driver;
 
                 WebDriverManager.chromedriver().setup();
