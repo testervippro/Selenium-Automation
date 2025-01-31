@@ -275,15 +275,6 @@ pipeline {
     post {
         always {
             script {
-                // Collect environment details
-                def gitBranch = env.GIT_BRANCH ?: 'Unknown'
-                def gitCommit = env.GIT_COMMIT ?: 'Unknown'
-                def gitCommitMessage = sh(script: 'git log -1 --pretty=%B', returnStdout: true).trim()
-                def buildExecutor = env.BUILD_USER ?: 'Unknown'
-
-                // Send email report
-                sendEmailReport(gitBranch, gitCommit, gitCommitMessage, buildExecutor)
-
                 // Zip and send Allure report via Telegram
                 sendTelegramReport()
             }
@@ -299,42 +290,6 @@ pipeline {
     }
 }
 
-// Function to send the email report with build.log attached
-def sendEmailReport(gitBranch, gitCommit, gitCommitMessage, buildExecutor) {
-    echo "Sending email report..."
-
-    def emailSubject = "[Jenkins Build] ${env.JOB_NAME} - ${currentBuild.currentResult} - (#${env.BUILD_NUMBER})"
-    def emailBody = """
-        <html>
-            <body>
-                <p>Hello,</p>
-                <p>The Jenkins build for <strong>${env.JOB_NAME}</strong> (#${env.BUILD_NUMBER}) has completed.</p>
-                <ul>
-                    <li><strong>Status:</strong> ${currentBuild.currentResult}</li>
-                    <li><strong>Build Duration:</strong> ${currentBuild.durationString}</li>
-                    <li><strong>Allure Report:</strong> <a href="${JENKINS_SERVER_URL}/job/${env.JOB_NAME}/${env.BUILD_NUMBER}/allure">View Allure Report</a></li>
-                    <li><strong>Build URL:</strong> <a href="${env.BUILD_URL}">Open Build Details</a></li>
-                    <li><strong>Git Branch:</strong> ${gitBranch}</li>
-                    <li><strong>Git Commit:</strong> ${gitCommit}</li>
-                    <li><strong>Git Commit Message:</strong> ${gitCommitMessage}</li>
-                    <li><strong>Build Executor:</strong> ${buildExecutor}</li>
-                </ul>
-                <p>Best regards,<br><strong>testervippro</strong></p>
-            </body>
-        </html>
-    """
-
-    emailext(
-        to: EMAIL_RECIPIENT,
-        subject: emailSubject,
-        body: emailBody,
-        mimeType: 'text/html',
-        attachLog: true ,
-        attachmentsPattern: '**/build.log'
-    )
-
-    echo "Email report sent successfully."
-}
 
 // Function to zip and send the Allure report via Telegram
 def sendTelegramReport() {
