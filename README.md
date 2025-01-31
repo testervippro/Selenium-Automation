@@ -1,241 +1,296 @@
 
+---
+
+# **Automation Testing Framework Features**
+
+### **Key Features**
+
+1. **Parallel Execution**: Leverage TestNG and Selenium Grid.
+2. **Centralized Configuration**: Manage from a properties file.
+3. **Detailed Reporting**: Generate reports with Allure.
+4. **Automated Email Notifications**: Set up via Jenkins.
+5. **Video & Screenshot Recording**: Works on Selenium Grid and locally.
+6. **Data-Driven Testing**: Utilize Excel, JSON, etc.
+7. **Telegram Bot Integration**: Get real-time updates.
+8. **Dynamic Selenium Grid Scaling**: Automatically scales nodes.
+9. **Ngrok Integration**: Expose local ports to the internet.
+10. **Cross-Platform Execution**: Compatible with macOS, Windows, Linux, and containers.
+11. **Page Object Model (POM)**: Promotes scalable and maintainable test code.
+12. **Factory Method Design Pattern**: Enables flexible creation of platform and page instances.
 
 ---
 
-### Set Up Jenkins
-# Jenkins Installation Guide
+# **Execution Types**
 
-Downloading and running Jenkins using a PowerShell script.
-https://github.com/bonigarcia/webdrivermanager/issues/624
-## Prerequisites
-Before you begin, ensure that you have:
-- Java installed on your machine.
-- An internet connection to download the Jenkins WAR file.
-
-## Step 1: Download Jenkins WAR file
-
-Use the following PowerShell script to download the latest stable version of Jenkins:
-
-```bash
-docker run -it --name=jenkins -e JENKINS_USER=$(id -u) --rm -p 8080:8080 -p 50000:50000 \
--v ./jenkins:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock \
---name jenkins trion/jenkins-docker-client
-```
-#
-ngrock
-
-
-
-run docker 
-```bash
-docker build -t chrome-firefox-edge . && docker run --rm --shm-size=2gb chrome-firefox-edge
-
-```
-build docker jenkin 
-```bash
-docker build -t jenkin-ascode .
-```
-run docker jenkin 
-```bash
-docker run -it --name=jenkins \
-  -e JENKINS_USER=1000 \
-  -e JENKINS_CAC=true \
-  -e JENKINS_ADMIN_ID=admin \
-  -e JENKINS_ADMIN_PASSWORD=admin \
-  -e JENKINS_LOCATION=http://localhost:8080 \
-  -e JENKINS_CASC=/provisioning/config.yaml \
-  -p 8080:8080 \
-  -p 50000:50000 \
-  -v /Users/mac/Documents/jenkins:/var/jenkins_home \
-  -v /var/run/docker.sock:/var/run/docker.sock \
-  -v ./config.yaml:/provisioning/config.yaml \
-  -v ./plugins.txt:/provisioning/plugins.txt \
-  --shm-size=4gb \
-  --privileged \
-  --add-host="host.docker.internal:host-gateway" \
-  --user=root \
-  jenkin-ascode
-```
-
-creare network allow jenkin connect with selenium image 
-docker network connect jenkins-net jenkins
-docker network connect jenkins-net selenium
-docker network inspect jenkins-net
-
-
-![Set Up](https://github.com/user-attachments/assets/e12310e6-19b2-45ce-8b71-027ffabc291e)
+## Local Execution  
+- **Local Machine**:  
+  Run tests directly in your IDE.  
+  - Uses `WebDriverManager` to set up the browser.  
+  - The `createLocalDriver()` method in `BrowserFactory` handles browser instances.
 
 ---
 
+## Local Suite  
+- Uses `WebDriverManager` to set up the browser.  
+- Browser info is specified in the TestNG suite file for multi-browser tests.  
 
-### Set Up Git
-![Set Up Git](https://github.com/user-attachments/assets/4b4887ab-d9b2-413b-8abd-1eb115fa2729)
+### Profiles in `pom.xml` for Local Suite Execution  
+- A profile called `web-execution` is created to execute a specific test suite (e.g., `local.xml`) in the `src/test/resources/suites` folder.  
+- **Command Example**:  
+  ```bash
+  mvn test -Pweb-execution -Dtestng.dtd.http=true
+  ```
+- **Parameterizing Suites**:
+    - Create a `suite` property in the `pom.xml`:
+      ```xml
+      <properties>
+          <suite>local</suite>
+      </properties>
+      ```
+    - Update the profile to use `${suite}`:
+      ```xml
+      <profile>
+          <id>web-execution</id>
+          <configuration>
+              <suiteXmlFiles>
+                  <suiteXmlFile>src/test/resources/suites/${suite}.xml</suiteXmlFile>
+              </suiteXmlFiles>
+          </configuration>
+      </profile>
+      ```
+    - Use the `-Dsuite=suite_name` parameter to run a specific suite:
+      ```bash
+      mvn test -Pweb-execution -Dsuite=parallel
+      ```
 
 ---
 
-```markdown
-# Setting Up Jenkins with Docker and JCasC
+## Remote Execution
 
-This guide explains how to set up a Jenkins instance using Docker with Jenkins Configuration as Code (JCasC) for automatic configuration management.
+### Selenium Grid
+- Executes tests on remote or cloud machines.
+- The `getOptions` method in `BrowserFactory` provides browser capabilities.
+- Requires setting `grid.url` and `grid.port` in `config.properties`.
 
-## 1. Dockerfile Setup
+---
 
-The Dockerfile provided below sets up Jenkins with the necessary plugins and configurations using JCasC:
+## Execution with Docker Selenium
+- Use `docker-compose.yml` for parallel test execution.
 
-```Dockerfile
-FROM jenkins/jenkins:lts-jdk17
+### Steps:
+1. Install Docker.
+2. Run `docker-compose-v3-dynamic-grid.yml` or `docker-compose-v3-dynamic-grid-standalone.yml` to set up the dynamic grid (it will auto-pull images from `config.toml`).
+3. On Mac M1/M2, enable Rosetta in Docker Desktop:  
+   `Settings -> Features in development -> Use Rosetta`.
 
-# Install Jenkins plugins
-COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
-RUN jenkins-plugin-cli --plugin-file /usr/share/jenkins/ref/plugins.txt
-
-# Disable the setup wizard as we will set up Jenkins as code
-ENV JAVA_OPTS="-Djenkins.install.runSetupWizard=false"
-
-# Copy the Configuration as Code (CasC) YAML file into the image
-COPY jenkins-casc.yaml /var/jenkins_home/casc_configs/jenkins.yaml
-
-# Tell the Jenkins Configuration as Code plugin where to find the YAML file
-ENV CASC_JENKINS_CONFIG="/var/jenkins_home/casc_configs/jenkins.yaml"
+### Run Command:
+```bash
+mvn test -Pweb-execution -Dsuite=selenium-grid -Dtarget=selenium-grid -Dheadless=true
 ```
 
-- **Base Image**: The `jenkins/jenkins:lts-jdk17` image is used to ensure a stable Jenkins environment with JDK 17.
-- **Plugin Installation**: The `jenkins-plugin-cli` installs plugins specified in `plugins.txt`.
-- **Disabling Setup Wizard**: The `JAVA_OPTS` environment variable disables the setup wizard, as we are configuring Jenkins through JCasC.
-- **JCasC Configuration**: The `jenkins-casc.yaml` file is copied into the Docker image, and the `CASC_JENKINS_CONFIG` environment variable points to this configuration file for Jenkins to apply settings at startup.
+### Key Notes:
+- The `createRemoteInstance` method in `DriverFactory` handles `RemoteWebDriver`.
+- Check `grid.properties` for correct grid configuration.
+- Verify `selenium-grid.xml` for `parallel="tests"` configuration.
 
-## 2. Specifying Plugins
+---
 
-To ensure Jenkins has the necessary plugins for its operations, create a `plugins.txt` file. This file lists the required plugins and their versions:
+# **Selenium Grid with Dynamic Video Recording**
 
-```txt
-git:5.0.0
-workflow-aggregator:600.vb_57cdd26fdd7
-configuration-as-code:1810.v9b_c30a_249a_4c
-matrix-auth:3.2.2
-job-dsl:1.87
-.....
+### **Step 1: Set Up Docker Containers**
+
+1. Use the provided Docker Compose file to start Selenium Grid with dynamic nodes and video recording.
+   ```bash
+   docker-compose -f docker-compose-v3-dynamic-grid.yml up -d
+   ```
+
+2. Ensure your `docker-compose.yml` includes configurations for video recording.
+
+---
+
+### **Step 2: Enable Video Recording**
+
+1. Add the `se:recordVideo` capability in your WebDriver options.
+2. Specify the screen resolution if required.
+
+#### Example (Java with Chrome):
+```java
+ChromeOptions options = new ChromeOptions();
+options.setCapability("se:recordVideo", true);
+options.setCapability("se:screenResolution", "1920x1080");
+options.setCapability("se:name", "test_case_name");
+
+WebDriver driver = new RemoteWebDriver(new URL("http://selenium-grid-url"), options);
 ```
 
-Each line in `plugins.txt` specifies a plugin. You can include the version after a colon (e.g., `git:5.0.0`) to ensure a specific version is installed. If you omit the version (e.g., `git`), the latest version will be installed during the image build.
+---
 
-The `configuration-as-code` plugin is essential for JCasC functionality, while `matrix-auth` helps manage access control in Jenkins. The `job-dsl` plugin allows defining Jenkins jobs using Groovy DSL scripts.
+### **Step 3: Access Video Files**
 
-## 3. Configuring Jenkins with JCasC
+1. Videos are stored in the `${PWD}/assets/<sessionId>/` directory.
+2. Files follow this format:  
+   `test_case_name_<browserName>.mp4`.
 
-Create a `jenkins-casc.yaml` file to configure Jenkins. This file defines user authentication, tool installations, and a sample job.
+---
 
-### Example `jenkins-casc.yaml`:
+## **Run Tests Inside a Docker Container**
 
-```yaml
-jenkins:
-  systemMessage: "Jenkins configured automatically by Jenkins Configuration as Code plugin"
+### **Dockerfile Example**
+```dockerfile
+FROM cuxuanthoai/chrome-firefox-edge
 
-  # Security Realm for user authentication
-  securityRealm:
-    local:
-      allowsSignup: false
-      users:
-        - id: "admin"
-          password: "admin"
-        - id: "developer"
-          password: "developer"
-        - id: "viewer"
-          password: "viewer"
+WORKDIR /app
 
-  # Authorization Strategy
-  authorizationStrategy:
-    projectMatrix:
-      entries:
-        - user:
-            name: admin
-            permissions:
-              - Overall/Administer
-        - user:
-            name: developer
-            permissions:
-              - Overall/Read
-              - Job/Build
-        - user:
-            name: viewer
-            permissions:
-              - Overall/Read
+COPY . .
 
-# Tool Configuration
-tool:
-  git:
-    installations:
-      - name: "Default"
-        home: "/usr/bin/git"
-  maven:
-    installations:
-      - name: maven3
-        properties:
-          - installSource:
-              installers:
-                - maven:
-                    id: "3.8.4"
+CMD ["mvn", "test"]
+```
 
-# Sample Job Configuration
-jobs:
-  - script: >
-      pipelineJob('example-pipeline-job') {
-      definition {
-        cps {
-            script('''
-                pipeline {
-                    agent any
-                    stages {
-                        stage('Build') {
-                            steps {
-                                echo 'Building...'
-                            }
-                        }
-                        stage('Test') {
-                            steps {
-                                echo 'Testing...'
-                            }
-                        }
-                        stage('Deploy') {
-                            steps {
-                                echo 'Deploying...'
-                            }
-                        }
-                    }
-                }
-            ''')
+### **Build and Run**
+1. **Build Image**:  
+   ```bash
+   docker build -t selenium-tests .
+   ```
+
+2. **Run Container**:  
+   ```bash
+   docker run selenium-tests
+   ```
+
+---
+
+## **Jenkins with Docker Compose**
+
+### **Step 1: Start Jenkins**
+Run Jenkins with pre-configured tools and plugins:
+```bash
+docker-compose -f docker-compose-jenkins-as-code.yml up -d
+```
+
+### **Step 2: Log in to Jenkins**
+- Default users (`admin`, `viewer`, `developer`) are created with passwords from the configuration file.
+- Tools like Maven, Git, Node.js, and Allure are pre-installed.
+
+---
+
+## **Set Up Email Notifications in Jenkins**
+
+### **Step 1: Google SMTP Configuration**
+1. Enable **2-Step Verification** in your Google account.
+2. Generate an **App Password** for Jenkins.
+
+### **Step 2: Configure Jenkins**
+1. Go to **Manage Jenkins > Configure System**.
+2. Fill in the **Extended E-mail Notification** section:
+   - SMTP Server: `smtp.gmail.com`
+   - Port: `465`
+   - Use SSL: Enabled
+   - Authentication: Enabled
+   - Username: Your Gmail.
+   - Password: App Password.
+3. Save the configuration.
+
+---
+
+### **Step 3: Jenkins Pipeline with Email Notifications**
+```groovy
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building...'
             }
-          }
-        } 
+        }
+    }
+    post {
+        always {
+            emailext(
+                to: 'recipient@example.com',
+                subject: "Build Status - ${currentBuild.currentResult}",
+                body: "Build ${env.JOB_NAME} #${env.BUILD_NUMBER} finished with status: ${currentBuild.currentResult}."
+            )
+        }
+    }
+}
 ```
 
-### Key Sections:
-- **Security Realm**: Configures local authentication with users `admin`, `developer`, and `viewer` and disables signup.
-- **Authorization Strategy**: Uses the Project-based Matrix Authorization Strategy for granular permission control:
-    - Admin has full control (`Overall/Administer`).
-    - Developer can read and build jobs (`Overall/Read`, `Job/Build`).
-    - Viewer has read-only access (`Overall/Read`).
-- **Tool Configuration**: Specifies paths for `git` and `maven` tools that Jenkins will use.
-- **Sample Job**: Defines a simple pipeline job with stages for Build, Test, and Deploy.
+---
 
-## 4. Build and Run the Docker Container
+## **Ngrok Integration**
 
-After setting up your Dockerfile and configuration files, build and run the Docker container:
-
+### **Step 1: Start Ngrok**
+Run Ngrok to expose your local port:
 ```bash
-# Build the Docker image
-docker build -t jenkins-jcasc .
-
-# Run the Docker container (window)
-docker run --name jenkins -p 8080:8080 -v C:\Dowloads:/var/jenkins_home jenkins-jcasc
+docker run --net=host -it -e NGROK_AUTHTOKEN=your_ngrok_authtoken -p 8080:8080 ngrok/ngrok http 8080
 ```
 
-### Access Jenkins:
-Once the container is running, you can access Jenkins at `http://localhost:8080` and log in using one of the following credentials:
-- **Admin**: `admin` / `admin`
-- **Developer**: `developer` / `developer`
-- **Viewer**: `viewer` / `viewer`
+Replace `your_ngrok_authtoken` with your Ngrok token. After starting, Ngrok provides a public URL to access your local server.
 
-### Login Page:
-You will see the system message we defined earlier ("Jenkins configured automatically by Jenkins Configuration as Code plugin") and the sample pipeline.
+---
 
+## **Telegram Bot Integration**
+
+### **Step 1: Create Telegram Bot**
+1. Use [BotFather](https://core.telegram.org/bots#botfather) to create a bot and get the token.
+2. Use `https://api.telegram.org/bot<TOKEN>/getUpdates` to find your chat ID.
+
+---
+
+### **Step 2: Send Messages via Jenkins**
+```groovy
+pipeline {
+    agent any
+    environment {
+        TELEGRAM_TOKEN = 'your_telegram_token'
+        TELEGRAM_CHAT_ID = 'your_chat_id'
+    }
+    stages {
+        stage('Notify Telegram') {
+            steps {
+                script {
+                    sh """
+                        curl -X POST https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage \
+                        -d chat_id=$TELEGRAM_CHAT_ID \
+                        -d text="Test execution completed."
+                    """
+                }
+            }
+        }
+    }
+}
+```
+
+### **Step 3: Send Files to Telegram**
+```groovy
+pipeline {
+    agent any
+    environment {
+        TELEGRAM_TOKEN = 'your_telegram_token'
+        TELEGRAM_CHAT_ID = 'your_chat_id'
+    }
+    stages {
+        stage('Send File') {
+            steps {
+                script {
+                    sh """
+                        curl -X POST https://api.telegram.org/bot$TELEGRAM_TOKEN/sendDocument \
+                        -F chat_id=$TELEGRAM_CHAT_ID \
+                        -F document=@path_to_file/example.txt
+                    """
+                }
+            }
+        }
+    }
+}
+```
+
+---
+
+## **References**
+- eliasnogueira(Java Developer)
+- [Selenium Docker GitHub Repository](https://github.com/SeleniumHQ/docker-selenium.git)  
+- [Ngrok Documentation](https://ngrok.com/docs)  
+- [Telegram Bot API](https://core.telegram.org/bots/api)
+
+---
