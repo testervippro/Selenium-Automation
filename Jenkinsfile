@@ -3,10 +3,11 @@ pipeline {
 
     environment {
         // Define Maven home path sample use mailler
+        //change  your token
         MAVEN_HOME = ''
         JENKINS_SERVER_URL = 'https://ed1f-116-96-46-98.ngrok-free.app'
         EMAIL_RECIPIENT = 'cuxuanthoai@gmail.com'
-        TELEGRAM_TOKEN = '7891845500:AAEAJ5GDawMGUC4Ofv9SvD3YBn5UGmVii7Q' // Your Telegram bot token
+        TELEGRAM_TOKEN = '891845500:AAEAJ5GDawMGUC4Ofv9SvD3YBn5UGmVii7Q' // Your Telegram bot token
         TELEGRAM_CHAT_ID = '5321745388' // Your Telegram chat ID
     }
 
