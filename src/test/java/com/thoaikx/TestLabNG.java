@@ -15,71 +15,69 @@ import java.io.IOException;
 public class TestLabNG {
 
     private WebDriver driver;
+    private Process xvfbProcess;
     private Process ffmpegProcess;
 
     // Method to get the root directory of the project
     public static String getProjectRoot() {
-        // Get the current working directory (assumed to be a child or the root)
         String projectRoot = System.getProperty("user.dir");
 
-        // Check if pom.xml exists in the current directory
+        // Check if pom.xml exists in the current directory (Maven project check)
         File pomFile = new File(projectRoot, "pom.xml");
         if (pomFile.exists() && pomFile.isFile()) {
-            return projectRoot;  // This is the root of the project (Maven project)
+            return projectRoot;
         }
 
-        // Optionally, if you need to search up the directory chain for pom.xml
-        // You can walk up directories if the file is not found in the current directory.
+        // Walk up directory chain if pom.xml is not found
         File parentDir = new File(projectRoot).getParentFile();
         while (parentDir != null) {
             pomFile = new File(parentDir, "pom.xml");
             if (pomFile.exists() && pomFile.isFile()) {
-                return parentDir.getAbsolutePath();  // Found the root
+                return parentDir.getAbsolutePath();
             }
-            parentDir = parentDir.getParentFile();  // Move one level up
+            parentDir = parentDir.getParentFile();
         }
 
-        // If no pom.xml is found, return the current directory
         return projectRoot;
     }
 
     @BeforeClass
-    public void setUp() throws IOException {
-        // Start Xvfb (virtual display) if it's not running
-        String display = ":99"; // You can use another available display number
+    public void setUp() throws IOException, InterruptedException {
+        // Start Xvfb (virtual display)
+        String display = ":99"; // Display number for Xvfb
         ProcessBuilder xvfbStart = new ProcessBuilder("Xvfb", display, "-screen", "0", "1280x1024x24");
-        Process xvfbProcess = xvfbStart.start();
+        xvfbProcess = xvfbStart.start();
 
         // Set DISPLAY environment variable to use the virtual screen created by Xvfb
         System.setProperty("DISPLAY", display);
 
-        // Use WebDriverManager to automatically download and set up the correct ChromeDriver version
+        // Initialize WebDriverManager to download the correct version of ChromeDriver
         WebDriverManager.chromedriver().setup();
 
-        // Set Chrome options for headless browsing and other configurations
+        // Set Chrome options for headless browsing
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-gpu");
         options.addArguments("--window-size=1280x720");
         options.addArguments("--headless");
 
-        // Initialize the WebDriver
+        // Initialize the WebDriver with the specified options
         driver = new ChromeDriver(options);
 
         // Get the project root directory
         String projectRoot = getProjectRoot();
 
-        // Path where the video will be saved in the root project
+        // Path where the screen recording will be saved
         String recordingPath = new File(projectRoot, "browser_recording.mp4").getAbsolutePath();
 
-        // Start FFmpeg process to record the screen using Xvfb
+        // Start FFmpeg process to record the screen from the virtual display
         try {
             ffmpegProcess = new ProcessBuilder(
                     "ffmpeg",
                     "-f", "x11grab",
                     "-video_size", "1280x720",
                     "-framerate", "25",
-                    "-i", display + ".0",  // Using the virtual display number
+                    "-i", display + ".0",  // Capture from the virtual display
                     "-c:v", "libx264",
                     "-preset", "ultrafast",
                     "-crf", "0",
@@ -90,20 +88,14 @@ public class TestLabNG {
             throw new IOException("Failed to start FFmpeg process.");
         }
 
-        // Give FFmpeg a moment to start recording
-        try {
-            Thread.sleep(1000); // Allow some time for FFmpeg to initialize
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        // Allow FFmpeg some time to start recording
+        Thread.sleep(1000);
     }
 
     @Test
     public void testGooglePageTitle() {
-        // Navigate to Google
+        // Navigate to Google and capture the page title
         driver.get("https://www.google.com");
-
-        // Print the title of the page
         String pageTitle = driver.getTitle();
         System.out.println("Page Title: " + pageTitle);
 
@@ -113,12 +105,17 @@ public class TestLabNG {
 
     @AfterClass
     public void tearDown() {
-        // Stop the screen recording
+        // Stop the FFmpeg process (screen recording)
         if (ffmpegProcess != null) {
             ffmpegProcess.destroy();
         }
 
-        // Close the browser
+        // Stop the Xvfb process
+        if (xvfbProcess != null) {
+            xvfbProcess.destroy();
+        }
+
+        // Close the WebDriver
         if (driver != null) {
             driver.quit();
         }

@@ -33,7 +33,6 @@ public class HomePageTest extends BaseTest {
         if (!GraphicsEnvironment.isHeadless())
         {RecordVideo.startRecordATU("001");}
 
-
     }
 
     @AfterClass
@@ -41,9 +40,6 @@ public class HomePageTest extends BaseTest {
 
         if (!GraphicsEnvironment.isHeadless())
         {RecordVideo.stopRecordATU();;;}
-
-
-
 
     }
 

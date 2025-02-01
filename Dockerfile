@@ -1,5 +1,4 @@
-FROM cuxuanthoai/chrome-firefox-edge
-#FROM markhobson/maven-chrome:jdk-17
+FROM cuxuanthoai/chrome-firefox-edge:v1.2
 
 # Set the working directory inside the container
 WORKDIR /app

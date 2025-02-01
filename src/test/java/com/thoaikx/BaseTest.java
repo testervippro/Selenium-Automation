@@ -62,9 +62,8 @@ public abstract class BaseTest {
     @AfterSuite ()
     public void genReport() throws IOException {
 
-    //DockerManager.executeCommand(commandDown);
-    if ("true".equals(configuration().autoOpenReport()) & !GraphicsEnvironment.isHeadless()){
-      AllureManager.allureOpen();
+    if ((configuration().autoOpenReport()) & !GraphicsEnvironment.isHeadless()){
+        AllureManager.allureOpen();
       }
     }
   private String generateVideoName(String browserName) {
