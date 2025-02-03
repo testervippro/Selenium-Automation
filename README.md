@@ -379,6 +379,7 @@ This Java class (`App`) provides a simple way to download the `jenkins.war` and 
 - https://stackoverflow.com/questions/35783964/jenkins-html-publisher-plugin-no-css-is-displayed-when-report-is-viewed-in-j/35785788#35785788
 - https://github.com/SeleniumHQ/selenium/issues/13077
 - https://issues.chromium.org/issues/40432240
+- https://github.com/mozilla/geckodriver/issues/2199
 
 
 ---
