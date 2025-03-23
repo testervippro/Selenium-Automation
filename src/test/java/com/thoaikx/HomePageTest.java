@@ -4,10 +4,14 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 import static org.testng.AssertJUnit.assertEquals;
 
+import com.google.common.io.Files;
 import com.thoaikx.pages.HomePage;
 import com.thoaikx.pages.ProductPage;
 
+import com.thoaikx.report.AllureManager;
+import io.qameta.allure.Allure;
 import java.awt.*;
+import java.io.File;
 import java.util.Iterator;
 import java.util.List;
 
@@ -36,6 +40,15 @@ public class HomePageTest extends BaseTest {
     @AfterClass
     public void  stop() throws Exception {
         RecorderManager.stopVideoRecording(RecorderManager.RECORDTYPE.MONTE,true);
+        File videoPath = new File("videos", RecorderManager.nameVideo);
+        log.info(videoPath);
+
+        if (videoPath.exists() && videoPath.isFile()) { // Check if file exists and is a file
+            Allure.addAttachment("Video", "video/mp4",
+                Files.asByteSource(videoPath).openStream(), "mp4");
+        } else {
+            log.info("Video file does not exist: " + videoPath.getAbsolutePath());
+        }
     }
 
     @Test(priority = 0)
