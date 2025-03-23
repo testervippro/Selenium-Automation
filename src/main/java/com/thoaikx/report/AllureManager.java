@@ -4,16 +4,11 @@ package com.thoaikx.report;
 import com.thoaikx.enums.Target;
 import com.github.automatedowl.tools.AllureEnvironmentWriter;
 import com.google.common.collect.ImmutableMap;
-import java.io.File;
-import java.lang.ProcessBuilder;
+
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Stream;
 
 import com.thoaikx.processsbuilder.ProcessManager;
 import org.apache.commons.io.FileUtils;
@@ -21,8 +16,6 @@ import org.apache.commons.io.FileUtils;
 import static com.thoaikx.config.ConfigurationManager.configuration;
 
 public class AllureManager {
-
-
 
     public static void setAllureEnvironmentInformation() {
         var basicInfo = new HashMap<>(Map.of(
@@ -46,8 +39,6 @@ public class AllureManager {
 
         String cmd = "cd " + targetDirectory + " && allure server";
         ProcessManager.executeCommand(cmd);
-
-
 
     }
 

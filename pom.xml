@@ -9,295 +9,42 @@
     <version>1.0.0</version>
 
     <properties>
-        <java-compiler.version>17</java-compiler.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <maven.test.skip>false</maven.test.skip>
         <maven-surefire-plugin.version>3.5.2</maven-surefire-plugin.version>
-        <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
-
-        <aspectj.version>1.9.22.1</aspectj.version>
-        <selenium.version>4.28.0</selenium.version>
-        <testng.version>7.10.2</testng.version>
-        <assertj.version>3.26.3</assertj.version>
-        <datafaker.version>2.4.2</datafaker.version>
-        <log4j.version>2.23.1</log4j.version>
-        <owner.version>1.0.12</owner.version>
-        <allure.version>2.29.1</allure.version>
-        <allure-maven.version>2.11.2</allure-maven.version>
-        <allure-environment-writer.version>1.0.0</allure-environment-writer.version>
-        <allure.cmd.download.url>
-            https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline
-        </allure.cmd.download.url>
-        <opencsv.version>5.7.1</opencsv.version>
-        <jackson-databind.version>2.15.0</jackson-databind.version>
-        <jackson-core.version>2.15.0</jackson-core.version>
-        <poi.version>3.13</poi.version>
-        <poi-ooxml.version>3.13</poi-ooxml.version>
-        <commons-io.version>2.18.0</commons-io.version>
-        <record-video.version>1.2</record-video.version>
-        <jsonpath.version>2.8.0</jsonpath.version>
-        <restassured.version>5.5.0</restassured.version>
-        <webdrivermanager.version>5.9.2</webdrivermanager.version>
-        <selenium-edge-driver.version>4.28.1</selenium-edge-driver.version>
-        <record-video.version>2.1</record-video.version>
-
-
-        <!-- Vulnerability temp libs-->
-        <commons-compress.version>1.27.1</commons-compress.version>
-        <lombok.version>1.18.36</lombok.version>
-
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <suite>local</suite>
     </properties>
 
     <dependencies>
-
-        <dependency>
-            <groupId>com.jayway.jsonpath</groupId>
-            <artifactId>json-path</artifactId>
-            <version>${jsonpath.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>rest-assured</artifactId>
-            <version>${restassured.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.github.bonigarcia</groupId>
-            <artifactId>webdrivermanager</artifactId>
-            <version>${webdrivermanager.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-edge-driver</artifactId>
-            <version>${selenium-edge-driver.version}</version>
-        </dependency>
-
         <dependency>
             <groupId>io.github.testervippro</groupId>
-            <artifactId>record-video</artifactId>
-            <version>${record-video.version}</version>
+            <artifactId>selenium-utils</artifactId>
+            <version>0.9</version>
         </dependency>
-
-        <dependency>
-            <groupId>com.opencsv</groupId>
-            <artifactId>opencsv</artifactId>
-            <version>${opencsv.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>${jackson-databind.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-            <version>${jackson-core.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi</artifactId>
-            <version>${poi.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi-ooxml</artifactId>
-            <version>${poi-ooxml.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>${commons-io.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
-
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-            <version>${selenium.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>${testng.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.webjars</groupId>
-                    <artifactId>jquery</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>org.assertj</groupId>
-            <artifactId>assertj-core</artifactId>
-            <version>${assertj.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>net.datafaker</groupId>
-            <artifactId>datafaker</artifactId>
-            <version>${datafaker.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
-            <version>${log4j.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>${log4j.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-slf4j-impl</artifactId>
-            <version>${log4j.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.aeonbits.owner</groupId>
-            <artifactId>owner</artifactId>
-            <version>${owner.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.qameta.allure</groupId>
-            <artifactId>allure-testng</artifactId>
-            <version>${allure.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.qameta.allure</groupId>
-            <artifactId>allure-attachments</artifactId>
-            <version>${allure.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.github.automatedowl</groupId>
-            <artifactId>allure-environment-writer</artifactId>
-            <version>${allure-environment-writer.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.google.guava</groupId>
-                    <artifactId>guava</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-
-        <!-- Vulnerability temp libs-->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-compress</artifactId>
-            <version>${commons-compress.version}</version>
-        </dependency>
-
     </dependencies>
 
-    <!-- This profile execute the TestNG suite inside the suites folder on test/resources -->
-    <profiles>
-        <profile>
-            <id>web-execution</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${maven-surefire-plugin.version}</version>
-                        <configuration>
-                            <suiteXmlFiles>
-                                <suiteXmlFile>src/test/resources/suites/${suite}.xml</suiteXmlFile>
-                            </suiteXmlFiles>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-    </profiles>
-
     <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
+        <plugins>
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>2.12.0</version>
+            </plugin>
 
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>${maven-surefire-plugin.version}</version>
-                    <configuration>
-                        <argLine>
-                            -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
-                        </argLine>
-                        <testFailureIgnore>false</testFailureIgnore>
-                    </configuration>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.aspectj</groupId>
-                            <artifactId>aspectjweaver</artifactId>
-                            <version>${aspectj.version}</version>
-                        </dependency>
-                    </dependencies>
-                </plugin>
-
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.2.2</version>
-                    <configuration>
-                        <archive>
-                            <manifest>
-                                <mainClass>com.thoaikx.App</mainClass>
-                            </manifest>
-                        </archive>
-                    </configuration>
-                </plugin>
-
-
-                <!-- Allure Maven Plugin -->
-                <plugin>
-                    <groupId>io.qameta.allure</groupId>
-                    <artifactId>allure-maven</artifactId>
-                    <version>${allure-maven.version}</version>
-                    <configuration>
-                        <reportVersion>${allure.version}</reportVersion>
-                        <allureDownloadUrl>
-                            ${allure.cmd.download.url}/${allure.version}/allure-commandline-${allure.version}.zip
-                        </allureDownloadUrl>
-
-                    </configuration>
-                </plugin>
-
-                <!-- Maven Compiler Plugin -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>${maven-compiler-plugin.version}</version>
-                    <configuration>
-                        <release>${java-compiler.version}</release>
-                    </configuration>
-                </plugin>
-
-            </plugins>
-        </pluginManagement>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+                <configuration>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>src/test/resources/suites/${suite}.xml</suiteXmlFile>
+                    </suiteXmlFiles>
+                    <skipTests>${maven.test.skip}</skipTests>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 
 </project>

@@ -8,7 +8,6 @@ import static com.thoaikx.driver.DriverManager.getInfo;
 import com.thoaikx.driver.DriverManager;
 import com.thoaikx.driver.TargetFactory;
 import com.thoaikx.pages.commons.CustomSelectActions;
-import com.thoaikx.record.RecordVideo;
 import com.thoaikx.report.AllureManager;
 
 import java.awt.*;
@@ -26,46 +25,42 @@ import org.testng.annotations.*;
 public abstract class BaseTest {
 
 
-   private  int TIMEOUT = configuration().timeout();
-   protected WebDriver driver;
-   protected CustomSelectActions select ;
-   protected WebDriverWait wait;
-    protected JavascriptExecutor jsExecutor ;
+  private  int TIMEOUT = configuration().timeout();
+  protected WebDriver driver;
+  protected CustomSelectActions select ;
+  protected WebDriverWait wait;
+  protected JavascriptExecutor jsExecutor ;
   @BeforeSuite
-    public void beforeSuite() throws IOException {
-      AllureManager.deleteOldReport();
-      AllureManager.setAllureEnvironmentInformation();
+  public void beforeSuite() throws IOException {
+    AllureManager.deleteOldReport();
+    AllureManager.setAllureEnvironmentInformation();
     //  DockerManager.executeCommandAndWaitForStart(commandUp,getCommandUpUntik);
 
-    }
+  }
 
-    @BeforeTest
-    @Parameters("browser")
-    public void preCondition(@Optional("chrome") String browser) {
-      driver = new TargetFactory().createInstance(browser);
+  @BeforeTest
+  @Parameters("browser")
+  public void preCondition(@Optional("chrome") String browser) {
+    driver = new TargetFactory().createInstance(browser);
 
-      DriverManager.setDriver(driver);
-      select = new CustomSelectActions(DriverManager.getDriver());
-      wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(TIMEOUT));
-      jsExecutor = (JavascriptExecutor) DriverManager.getDriver();
-      log.info("Infor brower " + getInfo());
+    DriverManager.setDriver(driver);
+    select = new CustomSelectActions(DriverManager.getDriver());
+    wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(TIMEOUT));
+    jsExecutor = (JavascriptExecutor) DriverManager.getDriver();
+    log.info("Infor brower " + getInfo());
 
-      DriverManager.getDriver().get(configuration().url());
+    DriverManager.getDriver().get(configuration().url());
 
-    }
+  }
 
 
-    @AfterTest()
-    public void postCondition()  {
+  @AfterSuite ()
+  public void genReport() throws IOException {
     DriverManager.quit();
-    }
-    @AfterSuite ()
-    public void genReport() throws IOException {
-
     if ((configuration().autoOpenReport()) & !GraphicsEnvironment.isHeadless()){
-        AllureManager.allureOpen();
-      }
+      AllureManager.allureOpen();
     }
+  }
   private String generateVideoName(String browserName) {
     String randomPart = UUID.randomUUID().toString().replace("-", "");
     return browserName + "_" + randomPart;
