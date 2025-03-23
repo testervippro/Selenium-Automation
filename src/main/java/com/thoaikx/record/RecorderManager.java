@@ -38,8 +38,8 @@ public class RecorderManager {
     private static ScreenRecorder screenRecorder;
     private static Process ffmpegProcess;
     public static String nameVideo = "default_video";  // Ensures nameVideo is never null
-    public static String nameVideoAvi = Path.of("videos", nameVideo + ".avi").toString();
-    public static String nameVideoMp4 = Path.of("videos", nameVideo + ".mp4").toString();
+    private static String nameVideoAvi = Path.of("videos", nameVideo + ".avi").toString();
+    private static String nameVideoMp4 = Path.of("videos", nameVideo + ".mp4").toString();
     private static String os = System.getProperty("os.name").toLowerCase();
     private static Logger log = Logger.getLogger(RecorderManager.class.getName());
     private static Path ffmpegPath;
@@ -55,6 +55,8 @@ public class RecorderManager {
         // Generate timestamp and output file path
         String timestamp = getTimestamp();
         Path outputFile = VIDEO_DIRECTORY.resolve(baseVideoName + "_" + timestamp + ".mp4");
+
+        nameVideo = baseVideoName + "_" + timestamp + ".mp4";
 
         // Ensure the video directory exists
         if (!Files.exists(VIDEO_DIRECTORY)) {

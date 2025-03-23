@@ -1,6 +1,7 @@
 package com.thoaikx.report;
 
 import com.thoaikx.driver.DriverManager;
+import com.thoaikx.record.RecorderManager;
 import com.video.VideoRecord;
 import io.qameta.allure.Attachment;
 import io.qameta.allure.listener.TestLifecycleListener;
@@ -37,13 +38,12 @@ public class AllureTestLifecycleListener implements TestLifecycleListener {
     @Attachment(value = "Test Video", type = "video/mp4")
     public byte[] saveVideo(WebDriver driver) {
         // Ensure nameVideo is not null
-        if (VideoRecord.nameVideo == null || VideoRecord.nameVideo.isEmpty()) {
+        if (RecorderManager.nameVideo == null || RecorderManager.nameVideo.isEmpty()) {
             System.err.println("Video name is not set.");
             return new byte[0];
         }
 
-        String nameVideo = VideoRecord.nameVideo + ".mp4";
-        File videoFile = new File("videos", nameVideo); // Construct correct file path
+        File videoFile = new File("videos", RecorderManager.nameVideo); // Construct correct file path
 
         if (!videoFile.exists()) {
             System.err.println("Video file not found: " + videoFile.getAbsolutePath());
