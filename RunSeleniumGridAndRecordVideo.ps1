@@ -1,3 +1,4 @@
+# Before run this cmd pls install podman
 # Create a Docker network
 docker network create grid
 
