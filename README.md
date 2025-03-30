@@ -32,12 +32,6 @@
 ## Local Suite  
 - Browser info is specified in the TestNG suite file for multi-browser tests.  
 
-### Profiles in `pom.xml` for Local Suite Execution  
-- A profile called `web-execution` is created to execute a specific test suite (e.g., `local.xml`) in the `src/test/resources/suites` folder.  
-- **Command Example**:  
-  ```bash
-  mvn test -Pweb-execution -Dtestng.dtd.http=true
-  ```
 - **Parameterizing Suites**:
     - Create a `suite` property in the `pom.xml`:
       ```xml
