@@ -1,0 +1,12 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Sat Mar 29 12:10:28 ICT 2025
+libfreenect-0.5.7-1.5.9-windows-x86.jar>central=
+libfreenect-0.5.7-1.5.9-linux-ppc64le.jar>central=
+libfreenect-0.5.7-1.5.9-linux-x86.jar>central=
+libfreenect-0.5.7-1.5.9-windows-x86_64.jar>central=
+libfreenect-0.5.7-1.5.9.pom>central=
+libfreenect-0.5.7-1.5.9.jar>central=
+libfreenect-0.5.7-1.5.9-linux-armhf.jar>central=
+libfreenect-0.5.7-1.5.9-linux-x86_64.jar>central=
+libfreenect-0.5.7-1.5.9-macosx-x86_64.jar>central=
+libfreenect-0.5.7-1.5.9-linux-arm64.jar>central=

@@ -2,35 +2,27 @@ package com.thoaikx;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
-import static org.testng.AssertJUnit.assertEquals;
-
 import com.google.common.io.Files;
 import com.thoaikx.pages.HomePage;
 import com.thoaikx.pages.ProductPage;
 
-import com.thoaikx.report.AllureManager;
 import io.qameta.allure.Allure;
-import java.awt.*;
+
 import java.io.File;
-import java.util.Iterator;
 import java.util.List;
 
 import com.thoaikx.record.RecorderManager;
-import com.video.VideoRecord;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import selenium.SeleniumServerManager;
 
 
 @Log4j2
 public class HomePageTest extends BaseTest {
-
 
     @BeforeClass
     public void  start() throws Exception {

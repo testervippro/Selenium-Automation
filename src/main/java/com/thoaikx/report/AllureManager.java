@@ -33,41 +33,5 @@ public class AllureManager {
         AllureEnvironmentWriter.allureEnvironmentWriter(ImmutableMap.copyOf(basicInfo));
     }
 
-    public static void generateReport() throws IOException, InterruptedException {
-        //current directory
-        Path targetDirectory = Path.of(System.getProperty("user.dir") ,"target");
-
-        String cmd = "cd " + targetDirectory + " && allure server";
-        ProcessManager.executeCommand(cmd);
-
-    }
-
-
-    public static void deleteOldReport() throws IOException {
-        Path targetPath = Path.of(System.getProperty("user.dir"), "target");
-        String targetDirectory = targetPath.toString();
-
-        Path oldReportAllure = Path.of(targetDirectory +"allure-results");
-        Path oldReportSureFire = Path.of(targetDirectory +"surefire-reports");
-        FileUtils.deleteDirectory(oldReportAllure.toFile());
-        FileUtils.deleteDirectory(oldReportSureFire.toFile());
-    }
-
-    public static void allureOpen() {
-        Thread dt = new Thread( () -> {
-            if(Boolean.valueOf(configuration().autoOpenReport()))
-            {
-                try {
-                    AllureManager.generateReport();
-                } catch (IOException | InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-
-        });
-        dt.setDaemon(true);
-        dt.start();
-         
-    }
 
 }

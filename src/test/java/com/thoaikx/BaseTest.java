@@ -32,7 +32,6 @@ public abstract class BaseTest {
   protected JavascriptExecutor jsExecutor ;
   @BeforeSuite
   public void beforeSuite() throws IOException {
-    AllureManager.deleteOldReport();
     AllureManager.setAllureEnvironmentInformation();
     //  DockerManager.executeCommandAndWaitForStart(commandUp,getCommandUpUntik);
 
@@ -57,9 +56,7 @@ public abstract class BaseTest {
   @AfterSuite ()
   public void genReport() throws IOException {
     DriverManager.quit();
-    if ((configuration().autoOpenReport()) & !GraphicsEnvironment.isHeadless()){
-      AllureManager.allureOpen();
-    }
+
   }
   private String generateVideoName(String browserName) {
     String randomPart = UUID.randomUUID().toString().replace("-", "");

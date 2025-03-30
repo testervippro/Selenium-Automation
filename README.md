@@ -58,7 +58,7 @@
       ```
     - Use the `-Dsuite=suite_name` parameter to run a specific suite:
       ```bash
-      mvn test -Pweb-execution -Dsuite=parallel
+      mvn test -Dsuite=parallel
       ```
 
 ---
@@ -83,7 +83,7 @@
 
 ### Run Command:
 ```bash
-mvn test -Pweb-execution -Dsuite=selenium-grid -Dtarget=selenium-grid -Dheadless=true -Dgrid.video=true 
+mvn test-Dsuite=selenium-grid -Dtarget=selenium-grid -Dheadless=true -Dgrid.video=true 
 ```
 
 ### Key Notes:
