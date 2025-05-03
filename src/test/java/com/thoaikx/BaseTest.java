@@ -16,6 +16,9 @@ import java.time.Duration;
 import java.util.UUID;
 
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.exec.CommandLine;
+import org.apache.commons.exec.DefaultExecutor;
+import org.apache.commons.exec.PumpStreamHandler;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -30,12 +33,35 @@ public abstract class BaseTest {
   protected CustomSelectActions select ;
   protected WebDriverWait wait;
   protected JavascriptExecutor jsExecutor ;
-  @BeforeSuite
-  public void beforeSuite() throws IOException {
-    AllureManager.setAllureEnvironmentInformation();
-    //  DockerManager.executeCommandAndWaitForStart(commandUp,getCommandUpUntik);
 
+  @BeforeSuite
+  public void startGrid() throws IOException {
+
+    AllureManager.setAllureEnvironmentInformation();
+
+    Thread thread = new Thread(() -> {
+      try {
+        CommandLine runGrid = CommandLine.parse("java -jar grid/selenium-server-4.30.0.jar standalone");
+
+        DefaultExecutor executorRunGrid = new DefaultExecutor();
+        executorRunGrid.setStreamHandler(new PumpStreamHandler(System.out));
+        executorRunGrid.execute(runGrid);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    });
+
+    thread.setDaemon(true);
+    thread.start();
+
+    // Optional wait to let the grid boot up before tests start
+    try {
+      Thread.sleep(10000);
+    } catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+    }
   }
+
 
   @BeforeTest
   @Parameters("browser")
