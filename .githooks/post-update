@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Get the current branch
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
+# Get the latest commit hash
+COMMIT_HASH=$(git log -1 --pretty=format:"%H")
+
+# Set the GitLab repository URL (replace this with your actual GitLab repository URL)
+GITLAB_URL="https://gitlab.com/CuXuanThoai/Selenium-Automation.git"
+
+# Add the GitLab remote if it doesn't exist
+git remote add gitlab $GITLAB_URL || echo "Remote 'gitlab' already exists"
+
+# Perform the force push to GitLab
+git push --force gitlab $BRANCH
+
+# Optionally, you can add logging or notifications here
+echo "Successfully force-pushed the changes to GitLab repository $GITLAB_URL, branch $BRANCH, commit $COMMIT_HASH"

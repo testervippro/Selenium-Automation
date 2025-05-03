@@ -1,0 +1,100 @@
+jenkins:
+  systemMessage: "Jenkins configured automatically by Jenkins Configuration as Code plugin"
+
+
+  # Security Realm for user authentication
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+        - id: "admin"
+          password: "admin"
+
+        - id: "developer"
+          password: "developer"
+
+        - id: "viewer"
+          password: "viewer"
+
+
+  # Authorization Strategy
+  authorizationStrategy:
+    projectMatrix:
+      entries:
+        - user:
+            name: admin
+            permissions:
+              - Overall/Administer
+        - user:
+            name: developer
+            permissions:
+              - Overall/Read
+              - Job/Build
+        - user:
+            name: viewer
+            permissions:
+              - Overall/Read
+
+
+tool:
+  allure:
+    installations:
+      - name: "allure"
+        properties:
+          - installSource:
+              installers:
+                - allureCommandlineInstaller:
+                    id: "2.32.0"
+  dockerTool:
+    installations:
+      - name: "docker"
+  git:
+    installations:
+      - home: "git"
+        name: "Default"
+  maven:
+    installations:
+      - name: "maven"
+        properties:
+          - installSource:
+              installers:
+                - maven:
+                    id: "3.9.9"
+  mavenGlobalConfig:
+    globalSettingsProvider: "standard"
+    settingsProvider: "standard"
+  nodejs:
+    installations:
+      - name: "nodejs"
+        properties:
+          - installSource:
+              installers:
+                - nodeJSInstaller:
+                    id: "20.9.0"
+                    npmPackagesRefreshHours: 72
+
+
+
+
+# Sample Job Configuration
+jobs:
+  - script: >
+      pipelineJob('print-message-job') {
+        definition {
+          cps {
+            script('''
+              pipeline {
+                agent any
+
+                stages {
+                  stage('Print Message') {
+                    steps {
+                      echo 'Hello, Jenkins!'
+                    }
+                  }
+                }
+              }
+            ''')
+          }
+        }
+      }

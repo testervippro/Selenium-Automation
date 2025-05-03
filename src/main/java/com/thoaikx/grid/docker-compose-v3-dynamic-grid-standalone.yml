@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  selenium:
+    image: selenium/standalone-docker:4.28.1-20250123
+    container_name: selenium-docker
+    ports:
+      - "4444:4444"
+    volumes:
+      - ./config.toml:/opt/selenium/config.toml
+      - ./assets:/opt/selenium/assets
+      - /var/run/docker.sock:/var/run/docker.sock

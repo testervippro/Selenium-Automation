@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  jenkins:
+    image: cuxuanthoai/jenkins-docker:v1.1
+    container_name: jenkins80
+    #share ram
+    shm_size: 6gb
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    environment:
+      - JENKINS_USER=1000
+      - JENKINS_CAC=true
+      - JENKINS_ADMIN_ID=admin
+      - JENKINS_ADMIN_PASSWORD=admin
+      - JENKINS_LOCATION=http://localhost:8080
+      - JENKINS_CASC=/provisioning/config.yaml
+    volumes:
+      - /Users/mac/Documents/jenkins02:/var/jenkins_home
+      #https://dev.to/piyushbagani15/understanding-varrundockersock-the-key-to-dockers-inner-workings-nm7
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./config.yaml:/provisioning/config.yaml
+      - ./plugins.txt:/provisioning/plugins.txt
+    privileged: true
+    # communication with the host( eg selenium grid0
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    user: root

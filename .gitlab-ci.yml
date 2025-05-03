@@ -1,0 +1,23 @@
+image: cuxuanthoai/chrome-firefox-edge:v1.2
+#add .git/hooks auto push forece to gitlab
+
+stages:
+- build
+- test
+
+cache:
+  paths:
+  - .m2/repository/
+  - target/
+
+build:
+  stage: build
+  script:
+  # - cd selenium-java-automation
+  - mvn clean package -DskipTests=true
+
+test:
+  stage: test
+  script:
+  # - cd selenium-java-automation
+  - mvn test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=true -Dbrowser=chrome

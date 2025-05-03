@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>io.qameta.allure</groupId>
+  <artifactId>allure-java-commons</artifactId>
+  <version>2.24.0</version>
+  <name>allure-java-commons</name>
+  <description>Module allure-java-commons of Allure Framework.</description>
+  <url>https://github.com/allure-framework/allure-java</url>
+  <licenses>
+    <license>
+      <name>The Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <id>baev</id>
+      <name>Dmitry Baev</name>
+      <email>dmitry.baev@qameta.io</email>
+    </developer>
+    <developer>
+      <id>eroshenkoam</id>
+      <name>Artem Eroshenko</name>
+      <email>artem.eroshenko@qameta.io</email>
+    </developer>
+  </developers>
+  <scm>
+    <connection>scm:git:git://github.com/allure-framework/allure-java</connection>
+    <developerConnection>scm:git:git://github.com/allure-framework/allure-java</developerConnection>
+    <url>https://github.com/allure-framework/allure-java</url>
+  </scm>
+  <issueManagement>
+    <system>GitHub Issues</system>
+    <url>https://github.com/allure-framework/allure-java/issues</url>
+  </issueManagement>
+  <dependencies>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.7.36</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.qameta.allure</groupId>
+      <artifactId>allure-model</artifactId>
+      <version>2.24.0</version>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
+</project>
