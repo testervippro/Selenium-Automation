@@ -20,4 +20,4 @@ test:
   stage: test
   script:
   # - cd selenium-java-automation
-  - mvn test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=true -Dbrowser=chrome
+  - mvn test -Pweb-execution -Dsuite=local-suite -Dtarget=local -Dheadless=true -Dbrowser=chrome

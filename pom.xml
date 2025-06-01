@@ -27,7 +27,15 @@
         <dependency>
             <groupId>io.github.testervippro</groupId>
             <artifactId>selenium-utils</artifactId>
-            <version>0.9</version>
+            <version>1.5</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/io.github.testervippro/selenium-auto-wait -->
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>4.28.0</version>
         </dependency>
     </dependencies>
 

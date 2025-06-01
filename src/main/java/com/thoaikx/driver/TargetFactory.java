@@ -64,15 +64,4 @@ public class TargetFactory {
         return remoteWebDriver;
     }
 
-    //each brower use diff port
-    private static BrowserFactory ValueOf(String browser) {
-        return switch (browser) {
-            case "CHROME" -> CHROME;
-            case "FIREFOX" -> FIREFOX;
-            case "EDGE" -> EDGE;
-            case "SAFARI" -> SAFARI;
-            default -> throw new IllegalArgumentException("Unknown browser: " + browser);
-        };
-    }
-
 }
