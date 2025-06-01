@@ -25,5 +25,4 @@ public final class BrowserData {
 
     public static final String CHROME_HEADLESS = "--headless=new";
 
-    public  static int PORT_DEBUG = 9200;
 }
