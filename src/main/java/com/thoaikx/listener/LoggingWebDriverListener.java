@@ -7,6 +7,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.events.WebDriverListener;
 
 import java.lang.reflect.Method;
+import java.util.List;
 
 @Log4j2
 public class LoggingWebDriverListener implements WebDriverListener {
@@ -67,6 +68,7 @@ public class LoggingWebDriverListener implements WebDriverListener {
     @Override
     public void beforeClick(WebElement element) {
         log.info("BEFORE click -> Element: {}", getElementInfo(element));
+
     }
 
     @Override
@@ -79,10 +81,45 @@ public class LoggingWebDriverListener implements WebDriverListener {
     @Override
     public void beforeFindElement(WebDriver driver, By locator) {
         log.info("BEFORE findElement -> Locator: {}", locator);
+
+        try {
+            // Avoid recursion by calling findElements on the underlying driver
+            if (driver instanceof HasCapabilities) {
+                List<WebElement> elements = driver.findElements(locator);
+                log.info("DEBUG: Number of elements matching '{}': {}", locator, elements.size());
+            }
+        } catch (Exception e) {
+            log.warn("Error while counting elements for locator {}: {}", locator, e.getMessage());
+        }
     }
+
+
 
     @Override
     public void afterFindElement(WebDriver driver, By locator, WebElement result) {
         log.info("AFTER findElement -> Locator: {}, Result: {}", locator, getElementInfo(result));
     }
+
+    @Override
+    public void beforeFindElements(WebDriver driver, By locator) {
+        log.info("BEFORE findElements -> Locator: {}", locator);
+
+        try {
+            // Avoid recursion by calling findElements on the underlying driver
+            if (driver instanceof HasCapabilities) {
+                List<WebElement> elements = driver.findElements(locator);
+                log.info("DEBUG: Number of elements matching '{}': {}", locator, elements.size());
+            }
+        } catch (Exception e) {
+            log.warn("Error while counting elements for locator {}: {}", locator, e.getMessage());
+        }
+    }
+
+    @Override
+    public void afterFindElements(WebDriver driver, By locator, List<WebElement> elements) {
+        log.info("AFTER findElements -> Locator: {}, Elements found: {}", locator, elements.size());
+    }
+
+
+
 }
