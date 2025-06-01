@@ -1,7 +1,7 @@
-
 package com.thoaikx.driver;
 
 import com.thoaikx.exceptions.HeadlessNotSupportedException;
+import com.thoaikx.listener.LoggingWebDriverListener;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
@@ -14,28 +14,29 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.AbstractDriverOptions;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
-
+import org.openqa.selenium.support.events.EventFiringDecorator;
+import org.openqa.selenium.support.events.WebDriverListener;
 
 import java.nio.file.Path;
 
+import static com.sun.jna.Platform.isMac;
+import static com.sun.jna.Platform.isWindows;
 import static com.thoaikx.config.ConfigurationManager.configuration;
 import static com.thoaikx.data.changeless.BrowserData.*;
 import static java.lang.Boolean.TRUE;
 
 public enum BrowserFactory {
 
-
-
     CHROME {
         @Override
         public WebDriver createLocalDriver() {
+            WebDriverListener listener = new LoggingWebDriverListener();
 
-            WebDriver driver;
+            WebDriver chromeDriver = new ChromeDriver(getOptions());
 
-            WebDriverManager.chromedriver().setup();
-            driver = new ChromeDriver(getOptions());
-            return  driver;
+            WebDriver decoratedDriver = new EventFiringDecorator(listener).decorate(chromeDriver);
 
+            return decoratedDriver;
         }
 
         @Override
@@ -48,33 +49,42 @@ public enum BrowserFactory {
             chromeOptions.addArguments(REMOTE_ALLOW_ORIGINS);
             chromeOptions.addArguments("--no-sandbox");
             chromeOptions.addArguments("--disable-dev-shm-usage");
-            //https://github.com/SeleniumHQ/seleniumhq.github.io/pull/2139
 
-
-            if (configuration().headless())
+            if (configuration().headless()) {
+                // uncomment if you want headless
                 chromeOptions.addArguments(CHROME_HEADLESS);
+                if (isWindows() && configuration().recordHeadless())
+                {
+                    chromeOptions.addArguments("--remote-debugging-port=9222");
+                    chromeOptions.addArguments("--user-data-dir=C:\\chrome-data");
+                }
+                if (isMac() && configuration().recordHeadless()) {
+                    String userDataDir = System.getProperty("user.home") + "/chrome-data";
+                   chromeOptions.addArguments("--remote-debugging-port=9200");
+                   chromeOptions.addArguments("--user-data-dir=" +userDataDir);
+                }
+            }
 
-
-            if(configuration().gridVideo()) {
+            if (configuration().gridVideo()) {
                 chromeOptions.setCapability("se:recordVideo", true);
                 chromeOptions.setCapability("se:screenResolution", "1920x1080");
                 chromeOptions.setCapability("se:name", "test_visit_basic_auth_secured_page (ChromeTests)");
             }
 
-
             return chromeOptions;
         }
-
     },
+
     FIREFOX {
         @Override
         public WebDriver createLocalDriver() {
+            WebDriverListener listener = new LoggingWebDriverListener();
 
-            WebDriver driver;
+            WebDriver chromeDriver = new FirefoxDriver(getOptions());
 
-            WebDriverManager.firefoxdriver().setup();
-            driver = new FirefoxDriver(getOptions());
-            return  driver;
+            WebDriver decoratedDriver = new EventFiringDecorator(listener).decorate(chromeDriver);
+
+            return decoratedDriver;
 
         }
 
@@ -83,10 +93,11 @@ public enum BrowserFactory {
             var firefoxOptions = new FirefoxOptions();
             firefoxOptions.addArguments(START_MAXIMIZED);
 
-            if (configuration().headless())
+            if (configuration().headless()) {
                 firefoxOptions.addArguments(GENERIC_HEADLESS);
+            }
 
-            if(configuration().gridVideo()) {
+            if (configuration().gridVideo()) {
                 firefoxOptions.setCapability("se:recordVideo", true);
                 firefoxOptions.setCapability("se:screenResolution", "1920x1080");
                 firefoxOptions.setCapability("se:name", "test_visit_basic_auth_secured_page (FireFox)");
@@ -95,15 +106,18 @@ public enum BrowserFactory {
             return firefoxOptions;
         }
     },
+
     EDGE {
         @Override
-        public WebDriver createLocalDriver()  {
-
-            WebDriver driver;
-
+        public WebDriver createLocalDriver() {
             WebDriverManager.edgedriver().setup();
-            driver = new EdgeDriver(getOptions());
-            return  driver;
+            WebDriverListener listener = new LoggingWebDriverListener();
+
+            WebDriver chromeDriver = new EdgeDriver(getOptions());
+
+            WebDriver decoratedDriver = new EventFiringDecorator(listener).decorate(chromeDriver);
+
+            return decoratedDriver;
 
         }
 
@@ -112,13 +126,12 @@ public enum BrowserFactory {
             var edgeOptions = new EdgeOptions();
             edgeOptions.addArguments(START_MAXIMIZED);
             edgeOptions.addArguments("--no-sandbox");
-            //
 
-            if (configuration().headless())
+            if (configuration().headless()) {
                 edgeOptions.addArguments(GENERIC_HEADLESS);
+            }
 
-
-            if(configuration().gridVideo()) {
+            if (configuration().gridVideo()) {
                 edgeOptions.setCapability("se:recordVideo", true);
                 edgeOptions.setCapability("se:screenResolution", "1920x1080");
                 edgeOptions.setCapability("se:name", "test_visit_basic_auth_secured_page (EdgeTest)");
@@ -127,15 +140,12 @@ public enum BrowserFactory {
             return edgeOptions;
         }
     },
+
     SAFARI {
         @Override
         public WebDriver createLocalDriver() {
-            WebDriver driver;
-
             WebDriverManager.safaridriver().setup();
-            driver = new SafariDriver(getOptions());
-            return  driver;
-
+            return new SafariDriver(getOptions());
         }
 
         @Override
@@ -143,24 +153,16 @@ public enum BrowserFactory {
             var safariOptions = new SafariOptions();
             safariOptions.setAutomaticInspection(false);
 
-            if (TRUE.equals(configuration().headless()))
+            if (TRUE.equals(configuration().headless())) {
                 throw new HeadlessNotSupportedException(safariOptions.getBrowserName());
+            }
 
             return safariOptions;
         }
     };
 
-    /**
-     * Used to run local tests where the WebDriverManager will take care of the
-     * driver
-     *
-     * @return a new WebDriver instance based on the browser set
-     */
-    public abstract WebDriver createLocalDriver() ;
+    public abstract WebDriver createLocalDriver();
 
-    /**
-     * @return a new AbstractDriverOptions instance based on the browser set
-     */
     public abstract AbstractDriverOptions<?> getOptions();
 
     static class OS {
@@ -170,5 +172,3 @@ public enum BrowserFactory {
         }
     }
 }
-
-

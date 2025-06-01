@@ -6,14 +6,15 @@ import static com.thoaikx.config.ConfigurationManager.configuration;
 import static com.thoaikx.driver.DriverManager.getInfo;
 
 import com.thoaikx.driver.DriverManager;
+import static com.thoaikx.driver.DriverManager.getDriver;
+import static com.thoaikx.record.RecorderManager.HeadlessUtils.startChromeInHeadlessModeMAC;
+
 import com.thoaikx.driver.TargetFactory;
 import com.thoaikx.pages.commons.CustomSelectActions;
 import com.thoaikx.report.AllureManager;
 
-import java.awt.*;
 import java.io.IOException;
 import java.time.Duration;
-import java.util.UUID;
 
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.exec.CommandLine;
@@ -27,38 +28,44 @@ import org.testng.annotations.*;
 @Log4j2
 public abstract class BaseTest {
 
-
-  private  int TIMEOUT = configuration().timeout();
+  private int TIMEOUT = configuration().timeout();
   protected WebDriver driver;
-  protected CustomSelectActions select ;
+  protected CustomSelectActions select;
   protected WebDriverWait wait;
-  protected JavascriptExecutor jsExecutor ;
+  protected JavascriptExecutor jsExecutor;
 
-  @BeforeSuite
-  public void startGrid() throws IOException {
 
-    AllureManager.setAllureEnvironmentInformation();
+  @BeforeSuite()
+  public void startGrid() throws IOException, InterruptedException {
 
-    Thread thread = new Thread(() -> {
+    //startChromeInHeadlessModeMAC();
+
+    if (configuration().target().equalsIgnoreCase("selenium-grid -")) {
+      killProcessOnPort(4444);
+
+      AllureManager.setAllureEnvironmentInformation();
+
+      Thread thread = new Thread(() -> {
+        try {
+          CommandLine runGrid = CommandLine.parse("java -jar grid/selenium-server-4.30.0.jar standalone");
+
+          DefaultExecutor executorRunGrid = new DefaultExecutor();
+          executorRunGrid.setStreamHandler(new PumpStreamHandler(System.out));
+          executorRunGrid.execute(runGrid);
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      });
+
+      thread.setDaemon(true);
+      thread.start();
+
+      // Optional wait to let the grid boot up before tests start
       try {
-        CommandLine runGrid = CommandLine.parse("java -jar grid/selenium-server-4.30.0.jar standalone");
-
-        DefaultExecutor executorRunGrid = new DefaultExecutor();
-        executorRunGrid.setStreamHandler(new PumpStreamHandler(System.out));
-        executorRunGrid.execute(runGrid);
-      } catch (IOException e) {
-        e.printStackTrace();
+        Thread.sleep(10000);
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
       }
-    });
-
-    thread.setDaemon(true);
-    thread.start();
-
-    // Optional wait to let the grid boot up before tests start
-    try {
-      Thread.sleep(10000);
-    } catch (InterruptedException e) {
-      Thread.currentThread().interrupt();
     }
   }
 
@@ -66,27 +73,46 @@ public abstract class BaseTest {
   @BeforeTest
   @Parameters("browser")
   public void preCondition(@Optional("chrome") String browser) {
-    driver = new TargetFactory().createInstance(browser);
 
+    driver = new TargetFactory().createInstance(browser);
     DriverManager.setDriver(driver);
-    select = new CustomSelectActions(DriverManager.getDriver());
-    wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(TIMEOUT));
-    jsExecutor = (JavascriptExecutor) DriverManager.getDriver();
+    select = new CustomSelectActions(getDriver());
+    wait = new WebDriverWait(getDriver(), Duration.ofSeconds(TIMEOUT));
+    jsExecutor = (JavascriptExecutor) getDriver();
     log.info("Infor brower " + getInfo());
 
-    DriverManager.getDriver().get(configuration().url());
+    getDriver().get(configuration().url());
+    //getDriver().manage().window().fullscreen();
 
   }
 
-
-  @AfterSuite ()
-  public void genReport() throws IOException {
+  @AfterTest()
+  public void tearDownAll() throws IOException, InterruptedException {
     DriverManager.quit();
 
   }
-  private String generateVideoName(String browserName) {
-    String randomPart = UUID.randomUUID().toString().replace("-", "");
-    return browserName + "_" + randomPart;
-  }
 
+  private void killProcessOnPort(int port) {
+    String os = System.getProperty("os.name").toLowerCase();
+
+    try {
+      if (os.contains("win")) {
+        // For Windows
+        String command = String.format("cmd /c for /f \"tokens=5\" %%a in ('netstat -aon ^| findstr :%d') do taskkill /f /pid %%a", port);
+        Runtime.getRuntime().exec(command);
+      } else {
+        // For Unix/Linux/Mac
+        String[] command = {"/bin/sh", "-c", String.format("lsof -ti:%d | xargs kill -9", port)};
+        Runtime.getRuntime().exec(command);
+      }
+
+      // Wait a moment to ensure the port is freed
+      Thread.sleep(1000);
+    } catch (Exception e) {
+      System.err.println("Failed to kill process on port " + port);
+      e.printStackTrace();
+    }
+  }
 }
+
+

@@ -2,36 +2,71 @@ package com.thoaikx.record;
 
 import java.awt.*;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Date;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
-import org.checkerframework.checker.units.qual.s;
+
+import com.thoaikx.data.changeless.BrowserData;
+import com.video.ExtractLibFromJar;
+import lombok.extern.log4j.Log4j2;
+import org.apache.commons.exec.CommandLine;
+import org.apache.commons.exec.DefaultExecutor;
+import org.apache.commons.exec.PumpStreamHandler;
+import org.apache.commons.io.FileUtils;
 import org.monte.media.Format;
 import org.monte.media.Registry;
 import org.monte.screenrecorder.ScreenRecorder;
-import com.video.ExtractLibFromJar;
+//import com.video.ExtractLibFromJar;
 
 import org.monte.media.FormatKeys.MediaType;
 import org.monte.media.math.Rational;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+
 import java.io.*;
 import java.nio.file.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.logging.Logger;
+import java.util.stream.Stream;
 
+import static com.sun.jna.Platform.isLinux;
+import static com.sun.jna.Platform.isMac;
+import static com.thoaikx.data.changeless.BrowserData.PORT_DEBUG;
 import static org.monte.media.FormatKeys.*;
 import static org.monte.media.VideoFormatKeys.*;
 
 
-
+@Log4j2
 public class RecorderManager {
 
 
     public  enum RECORDTYPE {
         MONTE,
-        FFMPEG
+        FFMPEG,
+        HEADLESS
     }
 
+    private static  void preCheckOSRecordHeadlessByCaptureFrame() {
+        try {
+            String os = System.getProperty("os.name").toLowerCase();
+
+            if (os.contains("linux")) {
+                throw  new RuntimeException("Current record headless Dont support linux");
+
+            } else if (os.contains("mac")) {
+                System.out.println("Supported OS in Beta: " + os);
+            } else {
+                System.out.println("Supported OS: " + os);
+            }
+        } catch (Exception e) {
+            System.err.println("Error while checking OS: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
     private static final String USER_DIR = System.getProperty("user.dir");
     private static final String DOWNLOADED_FILES_FOLDER = "videos";
@@ -41,15 +76,115 @@ public class RecorderManager {
     private static String nameVideoAvi = Path.of("videos", nameVideo + ".avi").toString();
     private static String nameVideoMp4 = Path.of("videos", nameVideo + ".mp4").toString();
     private static String os = System.getProperty("os.name").toLowerCase();
-    private static Logger log = Logger.getLogger(RecorderManager.class.getName());
+   // private static Logger log = Logger.getLogger(RecorderManager.class.getName());
     private static Path ffmpegPath;
     private static final Path VIDEO_DIRECTORY = Path.of("videos");
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
-    // Define the ffmpeg command format for macOS and Windows
-    private static  String FFMPEG_COMMAND = "-f %s -framerate 30 -i %s -c:v libx264 -preset veryfast -crf 23 -pix_fmt yuv420p -y \"%s\"";
 
+    public  static void  startCaptureFrames() throws IOException, InterruptedException {
+       // preCheckOSRecordWhenOsHaveGUI();
+        //preCheckOSRecordHeadlessByCaptureFrame();
+       // VideoRecord.deleteFile("frames");
+
+        Thread screencastThread = new Thread(() -> {
+            try {
+
+                CommandLine cmd = CommandLine.parse(getScreenProgramPath()+" -folder ./frames");
+                // Suppress all console output
+                OutputStream nullStream = OutputStream.nullOutputStream();
+                PumpStreamHandler silentHandler = new PumpStreamHandler(nullStream, nullStream);
+
+                DefaultExecutor executor = new DefaultExecutor();
+                executor.setStreamHandler(silentHandler);
+                executor.setExitValues(null); // Accept all exit codes
+                executor.execute(cmd);
+                log.info("Start capture frames");
+            } catch (Exception e) {
+                log.error("Screencast process failed: " + e.getMessage());
+            }
+        });
+        screencastThread.setDaemon(true);
+        screencastThread.start();
+    }
+
+    public static void convertImagesToVideo(String nameVideo) throws IOException, InterruptedException {
+
+       preCheckOSRecordWhenOsHaveGUI();
+        preCheckOSRecordHeadlessByCaptureFrame();
+        if (!Files.exists(VIDEO_DIRECTORY)) {
+            Files.createDirectories(VIDEO_DIRECTORY);
+        }
+        String timestamp = getTimestamp();
+
+        Path outputFile = VIDEO_DIRECTORY.resolve(nameVideo + "_" + timestamp + ".mp4");
+
+
+        if(isMac()) {
+
+            VideoRecord.setExecutablePermission(getFfmpegPath());
+        }
+            CommandLine cmd = new CommandLine(String.valueOf(getFfmpegPath()))
+                    .addArgument("-y") // Overwrite output files
+                    .addArgument("-framerate")
+                    .addArgument("35")
+                    .addArgument("-i")
+                    .addArgument("frames/screenshot_%06d.png\"")
+                    .addArgument("-vf")
+                    .addArgument("scale=trunc(iw/2)*2:trunc(ih/2)*2", false) // Ensure even dimensions
+                    .addArgument("-c:v")
+                    .addArgument("libx264")
+                    .addArgument("-pix_fmt")
+                    .addArgument("yuv420p")
+                    .addArgument(String.valueOf(outputFile));
+
+            DefaultExecutor executor = new DefaultExecutor();
+            executor.setExitValues(null);
+
+            int exitCode = executor.execute(cmd);
+            System.out.println("FFmpeg exited with code: " + exitCode);
+        }
+
+    public static void captureScreenshot(WebDriver driver) {
+
+        preCheckOSRecordHeadlessByCaptureFrame();
+        // Format timestamp for filename
+        String timestamp = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(new Date());
+
+        // Define default directory and file path
+        String directory = "screenshots";
+        String fileName = "screenshot_" + timestamp + ".png";
+
+        try {
+            // Ensure directory exists
+            File screenshotDir = new File(directory);
+            if (!screenshotDir.exists()) {
+                screenshotDir.mkdirs();
+            }
+
+            // Take and save screenshot
+            File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+            File destination = new File(screenshotDir, fileName);
+            FileUtils.copyFile(screenshot, destination);
+
+            System.out.println("Screenshot saved to: " + destination.getAbsolutePath());
+        } catch (IOException e) {
+            System.err.println("Failed to save screenshot: " + e.getMessage());
+        }
+    }
+    private static  void preCheckOSRecordWhenOsHaveGUI() {
+        try {
+
+            if (isLinux()) {
+                throw new RuntimeException("Current record headless Dont support linux");
+            }
+        } catch (Exception e) {
+            log.error("Error while checking OS: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
     public static void startVideoRecording(RECORDTYPE recordType,String baseVideoName) throws Exception {
+        preCheckOSRecordWhenOsHaveGUI();
         ExtractLibFromJar.copyToM2Repo();
 
         // Generate timestamp and output file path
@@ -79,7 +214,7 @@ public class RecorderManager {
     }
 
     public static void stopVideoRecording(RECORDTYPE recordType, boolean hasDeleteAndConvet) throws Exception{
-
+        preCheckOSRecordWhenOsHaveGUI();
         // Select recording type using Java 17 arrow switch
         switch (recordType) {
             case MONTE -> {
@@ -120,13 +255,19 @@ public class RecorderManager {
 
 
     public static  Path getFfmpegPath (){
-
         ffmpegPath = os.contains("mac")
-                ? Path.of(System.getProperty("user.home"), ".m2", "repository", "ffmpeg", "ffmpeg")
-                : Path.of(System.getProperty("user.home"), ".m2", "repository", "ffmpeg", "ffmpeg.exe");
+                ? Path.of(System.getProperty("user.home"), ".m2", "repository", "selenium-utils", "ffmpeg")
+                : Path.of(System.getProperty("user.home"), ".m2", "repository", "selenium-utils", "ffmpeg.exe");
 
         return  ffmpegPath;
+    }
 
+    public static  Path getScreenProgramPath (){
+        ffmpegPath = os.contains("mac")
+                ? Path.of(System.getProperty("user.home"), ".m2", "repository", "selenium-utils", "screencast")
+                : Path.of(System.getProperty("user.home"), ".m2", "repository", "selenium-utils", "screencast.exe");
+
+        return  ffmpegPath;
     }
 
     // Get timestamp for filename in format "yyyyMMdd_HHmmss"
@@ -192,7 +333,7 @@ public class RecorderManager {
                     //log.info(line);
                 }
             } catch (IOException e) {
-                log.severe("Error reading FFmpeg output: " + e.getMessage());
+                log.error("Error reading FFmpeg output: " + e.getMessage());
             }
         }).start();
 
@@ -273,7 +414,7 @@ public class RecorderManager {
                     // Can log output if needed
                 }
             } catch (IOException e) {
-                log.severe("Error reading stream: " + e.getMessage());
+                log.error("Error reading stream: " + e.getMessage());
             }
         }
         public static void _convertAviToMp4(String inputFileName, String outputFileName) throws IOException, InterruptedException {
@@ -319,19 +460,36 @@ public class RecorderManager {
                 log.info("Conversion successful: " + outputFileName);
                 deleteFile(inputFileName);  // Ensure input file deletion only if conversion succeeds
             } else {
-                log.severe("Conversion failed with exit code: " + ffmpegExitCode);
+                log.error("Conversion failed with exit code: " + ffmpegExitCode);
             }
         }
 
-        private static void deleteFile(String inputFileName) {
-            Path filePath = Path.of(inputFileName);
-            if (Files.exists(filePath)) {
+        public static void deleteFile(String inputPath) {
+            Path path = Path.of(inputPath);
+            if (Files.exists(path)) {
                 try {
-                    Files.delete(filePath);
-                    log.info("Deleted original AVI file: " + inputFileName);
+                    if (Files.isDirectory(path)) {
+                        // Recursively delete contents
+                        try (Stream<Path> walk = Files.walk(path)) {
+                            walk.sorted(Comparator.reverseOrder())
+                                    .forEach(p -> {
+                                        try {
+                                            Files.delete(p);
+                                            log.info("Deleted: " + p);
+                                        } catch (IOException e) {
+                                            log.error("Failed to delete: " + p + " - " + e.getMessage());
+                                        }
+                                    });
+                        }
+                    } else {
+                        Files.delete(path);
+                        log.info("Deleted file: " + path);
+                    }
                 } catch (IOException e) {
-                    log.severe("Error deleting AVI file: " + e.getMessage());
+                    log.error("Error deleting path: " + e.getMessage(), e);
                 }
+            } else {
+                log.warn("Path does not exist: " + path);
             }
         }
 
@@ -377,6 +535,84 @@ public class RecorderManager {
 
     }
 
+   public static  class HeadlessUtils {
+
+       public static void startChromeInHeadlessModeMAC() {
+          preCheckOSRecordHeadlessByCaptureFrame();
+           killProcessOnPort(9200);
+           Thread chromeThread = new Thread(() -> {
+               String chromePath = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
+
+               String userDataDir = System.getProperty("user.home") + "/chrome-remote-profile";
+
+               java.util.List<String >command = List.of(
+                       chromePath,
+                       "--remote-debugging-port=9200",
+                       "--no-first-run",
+                       "--disable-gpu",
+                       "--no-default-browser-check",
+                       "--headless=new",
+                       "--no-sandbox",
+                       "--disable-dev-shm-usage",
+                       "--mute-audio"
+               );
+
+               try {
+                   ProcessBuilder builder = new ProcessBuilder(command);
+                   builder.redirectErrorStream(true); // Merge stderr with stdout
+
+                   Process process = builder.start();
+
+                   // Log Chrome output for the first 30 seconds
+                   new Thread(() -> {
+                       try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+                           long startTime = System.currentTimeMillis();
+                           String line;
+                           while ((line = reader.readLine()) != null) {
+                               log.info("[Chrome] {}", line);
+                               if (System.currentTimeMillis() - startTime > 30_000) break;
+                           }
+                       } catch (IOException e) {
+                           log.error("Error reading Chrome output: {}", e.getMessage());
+                       }
+                   }, "Chrome-Logger").start();
+
+                   log.info("Chrome headless started on macOS with remote debugging at port 9222");
+                   log.info(" Thread: {}", Thread.currentThread().getName());
+
+               } catch (IOException e) {
+                   log.error(" Failed to start Chrome headless: {}", e.getMessage());
+               }
+           });
+
+           chromeThread.setDaemon(true); // Won’t block JVM exit
+           chromeThread.start();
+       }
+
+       private  static  void killProcessOnPort(int port) {
+           String os = System.getProperty("os.name").toLowerCase();
+
+           try {
+               if (os.contains("win")) {
+                   // For Windows
+                   String command = String.format("cmd /c for /f \"tokens=5\" %%a in ('netstat -aon ^| findstr :%d') do taskkill /f /pid %%a", port);
+                   Runtime.getRuntime().exec(command);
+                   log.info("Kill port 9200 ");
+               } else {
+                   // For Unix/Linux/Mac
+                   String[] command = {"/bin/sh", "-c", String.format("lsof -ti:%d | xargs kill -9", port)};
+                   Runtime.getRuntime().exec(command);
+               }
+
+               // Wait a moment to ensure the port is freed
+               Thread.sleep(1000);
+           } catch (Exception e) {
+               System.err.println("Failed to kill process on port " + port);
+               e.printStackTrace();
+           }
+       }
+
+   }
 
 }
 

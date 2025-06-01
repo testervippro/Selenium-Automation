@@ -21,6 +21,9 @@ public interface Configuration  extends Config{
     @Key("env")
     String env();
 
+    @Key("record.headless")
+    boolean recordHeadless();
+
     @Key("browser")
     String browser();
 

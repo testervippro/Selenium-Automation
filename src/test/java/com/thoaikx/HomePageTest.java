@@ -1,5 +1,7 @@
 package com.thoaikx;
 
+import static com.thoaikx.driver.DriverManager.getDriver;
+import static com.thoaikx.utils.ExplicitWaitUtils.*;
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 import com.google.common.io.Files;
@@ -26,18 +28,21 @@ public class HomePageTest extends BaseTest {
 
     @BeforeClass
     public void  start() throws Exception {
-        RecorderManager.startVideoRecording(RecorderManager.RECORDTYPE.MONTE,"Video01");
+       //RecorderManager.startCaptureFrames();
     }
 
     @AfterClass
     public void  stop() throws Exception {
-        RecorderManager.stopVideoRecording(RecorderManager.RECORDTYPE.MONTE,true);
+       // RecorderManager.convertImagesToVideo("Video01");
+       //RecorderManager.stopVideoRecording(RecorderManager.RECORDTYPE.HEADLESS,true);
+        //ecorderManager.convertImagesToVideo("Video01");
+
         File videoPath = new File("videos", RecorderManager.nameVideo);
         log.info(videoPath);
 
         if (videoPath.exists() && videoPath.isFile()) { // Check if file exists and is a file
             Allure.addAttachment("Video", "video/mp4",
-                Files.asByteSource(videoPath).openStream(), "mp4");
+                    Files.asByteSource(videoPath).openStream(), "mp4");
         } else {
             log.info("Video file does not exist: " + videoPath.getAbsolutePath());
         }
@@ -46,7 +51,7 @@ public class HomePageTest extends BaseTest {
     @Test(priority = 0)
     public void completeShoppingFlow() throws InterruptedException {
         // Step 1: Interact with HomePage
-        HomePage homePage = new HomePage(driver);
+        HomePage homePage = new HomePage(getDriver());
         homePage.getEditBox().sendKeys("bob");
         String expectedValue = homePage.getTwoWayDataBinding().getAttribute("value");
         Assert.assertEquals(expectedValue, "bob");
@@ -59,30 +64,29 @@ public class HomePageTest extends BaseTest {
         homePage.getShopTab().click();
 
         // Step 2: Select Products
-        ProductPage productPage = new ProductPage(driver);
+
+        ProductPage productPage = new ProductPage(getDriver());
         List.of("Blackberry", "Nokia Edge").forEach(productPage::selectProduct);
 
         // Step 3: Checkout Process
         productPage.getCheckOutButton().click();
-        int sum = driver.findElements(By.cssSelector("tr td:nth-child(4) strong"))
+        int sum = getDriver().findElements(By.cssSelector("tr td:nth-child(4) strong"))
                 .stream()
                 .mapToInt(element -> Integer.parseInt(element.getText().replaceAll("[^0-9]", "")))
                 .sum();
 
-        int total = Integer.parseInt(driver.findElement(By.cssSelector("h3 strong")).getText().replaceAll("[^0-9]", ""));
+        int total = Integer.parseInt(getDriver().findElement(By.cssSelector("h3 strong")).getText().replaceAll("[^0-9]", ""));
         Assert.assertEquals(sum, total, "Check sum of each product = Total");
 
-        driver.findElement(By.xpath("//*[contains(text(), 'Checkout')]")).click();
-        driver.findElement(By.id("country")).sendKeys("India");
-        WebElement suggestions = wait.until(visibilityOfElementLocated(By.className("suggestions")));
-        suggestions.findElement(By.cssSelector("ul > li > a")).click();
+        getDriver().findElement(By.xpath("//*[contains(text(), 'Checkout')]")).click();
+        getDriver().findElement(By.id("country")).sendKeys("India");
 
-        WebElement checkBox2 = driver.findElement(By.xpath("//*[@id ='checkbox2']"));
-        jsExecutor.executeScript("arguments[0].click();", checkBox2);
+        waitForElementVisibleAndInDOM(By.className("suggestions")).findElement(By.cssSelector("ul > li > a")).click();
+        waitForElementClickable(By.cssSelector("#checkbox2"),true);
 
         // Submit the form
-        driver.findElement(By.cssSelector("input[type='submit']")).click();
-        WebElement alert = wait.until(visibilityOfElementLocated(By.cssSelector(".alert")));
+        getDriver().findElement(By.cssSelector("input[type='submit']")).click();
+        var alert = waitForElementVisibleAndInDOM(By.cssSelector(".alert"));
         String actualText = alert.getText();
         Assert.assertTrue(actualText.contains("Success"));
     }
