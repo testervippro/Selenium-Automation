@@ -11,9 +11,13 @@ import com.thoaikx.pages.ProductPage;
 import io.qameta.allure.Allure;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.List;
 
 import com.thoaikx.record.RecorderManager;
+import io.qameta.allure.Attachment;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -37,16 +41,43 @@ public class HomePageTest extends BaseTest {
        //RecorderManager.stopVideoRecording(RecorderManager.RECORDTYPE.HEADLESS,true);
         //ecorderManager.convertImagesToVideo("Video01");
 
-        File videoPath = new File("videos", RecorderManager.nameVideo);
-        log.info(videoPath);
+        attachVideo();
+        attachLog();
+    }
 
-        if (videoPath.exists() && videoPath.isFile()) { // Check if file exists and is a file
-            Allure.addAttachment("Video", "video/mp4",
-                    Files.asByteSource(videoPath).openStream(), "mp4");
+    private static void attachLog() {
+        // Attach log file
+        File logFile = Path.of( "target","test_automation.log").toFile();
+        log.info("Log file path: {}", logFile.getAbsolutePath());
+
+        if (logFile.exists() && logFile.isFile()) {
+            try {
+                Allure.addAttachment("Execution Log", "text/plain",
+                        new FileInputStream(logFile), "log");
+            } catch (IOException e) {
+                log.error("Failed to attach log file: ", e);
+            }
         } else {
-            log.info("Video file does not exist: " + videoPath.getAbsolutePath());
+            log.info("Log file does not exist: {}", logFile.getAbsolutePath());
         }
     }
+
+    private static void attachVideo() {
+        File videoPath = new File("videos", RecorderManager.nameVideo);
+        log.info("Video path: {}", videoPath.getAbsolutePath());
+
+        if (videoPath.exists() && videoPath.isFile()) {
+            try {
+                Allure.addAttachment("Test Video", "video/mp4",
+                        Files.asByteSource(videoPath).openStream(), "mp4");
+            } catch (IOException e) {
+                log.error("Failed to attach video: ", e);
+            }
+        } else {
+            log.info("Video file does not exist: {}", videoPath.getAbsolutePath());
+        }
+    }
+
 
     @Test(priority = 0)
     public void completeShoppingFlow() throws InterruptedException {
