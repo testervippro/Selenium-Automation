@@ -1,1 +1,1 @@
-{"uid":"b1a8273437954620fa374b796ffaacdd","children":[],"name":"behaviors"}
+{"uid":"b1a8273437954620fa374b796ffaacdd","name":"behaviors","children":[{"name":"completeShoppingFlow","uid":"41f9e071dcc28342","parentUid":"b1a8273437954620fa374b796ffaacdd","status":"passed","time":{"start":1748875170864,"stop":1748875179620,"duration":8756},"flaky":false,"newFailed":false,"newPassed":false,"newBroken":false,"retriesCount":0,"retriesStatusChange":false,"parameters":["chrome"],"tags":[]}]}
