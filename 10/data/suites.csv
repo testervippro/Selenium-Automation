@@ -1,0 +1,2 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Mon Jun 02 14:14:35 GMT 2025","Mon Jun 02 14:14:42 GMT 2025","7426","Local one browser Chrome","Chrome Tests","com.thoaikx.HomePageTest","com.thoaikx.HomePageTest","completeShoppingFlow","completeShoppingFlow",""
