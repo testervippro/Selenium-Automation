@@ -4,7 +4,7 @@
     <test name="Chome Tests">
         <parameter name="browser" value="chrome"/>
         <classes>
-            <class name="com.thoaikx.HomePageTest"/>
+            <class name="com.thoaikx.ShoppingFlowTest"/>
         </classes>
     </test>
 

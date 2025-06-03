@@ -1,15 +1,12 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Multiple Browser Tests" >
-    <!-- Adding listener to handle video recording -->
-    <listeners>
-        <listener class-name="com.thoaikx.record.VideoRecordingListener"/>
-    </listeners>
+
 
     <!-- Test for Edge browser -->
     <test name="Edge Browser Tests">
         <parameter name="browser" value="edge"/>
         <classes>
-            <class name="com.thoaikx.HomePageTest"/>
+            <class name="com.thoaikx.ShoppingFlowTest"/>
         </classes>
     </test>
 
@@ -17,7 +14,7 @@
     <test name="Chrome Browser Tests">
         <parameter name="browser" value="chrome"/>
         <classes>
-            <class name="com.thoaikx.HomePageTest"/>
+            <class name="com.thoaikx.ShoppingFlowTest"/>
         </classes>
     </test>
 
@@ -25,7 +22,7 @@
     <test name="Firefox Browser Tests">
         <parameter name="browser" value="firefox"/>
         <classes>
-            <class name="com.thoaikx.HomePageTest"/>
+            <class name="com.thoaikx.ShoppingFlowTest"/>
         </classes>
     </test>
 
