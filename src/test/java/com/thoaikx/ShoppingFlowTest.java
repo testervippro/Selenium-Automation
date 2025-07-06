@@ -11,7 +11,7 @@ import static com.thoaikx.driver.DriverManager.getDriver;
 
 public class ShoppingFlowTest extends BaseTest {
 
-    @Test
+    @Test()
     public void completeShoppingFlow() {
         // Step 1: Interact with HomePage
         HomePage homePage = new HomePage(getDriver());

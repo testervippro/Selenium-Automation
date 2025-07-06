@@ -25,7 +25,7 @@ import org.testng.annotations.*;
 @Log4j2
 public abstract class BaseTest {
 
-  private int TIMEOUT = configuration().timeout();
+  private final int TIMEOUT = configuration().timeout();
   protected WebDriver driver;
   protected CustomSelectActions select;
   protected WebDriverWait wait;

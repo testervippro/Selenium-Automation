@@ -1,0 +1,1 @@
+{"uuid":"64141733-d3f0-4a25-97e4-0c82f5ea0420","name":"Local one browser Chrome","children":["e75a0d1b-f251-4cff-8055-7ec1d449d479"],"befores":[{"name":"startGrid","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1748968681203,"stop":1748968681208}],"afters":[],"start":1748968681188,"stop":1748968697128}

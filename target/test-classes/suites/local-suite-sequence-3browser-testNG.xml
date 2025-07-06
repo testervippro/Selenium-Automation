@@ -1,0 +1,29 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Multiple Browser Tests" >
+
+
+    <!-- Test for Edge browser -->
+    <test name="Edge Browser Tests">
+        <parameter name="browser" value="edge"/>
+        <classes>
+            <class name="com.thoaikx.ShoppingFlowTest"/>
+        </classes>
+    </test>
+
+    <!-- Test for Chrome browser -->
+    <test name="Chrome Browser Tests">
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="com.thoaikx.ShoppingFlowTest"/>
+        </classes>
+    </test>
+
+    <!-- Test for Firefox browser -->
+    <test name="Firefox Browser Tests">
+        <parameter name="browser" value="firefox"/>
+        <classes>
+            <class name="com.thoaikx.ShoppingFlowTest"/>
+        </classes>
+    </test>
+
+</suite>

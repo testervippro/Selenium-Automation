@@ -1,7 +1,5 @@
 package com.thoaikx.utils;
 
-import static java.lang.Character.getNumericValue;
-
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 import java.io.FileReader;
@@ -84,7 +82,6 @@ public class ExcelUtils {
     }
     return data;
   }
-
 
   //default not include header
   public static Object[][] getCSV(String filePath) {

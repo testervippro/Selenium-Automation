@@ -1,0 +1,2 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Tue Jun 03 23:38:06 ICT 2025","Tue Jun 03 23:38:16 ICT 2025","9611","Local one browser Chrome","Chrome Tests","com.thoaikx.ShoppingFlowTest","com.thoaikx.ShoppingFlowTest","completeShoppingFlow","completeShoppingFlow",""
