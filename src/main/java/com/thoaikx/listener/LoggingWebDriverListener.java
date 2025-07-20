@@ -22,7 +22,7 @@ import java.util.List;
 public class LoggingWebDriverListener implements WebDriverListener {
 
     private static final Logger log = LogManager.getLogger(LoggingWebDriverListener.class);
-
+//https://gist.github.com/dainkaplan/4651352
     private static final String RESET = "\u001B[0m";
     private static final String GREEN = "\u001B[32m";
     private static final String YELLOW = "\u001B[33m";
