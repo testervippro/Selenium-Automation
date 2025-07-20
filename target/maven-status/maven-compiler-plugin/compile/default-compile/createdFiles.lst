@@ -1,5 +1,4 @@
 com/thoaikx/record/RecorderManager$HeadlessUtils.class
-com/thoaikx/App.class
 com/thoaikx/driver/BrowserFactory$2.class
 com/thoaikx/driver/BrowserFactory$4.class
 com/thoaikx/utils/ExcelUtils.class
@@ -32,5 +31,4 @@ com/thoaikx/report/AllureManager.class
 com/thoaikx/record/RecorderManager.class
 com/thoaikx/driver/BrowserFactory$1.class
 com/thoaikx/utils/ExplicitWaitUtils.class
-com/thoaikx/network/UtilsNetwork.class
 com/thoaikx/processsbuilder/ProcessManager.class

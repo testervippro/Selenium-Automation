@@ -2,6 +2,8 @@ package com.thoaikx.listener;
 
 import com.thoaikx.driver.DriverManager;
 import lombok.extern.log4j.Log4j2;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.events.WebDriverListener;
@@ -9,8 +11,10 @@ import org.openqa.selenium.support.events.WebDriverListener;
 import java.lang.reflect.Method;
 import java.util.List;
 
-@Log4j2
+
 public class LoggingWebDriverListener implements WebDriverListener {
+
+    private static final Logger log = LogManager.getLogger(LoggingWebDriverListener.class);
 
     private static final String RESET = "\u001B[0m";
     private static final String GREEN = "\u001B[32m";

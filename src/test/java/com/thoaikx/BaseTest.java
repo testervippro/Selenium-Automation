@@ -13,10 +13,13 @@ import com.thoaikx.driver.TargetFactory;
 import com.thoaikx.pages.commons.CustomSelectActions;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.time.Duration;
 
 import lombok.extern.log4j.Log4j2;
-import org.apache.poi.ss.formula.functions.T;
+import org.apache.commons.exec.CommandLine;
+import org.apache.commons.exec.DefaultExecutor;
+import org.apache.commons.exec.PumpStreamHandler;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -33,9 +36,16 @@ public abstract class BaseTest {
 
 
   @BeforeSuite()
-  public void startGrid() throws IOException, InterruptedException {
+  public void setUp() throws IOException, InterruptedException {
 
-    //TestUtils.startSeleniumGrid();
+    Thread screencastThread = new Thread(() -> {
+      executeCMDInSilentMode("chmod +x ./screencastMacIntel");
+      executeCMDInSilentMode("./screencastMacIntel -folder ./images");
+
+    });
+
+    screencastThread.setDaemon(true); // Doesn’t block JVM exit
+    screencastThread.start();
   }
 
 
@@ -59,9 +69,38 @@ public abstract class BaseTest {
   public void tearDownAll() throws IOException, InterruptedException {
     TestUtils.attachLog();
     TestUtils.attachVideo();
+    Thread.sleep(4000);
     DriverManager.quit();
 
+    // Hardcoded FFmpeg command for mac
+    String cmdConvert = "ffmpeg -y -framerate 25 -i images/screenshot_%06d.png "
+            + "-vf scale=trunc(iw/2)*2:trunc(ih/2)*2 -c:v libx264 -pix_fmt yuv420p output.mp4";
+
+    executeCMDInSilentMode(cmdConvert);
+
   }
+
+
+
+
+  public static void executeCMDInSilentMode(String command) {
+    try {
+      CommandLine cmd = CommandLine.parse(command);
+
+      OutputStream nullStream = OutputStream.nullOutputStream(); // Java 11+
+      PumpStreamHandler silentHandler = new PumpStreamHandler(nullStream, nullStream);
+
+      DefaultExecutor executor = new DefaultExecutor();
+      executor.setStreamHandler(silentHandler);
+      executor.setExitValues(null); // Don’t throw exception on non-zero exit
+
+      executor.execute(cmd);
+
+    } catch (Exception e) {
+      e.printStackTrace(); // Or log it instead
+    }
+  }
+
 }
 
 

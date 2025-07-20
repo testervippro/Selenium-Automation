@@ -1,3 +1,149 @@
-[INFO ] 2025-06-03 23:53:34.407 [main] Utils - [TestNG] Running:
-  /Users/mac/Library/Caches/JetBrains/IdeaIC2024.2/temp-testng-customsuite.xml
-
+[INFO ] 2025-07-13 12:44:24.417 [main] TargetFactory - Target is LOCAL_SUITE
+[INFO ] 2025-07-13 12:44:27.287 [main] BaseTest - Infor brower Unknown browser info
+[INFO ] 2025-07-13 12:44:27.293 [main] LoggingWebDriverListener - BEFORE: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: get, Args: [https://rahulshettyacademy.com/angularpractice/]
+[INFO ] 2025-07-13 12:44:28.518 [main] LoggingWebDriverListener - AFTER: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: get, Args: [https://rahulshettyacademy.com/angularpractice/], Result: null
+[INFO ] 2025-07-13 12:44:28.616 [main] LoggingWebDriverListener - BEFORE: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElement, Args: [By.cssSelector: input[name='name']:nth-child(2)]
+[INFO ] 2025-07-13 12:44:28.618 [main] LoggingWebDriverListener - BEFORE findElement -> Locator: By.cssSelector: input[name='name']:nth-child(2)
+[INFO ] 2025-07-13 12:44:28.643 [main] LoggingWebDriverListener - DEBUG: Number of elements matching 'By.cssSelector: input[name='name']:nth-child(2)': 1
+[INFO ] 2025-07-13 12:44:28.722 [main] LoggingWebDriverListener - AFTER findElement -> Locator: By.cssSelector: input[name='name']:nth-child(2), Result: css selector: input[name='name':nth-child(2)}
+[INFO ] 2025-07-13 12:44:28.724 [main] LoggingWebDriverListener - AFTER: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElement, Args: [By.cssSelector: input[name='name']:nth-child(2)], Result: Decorated {[[ChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)] -> css selector: input[name='name']:nth-child(2)]}
+[INFO ] 2025-07-13 12:44:28.905 [main] LoggingWebDriverListener - BEFORE: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElement, Args: [By.xpath: //*[contains(text(),'Two-way Data Binding example')]//following-sibling::input]
+[INFO ] 2025-07-13 12:44:28.905 [main] LoggingWebDriverListener - BEFORE findElement -> Locator: By.xpath: //*[contains(text(),'Two-way Data Binding example')]//following-sibling::input
+[INFO ] 2025-07-13 12:44:28.927 [main] LoggingWebDriverListener - DEBUG: Number of elements matching 'By.xpath: //*[contains(text(),'Two-way Data Binding example')]//following-sibling::input': 1
+[INFO ] 2025-07-13 12:44:28.952 [main] LoggingWebDriverListener - AFTER findElement -> Locator: By.xpath: //*[contains(text(),'Two-way Data Binding example')]//following-sibling::input, Result: xpath: //*[contains(text(),'Two-way Data Binding example')//following-sibling::input}
+[INFO ] 2025-07-13 12:44:28.952 [main] LoggingWebDriverListener - AFTER: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElement, Args: [By.xpath: //*[contains(text(),'Two-way Data Binding example')]//following-sibling::input], Result: Decorated {[[ChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)] -> xpath: //*[contains(text(),'Two-way Data Binding example')]//following-sibling::input]}
+[INFO ] 2025-07-13 12:44:28.981 [main] LoggingWebDriverListener - BEFORE: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElement, Args: [By.cssSelector: select]
+[INFO ] 2025-07-13 12:44:28.982 [main] LoggingWebDriverListener - BEFORE findElement -> Locator: By.cssSelector: select
+[INFO ] 2025-07-13 12:44:29.002 [main] LoggingWebDriverListener - DEBUG: Number of elements matching 'By.cssSelector: select': 1
+[INFO ] 2025-07-13 12:44:29.026 [main] LoggingWebDriverListener - AFTER findElement -> Locator: By.cssSelector: select, Result: css selector: select}
+[INFO ] 2025-07-13 12:44:29.030 [main] LoggingWebDriverListener - AFTER: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElement, Args: [By.cssSelector: select], Result: Decorated {[[ChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)] -> css selector: select]}
+[INFO ] 2025-07-13 12:44:29.135 [main] LoggingWebDriverListener - BEFORE click -> Element: xpath: .//option[normalize-space(.) = "Female"
+[INFO ] 2025-07-13 12:44:29.187 [main] LoggingWebDriverListener - AFTER click -> Element: xpath: .//option[normalize-space(.) = "Female"
+[INFO ] 2025-07-13 12:44:29.188 [main] LoggingWebDriverListener - BEFORE: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElement, Args: [By.cssSelector: #inlineRadio3]
+[INFO ] 2025-07-13 12:44:29.188 [main] LoggingWebDriverListener - BEFORE findElement -> Locator: By.cssSelector: #inlineRadio3
+[INFO ] 2025-07-13 12:44:29.204 [main] LoggingWebDriverListener - DEBUG: Number of elements matching 'By.cssSelector: #inlineRadio3': 1
+[INFO ] 2025-07-13 12:44:29.229 [main] LoggingWebDriverListener - AFTER findElement -> Locator: By.cssSelector: #inlineRadio3, Result: css selector: #inlineRadio3}
+[INFO ] 2025-07-13 12:44:29.230 [main] LoggingWebDriverListener - AFTER: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElement, Args: [By.cssSelector: #inlineRadio3], Result: Decorated {[[ChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)] -> css selector: #inlineRadio3]}
+[INFO ] 2025-07-13 12:44:29.249 [main] LoggingWebDriverListener - BEFORE: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElement, Args: [By.cssSelector: :nth-child(2) > .nav-link]
+[INFO ] 2025-07-13 12:44:29.249 [main] LoggingWebDriverListener - BEFORE findElement -> Locator: By.cssSelector: :nth-child(2) > .nav-link
+[INFO ] 2025-07-13 12:44:29.298 [main] LoggingWebDriverListener - DEBUG: Number of elements matching 'By.cssSelector: :nth-child(2) > .nav-link': 1
+[INFO ] 2025-07-13 12:44:29.321 [main] LoggingWebDriverListener - AFTER findElement -> Locator: By.cssSelector: :nth-child(2) > .nav-link, Result: css selector: :nth-child(2) > .nav-link}
+[INFO ] 2025-07-13 12:44:29.322 [main] LoggingWebDriverListener - AFTER: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElement, Args: [By.cssSelector: :nth-child(2) > .nav-link], Result: Decorated {[[ChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)] -> css selector: :nth-child(2) > .nav-link]}
+[INFO ] 2025-07-13 12:44:29.323 [main] LoggingWebDriverListener - BEFORE click -> Element: css selector: :nth-child(2) > .nav-link
+[INFO ] 2025-07-13 12:44:30.414 [main] LoggingWebDriverListener - AFTER click -> Element: css selector: :nth-child(2) > .nav-link
+[INFO ] 2025-07-13 12:44:30.415 [main] LoggingWebDriverListener - BEFORE: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElements, Args: [By.cssSelector: h4.card-title]
+[INFO ] 2025-07-13 12:44:30.431 [main] LoggingWebDriverListener - BEFORE findElements -> Locator: By.cssSelector: h4.card-title
+[INFO ] 2025-07-13 12:44:30.452 [main] LoggingWebDriverListener - DEBUG: Number of elements matching 'By.cssSelector: h4.card-title': 4
+[INFO ] 2025-07-13 12:44:30.472 [main] LoggingWebDriverListener - AFTER findElements -> Locator: By.cssSelector: h4.card-title, Elements found: 4
+[INFO ] 2025-07-13 12:44:30.473 [main] LoggingWebDriverListener - AFTER: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElements, Args: [By.cssSelector: h4.card-title], Result: [Decorated {[[ChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)] -> css selector: h4.card-title]}, Decorated {[[ChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)] -> css selector: h4.card-title]}, Decorated {[[ChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)] -> css selector: h4.card-title]}, Decorated {[[ChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)] -> css selector: h4.card-title]}]
+[INFO ] 2025-07-13 12:44:30.474 [main] LoggingWebDriverListener - BEFORE: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElements, Args: [By.cssSelector: button.btn.btn-info]
+[INFO ] 2025-07-13 12:44:30.474 [main] LoggingWebDriverListener - BEFORE findElements -> Locator: By.cssSelector: button.btn.btn-info
+[INFO ] 2025-07-13 12:44:30.492 [main] LoggingWebDriverListener - DEBUG: Number of elements matching 'By.cssSelector: button.btn.btn-info': 4
+[INFO ] 2025-07-13 12:44:30.509 [main] LoggingWebDriverListener - AFTER findElements -> Locator: By.cssSelector: button.btn.btn-info, Elements found: 4
+[INFO ] 2025-07-13 12:44:30.510 [main] LoggingWebDriverListener - AFTER: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElements, Args: [By.cssSelector: button.btn.btn-info], Result: [Decorated {[[ChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)] -> css selector: button.btn.btn-info]}, Decorated {[[ChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)] -> css selector: button.btn.btn-info]}, Decorated {[[ChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)] -> css selector: button.btn.btn-info]}, Decorated {[[ChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)] -> css selector: button.btn.btn-info]}]
+[INFO ] 2025-07-13 12:44:30.611 [main] LoggingWebDriverListener - BEFORE click -> Element: css selector: button.btn.btn-info
+[INFO ] 2025-07-13 12:44:30.700 [main] LoggingWebDriverListener - AFTER click -> Element: css selector: button.btn.btn-info
+[INFO ] 2025-07-13 12:44:30.701 [main] LoggingWebDriverListener - BEFORE: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElements, Args: [By.cssSelector: h4.card-title]
+[INFO ] 2025-07-13 12:44:30.701 [main] LoggingWebDriverListener - BEFORE findElements -> Locator: By.cssSelector: h4.card-title
+[INFO ] 2025-07-13 12:44:30.719 [main] LoggingWebDriverListener - DEBUG: Number of elements matching 'By.cssSelector: h4.card-title': 4
+[INFO ] 2025-07-13 12:44:30.738 [main] LoggingWebDriverListener - AFTER findElements -> Locator: By.cssSelector: h4.card-title, Elements found: 4
+[INFO ] 2025-07-13 12:44:30.739 [main] LoggingWebDriverListener - AFTER: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElements, Args: [By.cssSelector: h4.card-title], Result: [Decorated {[[ChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)] -> css selector: h4.card-title]}, Decorated {[[ChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)] -> css selector: h4.card-title]}, Decorated {[[ChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)] -> css selector: h4.card-title]}, Decorated {[[ChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)] -> css selector: h4.card-title]}]
+[INFO ] 2025-07-13 12:44:30.739 [main] LoggingWebDriverListener - BEFORE: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElements, Args: [By.cssSelector: button.btn.btn-info]
+[INFO ] 2025-07-13 12:44:30.740 [main] LoggingWebDriverListener - BEFORE findElements -> Locator: By.cssSelector: button.btn.btn-info
+[INFO ] 2025-07-13 12:44:30.755 [main] LoggingWebDriverListener - DEBUG: Number of elements matching 'By.cssSelector: button.btn.btn-info': 4
+[INFO ] 2025-07-13 12:44:30.877 [main] LoggingWebDriverListener - AFTER findElements -> Locator: By.cssSelector: button.btn.btn-info, Elements found: 4
+[INFO ] 2025-07-13 12:44:30.878 [main] LoggingWebDriverListener - AFTER: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElements, Args: [By.cssSelector: button.btn.btn-info], Result: [Decorated {[[ChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)] -> css selector: button.btn.btn-info]}, Decorated {[[ChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)] -> css selector: button.btn.btn-info]}, Decorated {[[ChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)] -> css selector: button.btn.btn-info]}, Decorated {[[ChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)] -> css selector: button.btn.btn-info]}]
+[INFO ] 2025-07-13 12:44:30.948 [main] LoggingWebDriverListener - BEFORE click -> Element: css selector: button.btn.btn-info
+[INFO ] 2025-07-13 12:44:31.065 [main] LoggingWebDriverListener - AFTER click -> Element: css selector: button.btn.btn-info
+[INFO ] 2025-07-13 12:44:31.066 [main] LoggingWebDriverListener - BEFORE: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElement, Args: [By.cssSelector: #navbarResponsive > .navbar-nav > .nav-item > .nav-link]
+[INFO ] 2025-07-13 12:44:31.066 [main] LoggingWebDriverListener - BEFORE findElement -> Locator: By.cssSelector: #navbarResponsive > .navbar-nav > .nav-item > .nav-link
+[INFO ] 2025-07-13 12:44:31.088 [main] LoggingWebDriverListener - DEBUG: Number of elements matching 'By.cssSelector: #navbarResponsive > .navbar-nav > .nav-item > .nav-link': 1
+[INFO ] 2025-07-13 12:44:31.116 [main] LoggingWebDriverListener - AFTER findElement -> Locator: By.cssSelector: #navbarResponsive > .navbar-nav > .nav-item > .nav-link, Result: css selector: #navbarResponsive > .navbar-nav > .nav-item > .nav-link}
+[INFO ] 2025-07-13 12:44:31.116 [main] LoggingWebDriverListener - AFTER: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElement, Args: [By.cssSelector: #navbarResponsive > .navbar-nav > .nav-item > .nav-link], Result: Decorated {[[ChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)] -> css selector: #navbarResponsive > .navbar-nav > .nav-item > .nav-link]}
+[INFO ] 2025-07-13 12:44:31.117 [main] LoggingWebDriverListener - BEFORE click -> Element: css selector: #navbarResponsive > .navbar-nav > .nav-item > .nav-link
+[INFO ] 2025-07-13 12:44:31.261 [main] LoggingWebDriverListener - AFTER click -> Element: css selector: #navbarResponsive > .navbar-nav > .nav-item > .nav-link
+[INFO ] 2025-07-13 12:44:31.261 [main] LoggingWebDriverListener - BEFORE: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElements, Args: [By.cssSelector: tr td:nth-child(4) strong]
+[INFO ] 2025-07-13 12:44:31.262 [main] LoggingWebDriverListener - BEFORE findElements -> Locator: By.cssSelector: tr td:nth-child(4) strong
+[INFO ] 2025-07-13 12:44:31.289 [main] LoggingWebDriverListener - DEBUG: Number of elements matching 'By.cssSelector: tr td:nth-child(4) strong': 2
+[INFO ] 2025-07-13 12:44:31.312 [main] LoggingWebDriverListener - AFTER findElements -> Locator: By.cssSelector: tr td:nth-child(4) strong, Elements found: 2
+[INFO ] 2025-07-13 12:44:31.313 [main] LoggingWebDriverListener - AFTER: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElements, Args: [By.cssSelector: tr td:nth-child(4) strong], Result: [Decorated {[[ChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)] -> css selector: tr td:nth-child(4) strong]}, Decorated {[[ChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)] -> css selector: tr td:nth-child(4) strong]}]
+[INFO ] 2025-07-13 12:44:31.337 [main] LoggingWebDriverListener - BEFORE: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElement, Args: [By.cssSelector: h3 strong]
+[INFO ] 2025-07-13 12:44:31.339 [main] LoggingWebDriverListener - BEFORE findElement -> Locator: By.cssSelector: h3 strong
+[INFO ] 2025-07-13 12:44:31.358 [main] LoggingWebDriverListener - DEBUG: Number of elements matching 'By.cssSelector: h3 strong': 1
+[INFO ] 2025-07-13 12:44:31.375 [main] LoggingWebDriverListener - AFTER findElement -> Locator: By.cssSelector: h3 strong, Result: css selector: h3 strong}
+[INFO ] 2025-07-13 12:44:31.375 [main] LoggingWebDriverListener - AFTER: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElement, Args: [By.cssSelector: h3 strong], Result: Decorated {[[ChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)] -> css selector: h3 strong]}
+[INFO ] 2025-07-13 12:44:31.386 [main] LoggingWebDriverListener - BEFORE: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElement, Args: [By.xpath: //*[contains(text(), 'Checkout')]]
+[INFO ] 2025-07-13 12:44:31.387 [main] LoggingWebDriverListener - BEFORE findElement -> Locator: By.xpath: //*[contains(text(), 'Checkout')]
+[INFO ] 2025-07-13 12:44:31.404 [main] LoggingWebDriverListener - DEBUG: Number of elements matching 'By.xpath: //*[contains(text(), 'Checkout')]': 1
+[INFO ] 2025-07-13 12:44:31.425 [main] LoggingWebDriverListener - AFTER findElement -> Locator: By.xpath: //*[contains(text(), 'Checkout')], Result: xpath: //*[contains(text(), 'Checkout')}
+[INFO ] 2025-07-13 12:44:31.426 [main] LoggingWebDriverListener - AFTER: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElement, Args: [By.xpath: //*[contains(text(), 'Checkout')]], Result: Decorated {[[ChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)] -> xpath: //*[contains(text(), 'Checkout')]]}
+[INFO ] 2025-07-13 12:44:31.427 [main] LoggingWebDriverListener - BEFORE click -> Element: xpath: //*[contains(text(), 'Checkout')
+[INFO ] 2025-07-13 12:44:31.527 [main] LoggingWebDriverListener - AFTER click -> Element: xpath: //*[contains(text(), 'Checkout')
+[INFO ] 2025-07-13 12:44:31.529 [main] LoggingWebDriverListener - BEFORE: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElement, Args: [By.id: country]
+[INFO ] 2025-07-13 12:44:31.530 [main] LoggingWebDriverListener - BEFORE findElement -> Locator: By.id: country
+[INFO ] 2025-07-13 12:44:31.546 [main] LoggingWebDriverListener - DEBUG: Number of elements matching 'By.id: country': 1
+[INFO ] 2025-07-13 12:44:31.567 [main] LoggingWebDriverListener - AFTER findElement -> Locator: By.id: country, Result: id: country}
+[INFO ] 2025-07-13 12:44:31.567 [main] LoggingWebDriverListener - AFTER: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElement, Args: [By.id: country], Result: Decorated {[[ChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)] -> id: country]}
+[INFO ] 2025-07-13 12:44:31.668 [main] ExplicitWaitUtils - Created WebDriverWait instance: org.openqa.selenium.support.ui.WebDriverWait@24eeac69 | Thread: main
+[INFO ] 2025-07-13 12:44:31.668 [main] LoggingWebDriverListener - BEFORE: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElement, Args: [By.cssSelector: .suggestions ul > li > a]
+[INFO ] 2025-07-13 12:44:31.669 [main] LoggingWebDriverListener - BEFORE findElement -> Locator: By.cssSelector: .suggestions ul > li > a
+[INFO ] 2025-07-13 12:44:31.682 [main] LoggingWebDriverListener - DEBUG: Number of elements matching 'By.cssSelector: .suggestions ul > li > a': 0
+[INFO ] 2025-07-13 12:44:32.212 [main] LoggingWebDriverListener - BEFORE: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElement, Args: [By.cssSelector: .suggestions ul > li > a]
+[INFO ] 2025-07-13 12:44:32.212 [main] LoggingWebDriverListener - BEFORE findElement -> Locator: By.cssSelector: .suggestions ul > li > a
+[INFO ] 2025-07-13 12:44:32.231 [main] LoggingWebDriverListener - DEBUG: Number of elements matching 'By.cssSelector: .suggestions ul > li > a': 0
+[INFO ] 2025-07-13 12:44:32.745 [main] LoggingWebDriverListener - BEFORE: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElement, Args: [By.cssSelector: .suggestions ul > li > a]
+[INFO ] 2025-07-13 12:44:32.746 [main] LoggingWebDriverListener - BEFORE findElement -> Locator: By.cssSelector: .suggestions ul > li > a
+[INFO ] 2025-07-13 12:44:32.766 [main] LoggingWebDriverListener - DEBUG: Number of elements matching 'By.cssSelector: .suggestions ul > li > a': 0
+[INFO ] 2025-07-13 12:44:33.283 [main] LoggingWebDriverListener - BEFORE: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElement, Args: [By.cssSelector: .suggestions ul > li > a]
+[INFO ] 2025-07-13 12:44:33.284 [main] LoggingWebDriverListener - BEFORE findElement -> Locator: By.cssSelector: .suggestions ul > li > a
+[INFO ] 2025-07-13 12:44:33.296 [main] LoggingWebDriverListener - DEBUG: Number of elements matching 'By.cssSelector: .suggestions ul > li > a': 0
+[INFO ] 2025-07-13 12:44:33.816 [main] LoggingWebDriverListener - BEFORE: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElement, Args: [By.cssSelector: .suggestions ul > li > a]
+[INFO ] 2025-07-13 12:44:33.817 [main] LoggingWebDriverListener - BEFORE findElement -> Locator: By.cssSelector: .suggestions ul > li > a
+[INFO ] 2025-07-13 12:44:33.833 [main] LoggingWebDriverListener - DEBUG: Number of elements matching 'By.cssSelector: .suggestions ul > li > a': 0
+[INFO ] 2025-07-13 12:44:34.353 [main] LoggingWebDriverListener - BEFORE: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElement, Args: [By.cssSelector: .suggestions ul > li > a]
+[INFO ] 2025-07-13 12:44:34.354 [main] LoggingWebDriverListener - BEFORE findElement -> Locator: By.cssSelector: .suggestions ul > li > a
+[INFO ] 2025-07-13 12:44:34.364 [main] LoggingWebDriverListener - DEBUG: Number of elements matching 'By.cssSelector: .suggestions ul > li > a': 0
+[INFO ] 2025-07-13 12:44:34.883 [main] LoggingWebDriverListener - BEFORE: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElement, Args: [By.cssSelector: .suggestions ul > li > a]
+[INFO ] 2025-07-13 12:44:34.885 [main] LoggingWebDriverListener - BEFORE findElement -> Locator: By.cssSelector: .suggestions ul > li > a
+[INFO ] 2025-07-13 12:44:34.896 [main] LoggingWebDriverListener - DEBUG: Number of elements matching 'By.cssSelector: .suggestions ul > li > a': 0
+[INFO ] 2025-07-13 12:44:35.412 [main] LoggingWebDriverListener - BEFORE: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElement, Args: [By.cssSelector: .suggestions ul > li > a]
+[INFO ] 2025-07-13 12:44:35.412 [main] LoggingWebDriverListener - BEFORE findElement -> Locator: By.cssSelector: .suggestions ul > li > a
+[INFO ] 2025-07-13 12:44:35.454 [main] LoggingWebDriverListener - DEBUG: Number of elements matching 'By.cssSelector: .suggestions ul > li > a': 0
+[INFO ] 2025-07-13 12:44:35.970 [main] LoggingWebDriverListener - BEFORE: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElement, Args: [By.cssSelector: .suggestions ul > li > a]
+[INFO ] 2025-07-13 12:44:35.970 [main] LoggingWebDriverListener - BEFORE findElement -> Locator: By.cssSelector: .suggestions ul > li > a
+[INFO ] 2025-07-13 12:44:35.982 [main] LoggingWebDriverListener - DEBUG: Number of elements matching 'By.cssSelector: .suggestions ul > li > a': 0
+[INFO ] 2025-07-13 12:44:36.495 [main] LoggingWebDriverListener - BEFORE: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElement, Args: [By.cssSelector: .suggestions ul > li > a]
+[INFO ] 2025-07-13 12:44:36.497 [main] LoggingWebDriverListener - BEFORE findElement -> Locator: By.cssSelector: .suggestions ul > li > a
+[INFO ] 2025-07-13 12:44:36.513 [main] LoggingWebDriverListener - DEBUG: Number of elements matching 'By.cssSelector: .suggestions ul > li > a': 0
+[INFO ] 2025-07-13 12:44:37.027 [main] LoggingWebDriverListener - BEFORE: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElement, Args: [By.cssSelector: .suggestions ul > li > a]
+[INFO ] 2025-07-13 12:44:37.028 [main] LoggingWebDriverListener - BEFORE findElement -> Locator: By.cssSelector: .suggestions ul > li > a
+[INFO ] 2025-07-13 12:44:37.036 [main] LoggingWebDriverListener - DEBUG: Number of elements matching 'By.cssSelector: .suggestions ul > li > a': 1
+[INFO ] 2025-07-13 12:44:37.045 [main] LoggingWebDriverListener - AFTER findElement -> Locator: By.cssSelector: .suggestions ul > li > a, Result: css selector: .suggestions ul > li > a}
+[INFO ] 2025-07-13 12:44:37.046 [main] LoggingWebDriverListener - AFTER: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElement, Args: [By.cssSelector: .suggestions ul > li > a], Result: Decorated {[[ChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)] -> css selector: .suggestions ul > li > a]}
+[INFO ] 2025-07-13 12:44:37.057 [main] LoggingWebDriverListener - BEFORE click -> Element: css selector: .suggestions ul > li > a
+[INFO ] 2025-07-13 12:44:37.138 [main] LoggingWebDriverListener - AFTER click -> Element: css selector: .suggestions ul > li > a
+[INFO ] 2025-07-13 12:44:37.139 [main] LoggingWebDriverListener - BEFORE: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElement, Args: [By.cssSelector: #checkbox2]
+[INFO ] 2025-07-13 12:44:37.139 [main] LoggingWebDriverListener - BEFORE findElement -> Locator: By.cssSelector: #checkbox2
+[INFO ] 2025-07-13 12:44:37.159 [main] LoggingWebDriverListener - DEBUG: Number of elements matching 'By.cssSelector: #checkbox2': 1
+[INFO ] 2025-07-13 12:44:37.240 [main] LoggingWebDriverListener - AFTER findElement -> Locator: By.cssSelector: #checkbox2, Result: css selector: #checkbox2}
+[INFO ] 2025-07-13 12:44:37.240 [main] LoggingWebDriverListener - AFTER: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElement, Args: [By.cssSelector: #checkbox2], Result: Decorated {[[ChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)] -> css selector: #checkbox2]}
+[INFO ] 2025-07-13 12:44:37.248 [main] LoggingWebDriverListener - BEFORE: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: executeScript, Args: [arguments[0].click();, [Ljava.lang.Object;@45ab3bdd]
+[INFO ] 2025-07-13 12:44:37.269 [main] LoggingWebDriverListener - AFTER: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: executeScript, Args: [arguments[0].click();, [Ljava.lang.Object;@45ab3bdd], Result: null
+[INFO ] 2025-07-13 12:44:37.270 [main] LoggingWebDriverListener - BEFORE: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElement, Args: [By.cssSelector: input[type='submit']]
+[INFO ] 2025-07-13 12:44:37.270 [main] LoggingWebDriverListener - BEFORE findElement -> Locator: By.cssSelector: input[type='submit']
+[INFO ] 2025-07-13 12:44:37.292 [main] LoggingWebDriverListener - DEBUG: Number of elements matching 'By.cssSelector: input[type='submit']': 1
+[INFO ] 2025-07-13 12:44:37.309 [main] LoggingWebDriverListener - AFTER findElement -> Locator: By.cssSelector: input[type='submit'], Result: css selector: input[type='submit'}
+[INFO ] 2025-07-13 12:44:37.309 [main] LoggingWebDriverListener - AFTER: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElement, Args: [By.cssSelector: input[type='submit']], Result: Decorated {[[ChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)] -> css selector: input[type='submit']]}
+[INFO ] 2025-07-13 12:44:37.310 [main] LoggingWebDriverListener - BEFORE click -> Element: css selector: input[type='submit'
+[INFO ] 2025-07-13 12:44:37.419 [main] LoggingWebDriverListener - AFTER click -> Element: css selector: input[type='submit'
+[INFO ] 2025-07-13 12:44:37.420 [main] ExplicitWaitUtils - Created WebDriverWait instance: org.openqa.selenium.support.ui.WebDriverWait@68dd39d2 | Thread: main
+[INFO ] 2025-07-13 12:44:37.420 [main] LoggingWebDriverListener - BEFORE: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElement, Args: [By.cssSelector: .alert]
+[INFO ] 2025-07-13 12:44:37.421 [main] LoggingWebDriverListener - BEFORE findElement -> Locator: By.cssSelector: .alert
+[INFO ] 2025-07-13 12:44:37.439 [main] LoggingWebDriverListener - DEBUG: Number of elements matching 'By.cssSelector: .alert': 1
+[INFO ] 2025-07-13 12:44:37.459 [main] LoggingWebDriverListener - AFTER findElement -> Locator: By.cssSelector: .alert, Result: css selector: .alert}
+[INFO ] 2025-07-13 12:44:37.461 [main] LoggingWebDriverListener - AFTER: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: findElement, Args: [By.cssSelector: .alert], Result: Decorated {[[ChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)] -> css selector: .alert]}
+[INFO ] 2025-07-13 12:44:37.596 [main] TestUtils - Log file path: /Users/mac/IdeaProjects/Selenium-Automation/target/test_automation.log
+[INFO ] 2025-07-13 12:44:37.601 [main] TestUtils - Video path: /Users/mac/IdeaProjects/Selenium-Automation/videos/default_video
+[INFO ] 2025-07-13 12:44:37.601 [main] TestUtils - Video file does not exist: /Users/mac/IdeaProjects/Selenium-Automation/videos/default_video
+[INFO ] 2025-07-13 12:44:41.605 [main] LoggingWebDriverListener - BEFORE: Driver: [32mChromeDriver: chrome on mac (86b08901a9ef5e3bb7c50a2fdecdcb49)[0m, Method: quit, Args: []
+[INFO ] 2025-07-13 12:44:41.780 [main] LoggingWebDriverListener - AFTER: Driver: [32mChromeDriver: chrome on mac (null)[0m, Method: quit, Args: [], Result: null

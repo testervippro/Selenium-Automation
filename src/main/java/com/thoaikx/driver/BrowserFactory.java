@@ -34,7 +34,7 @@ public enum BrowserFactory {
 
             WebDriver chromeDriver = new ChromeDriver(getOptions());
 
-            WebDriver decoratedDriver = new EventFiringDecorator(listener).decorate(chromeDriver);
+          WebDriver decoratedDriver = new EventFiringDecorator(listener).decorate(chromeDriver);
 
             return decoratedDriver;
         }
@@ -48,21 +48,13 @@ public enum BrowserFactory {
             chromeOptions.addArguments(DISABLE_NOTIFICATIONS);
             chromeOptions.addArguments(REMOTE_ALLOW_ORIGINS);
             chromeOptions.addArguments("--no-sandbox");
+            chromeOptions.addArguments("--disable-gpu");
             chromeOptions.addArguments("--disable-dev-shm-usage");
 
             if (configuration().headless()) {
                 // uncomment if you want headless
+                chromeOptions.addArguments("--remote-debugging-port=9222");
                 chromeOptions.addArguments(CHROME_HEADLESS);
-                if (isWindows() && configuration().recordHeadless())
-                {
-                    chromeOptions.addArguments("--remote-debugging-port=9222");
-                    chromeOptions.addArguments("--user-data-dir=C:\\chrome-data");
-                }
-                if (isMac() && configuration().recordHeadless()) {
-                    String userDataDir = System.getProperty("user.home") + "/chrome-data";
-                   chromeOptions.addArguments("--remote-debugging-port=9200");
-                   chromeOptions.addArguments("--user-data-dir=" +userDataDir);
-                }
             }
 
             if (configuration().gridVideo()) {

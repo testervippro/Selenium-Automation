@@ -1,0 +1,1 @@
+{"uuid":"7bc396a4-d002-42a7-bd83-88a82dc4545b","name":"Local one browser Chrome","children":["d51608ed-9435-4640-b7e4-10b190d15c02"],"befores":[{"name":"setUp","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1752385464378,"stop":1752385464383}],"afters":[],"start":1752385464361,"stop":1752385484163}
