@@ -92,16 +92,6 @@ public class LoggingWebDriverListener implements WebDriverListener {
     @Override
     public void beforeFindElement(WebDriver driver, By locator) {
         log.info("BEFORE findElement -> Locator: {}", locator);
-
-        try {
-            // Avoid recursion by calling findElements on the underlying driver
-            if (driver instanceof HasCapabilities) {
-                List<WebElement> elements = driver.findElements(locator);
-                log.info("DEBUG: Number of elements matching '{}': {}", locator, elements.size());
-            }
-        } catch (Exception e) {
-            log.warn("Error while counting elements for locator {}: {}", locator, e.getMessage());
-        }
     }
 
 
