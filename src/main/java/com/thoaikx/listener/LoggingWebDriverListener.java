@@ -8,7 +8,14 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.events.WebDriverListener;
 
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 
@@ -124,6 +131,35 @@ public class LoggingWebDriverListener implements WebDriverListener {
         log.info("AFTER findElements -> Locator: {}, Elements found: {}", locator, elements.size());
     }
 
+    public void onError(Object target, Method method, Object[] args, InvocationTargetException e) {
+        // Try to take a screenshot on error
+        takeScreenshotOnError(target, method.getName());
+    }
 
+    private void takeScreenshotOnError(Object target, String methodName) {
+        if (target instanceof TakesScreenshot) {
+            try {
+                // Ensure the images directory exists
+                String directoryPath = "images";
+                File directory = new File(directoryPath);
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
+
+                File screenshot = ((TakesScreenshot) target).getScreenshotAs(OutputType.FILE);
+                String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+                String fileName = directoryPath + File.separator + "screenshot_error_" + methodName + "_" + timestamp + ".png";
+                Files.copy(screenshot.toPath(), Paths.get(fileName));
+
+                log.info("Screenshot saved: " + fileName);
+            } catch (IOException ioException) {
+                log.error("Failed to save screenshot: " + ioException.getMessage());
+            } catch (Exception ex) {
+                log.error("Unexpected error during screenshot capture: " + ex.getMessage());
+            }
+        } else {
+            log.info("Target does not support screenshots.");
+        }
+    }
 
 }
