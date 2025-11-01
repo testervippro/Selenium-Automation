@@ -24,4 +24,5 @@ public final class BrowserData {
     public static  final String USERDATA = "--user-data-dir=" + Path.of( System.getProperty("user.dir"),"userdata").toString();
 
     public static final String CHROME_HEADLESS = "--headless=new";
+
 }

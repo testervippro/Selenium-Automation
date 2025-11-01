@@ -1,0 +1,155 @@
+package com.thoaikx.listener;
+
+import com.thoaikx.driver.DriverManager;
+import lombok.extern.log4j.Log4j2;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.*;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.events.WebDriverListener;
+
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+
+public class LoggingWebDriverListener implements WebDriverListener {
+
+    private static final Logger log = LogManager.getLogger(LoggingWebDriverListener.class);
+//https://gist.github.com/dainkaplan/4651352
+    private static final String RESET = "\u001B[0m";
+    private static final String GREEN = "\u001B[32m";
+    private static final String YELLOW = "\u001B[33m";
+
+    private String formatArgs(Object[] args) {
+        if (args == null || args.length == 0) return "[]";
+        StringBuilder sb = new StringBuilder("[");
+        for (Object arg : args) {
+            sb.append(arg).append(", ");
+        }
+        if (sb.length() > 1) sb.setLength(sb.length() - 2);
+        sb.append("]");
+        return sb.toString();
+    }
+
+    private String getDriverInfo(WebDriver driver) {
+        if (driver instanceof RemoteWebDriver remoteDriver) {
+            Capabilities caps = remoteDriver.getCapabilities();
+            String sessionId = remoteDriver.getSessionId().toString();
+            return String.format("Browser: %s, Version: %s, Platform: %s, SessionId: %s",
+                    caps.getBrowserName(),
+                    caps.getBrowserVersion(),
+                    caps.getPlatformName(),
+                    sessionId);
+        } else {
+            return "Unknown WebDriver instance";
+        }
+    }
+
+    private String getElementInfo(WebElement element) {
+        try {
+            return element.toString().replaceAll(".*-> ", "").replaceAll("]", "");
+        } catch (Exception e) {
+            return "Unknown Element";
+        }
+    }
+
+    // -- WebDriver call hooks --
+
+    @Override
+    public void beforeAnyWebDriverCall(WebDriver driver, Method method, Object[] args) {
+        log.info("BEFORE: Driver: {}{}{}, Method: {}, Args: {}", GREEN, driver, RESET, method.getName(), formatArgs(args));
+    }
+
+    @Override
+    public void afterAnyWebDriverCall(WebDriver driver, Method method, Object[] args, Object result) {
+        log.info("AFTER: Driver: {}{}{}, Method: {}, Args: {}, Result: {}", GREEN, driver, RESET, method.getName(), formatArgs(args), result);
+    }
+
+
+
+    // -- Click hooks --
+
+    @Override
+    public void beforeClick(WebElement element) {
+        log.info("BEFORE click -> Element: {}", getElementInfo(element));
+
+    }
+
+    @Override
+    public void afterClick(WebElement element) {
+        log.info("AFTER click -> Element: {}", getElementInfo(element));
+    }
+
+    // -- FindElement hooks --
+
+    @Override
+    public void beforeFindElement(WebDriver driver, By locator) {
+        log.info("BEFORE findElement -> Locator: {}", locator);
+    }
+
+
+
+    @Override
+    public void afterFindElement(WebDriver driver, By locator, WebElement result) {
+        log.info("AFTER findElement -> Locator: {}, Result: {}", locator, getElementInfo(result));
+    }
+
+    @Override
+    public void beforeFindElements(WebDriver driver, By locator) {
+        log.info("BEFORE findElements -> Locator: {}", locator);
+
+        try {
+            // Avoid recursion by calling findElements on the underlying driver
+            if (driver instanceof HasCapabilities) {
+                List<WebElement> elements = driver.findElements(locator);
+                log.info("DEBUG: Number of elements matching '{}': {}", locator, elements.size());
+            }
+        } catch (Exception e) {
+            log.warn("Error while counting elements for locator {}: {}", locator, e.getMessage());
+        }
+    }
+
+    @Override
+    public void afterFindElements(WebDriver driver, By locator, List<WebElement> elements) {
+        log.info("AFTER findElements -> Locator: {}, Elements found: {}", locator, elements.size());
+    }
+
+    public void onError(Object target, Method method, Object[] args, InvocationTargetException e) {
+        // Try to take a screenshot on error
+        takeScreenshotOnError(target, method.getName());
+    }
+
+    private void takeScreenshotOnError(Object target, String methodName) {
+        if (target instanceof TakesScreenshot) {
+            try {
+                // Ensure the images directory exists
+                String directoryPath = "images";
+                File directory = new File(directoryPath);
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
+
+                File screenshot = ((TakesScreenshot) target).getScreenshotAs(OutputType.FILE);
+                String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+                String fileName = directoryPath + File.separator + "screenshot_error_" + methodName + "_" + timestamp + ".png";
+                Files.copy(screenshot.toPath(), Paths.get(fileName));
+
+                log.info("Screenshot saved: " + fileName);
+            } catch (IOException ioException) {
+                log.error("Failed to save screenshot: " + ioException.getMessage());
+            } catch (Exception ex) {
+                log.error("Unexpected error during screenshot capture: " + ex.getMessage());
+            }
+        } else {
+            log.info("Target does not support screenshots.");
+        }
+    }
+
+}

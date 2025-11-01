@@ -4,6 +4,8 @@ package com.thoaikx.driver;
 import com.thoaikx.enums.Target;
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import com.thoaikx.listener.LoggingWebDriverListener;
 import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -28,8 +30,10 @@ import static java.lang.String.format;
 import static java.util.Arrays.sort;
 
 
-@Log4j2
+
 public class TargetFactory {
+
+    private static final Logger log = LogManager.getLogger(TargetFactory.class);
 
     public WebDriver createInstance(String browser) {
         Target target = Target.get(configuration().target().toUpperCase());
@@ -62,17 +66,6 @@ public class TargetFactory {
         }
 
         return remoteWebDriver;
-    }
-
-    //each brower use diff port
-    private static BrowserFactory ValueOf(String browser) {
-        return switch (browser) {
-            case "CHROME" -> CHROME;
-            case "FIREFOX" -> FIREFOX;
-            case "EDGE" -> EDGE;
-            case "SAFARI" -> SAFARI;
-            default -> throw new IllegalArgumentException("Unknown browser: " + browser);
-        };
     }
 
 }

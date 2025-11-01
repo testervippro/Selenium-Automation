@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2025-07-13T12:44:24 ICT" name="Local one browser Chrome" finished-at="2025-07-13T12:44:44 ICT" duration-ms="19746">
+    <groups>
+    </groups>
+    <test started-at="2025-07-13T12:44:24 ICT" name="Chrome Tests" finished-at="2025-07-13T12:44:44 ICT" duration-ms="19746">
+      <class name="com.thoaikx.ShoppingFlowTest">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.thoaikx.ShoppingFlowTest@35d6ca49]" started-at="2025-07-13T12:44:24 ICT" name="setUp" finished-at="2025-07-13T12:44:24 ICT" duration-ms="18" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method is-config="true" signature="preCondition(java.lang.String)[pri:0, instance:com.thoaikx.ShoppingFlowTest@35d6ca49]" started-at="2025-07-13T12:44:24 ICT" name="preCondition" finished-at="2025-07-13T12:44:28 ICT" duration-ms="4121" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[chrome]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- preCondition -->
+        <test-method signature="completeShoppingFlow()[pri:0, instance:com.thoaikx.ShoppingFlowTest@35d6ca49]" started-at="2025-07-13T12:44:28 ICT" name="completeShoppingFlow" finished-at="2025-07-13T12:44:37 ICT" duration-ms="8936" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- completeShoppingFlow -->
+        <test-method is-config="true" signature="tearDownAll()[pri:0, instance:com.thoaikx.ShoppingFlowTest@35d6ca49]" started-at="2025-07-13T12:44:37 ICT" name="tearDownAll" finished-at="2025-07-13T12:44:44 ICT" duration-ms="6538" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDownAll -->
+      </class> <!-- com.thoaikx.ShoppingFlowTest -->
+    </test> <!-- Chrome Tests -->
+  </suite> <!-- Local one browser Chrome -->
+</testng-results>

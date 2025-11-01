@@ -1,1 +1,59 @@
-./.m2
+# =========================================
+# Build Output
+# =========================================
+/target/               # Maven build output folder
+/out/                  # General output directory
+
+# =========================================
+# Maven
+# =========================================
+/.mvn/                 # Maven wrapper files
+.mvn/wrapper/maven-wrapper.jar
+.mvn/wrapper/maven-wrapper.properties
+.mvn/timing.properties
+.mvn/maven.config
+/.m2/                  # Local Maven repository cache (optional — usually NOT versioned)
+
+# =========================================
+# IDE Settings
+# =========================================
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# =========================================
+# OS files
+# =========================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# =========================================
+# Environment and credentials
+# =========================================
+.env
+.env.*
+*.key
+*.pem
+*.crt
+*.p12
+
+# =========================================
+# Test reports / coverage
+# =========================================
+/test-output/
+/surefire-reports/
+/jacoco.exec
+/jacoco-report/
+/coverage/
+.allure/
+.m2/
+*.jar

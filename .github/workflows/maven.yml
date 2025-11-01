@@ -1,0 +1,30 @@
+name: Java CI with Maven and Allure Report
+
+on:
+  push:
+    branches: [ "features" ]
+  pull_request:
+    branches: [ "features" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    container:
+      image: cuxuanthoai/chrome-firefox-edge:v1.2
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify Java, Maven, and Chrome
+        run: |
+          java -version
+          mvn -version
+          google-chrome --version
+
+      - name: Run Tests with Allure Support
+        run: |
+          mvn clean test \
+            -Dsuite=local-suite \
+            -Dtarget=local-suite \
+            -Dheadless=true \
+            -Dbrowser=chrome 
